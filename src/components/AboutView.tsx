@@ -108,22 +108,26 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
   return (
     <div className="flex flex-col gap-12 font-mono max-w-[1280px] mx-auto px-4 md:px-6 py-8 animate-fade-in text-[#e3e1ec]">
       {/* Hero Section */}
-      <section className="flex flex-col-reverse md:flex-row md:items-end gap-8 md:gap-12 mb-8 text-center md:text-left">
-        <div className="w-full md:flex-1">
-          <div className="mb-4 flex flex-col md:flex-row items-center gap-4 justify-center md:justify-start select-none">
+      <section className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
+        {/* Left Content */}
+        <div className="w-full md:flex-1 flex flex-col">
+          <div className="mb-4 flex items-center gap-4 select-none">
             <span className="px-2 py-0.5 border border-[#8e9192] font-mono text-xs uppercase text-[#c4c7c8]">
               [ IDENTITY_VERIFIED ]
             </span>
             <span className="text-[#8e9192] text-xs">v2.0.24</span>
           </div>
 
-          <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-white uppercase leading-[1.05]">
-            FULL STACK DEVELOPER &amp; <br className="hidden md:block" />
-            SECURITY ENTHUSIAST
+          <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-white uppercase leading-tight">
+            Full Stack
+            <br />
+            Developer &amp;
+            <br />
+            Security Enthusiast
             <span className="cursor-block" />
           </h1>
 
-          <p className="font-mono text-sm md:text-base text-[#c4c7c8] max-w-2xl leading-relaxed mx-auto md:mx-0">
+          <p className="font-mono text-sm md:text-base text-[#c4c7c8] leading-relaxed">
             SMK software development student with deep interest in security research. Hands-on
             experience with Windows hardening, Linux system administration, and Android custom ROM
             development. Building secure, scalable web applications with focus on defensive practices.
@@ -131,7 +135,7 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
         </div>
 
         {/* Profile photo block */}
-        <div className="w-full md:w-auto flex justify-center md:justify-end shrink-0">
+        <div className="w-full md:w-auto flex justify-center md:justify-end flex-shrink-0">
           <div className="w-56 h-56 md:w-64 md:h-64 border border-[#444748] relative overflow-hidden rounded-none group select-none shadow-[0_0_15px_rgba(255,255,255,0.05)] bg-[#0d0e15] flex items-center justify-center">
             <img
               alt="Developer Profile"
