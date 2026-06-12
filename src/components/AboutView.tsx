@@ -118,7 +118,7 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
             <span className="text-[#8e9192] text-xs">v2.0.24</span>
           </div>
 
-          <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-white uppercase leading-tight">
+          <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-white uppercase leading-none">
             Full Stack
             <br />
             Developer &amp;
@@ -211,9 +211,9 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
             </span>
             <div className="space-y-4">
               <div className="group p-4 border border-[#444748] invert-on-hover transition-all duration-0 rounded-none cursor-default">
-                <div className="flex items-start gap-3 mb-2">
+                <div className="flex items-start gap-3 mb-2 min-w-0">
                   <span className="material-symbols-outlined text-lg md:text-xl flex-shrink-0">terminal</span>
-                  <h3 className="font-sans font-bold text-xs md:text-sm tracking-wide text-white group-hover:text-[#12131a] break-words">
+                  <h3 className="font-sans font-bold text-xs md:text-sm tracking-wide text-white group-hover:text-[#12131a] break-words min-w-0">
                     REMOTE_AGENT_RESEARCH
                   </h3>
                 </div>
@@ -224,9 +224,9 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
               </div>
 
               <div className="group p-4 border border-[#444748] invert-on-hover transition-all duration-0 rounded-none cursor-default">
-                <div className="flex items-start gap-3 mb-2">
+                <div className="flex items-start gap-3 mb-2 min-w-0">
                   <span className="material-symbols-outlined text-lg md:text-xl font-light flex-shrink-0">extension</span>
-                  <h3 className="font-sans font-bold text-xs md:text-sm tracking-wide text-white group-hover:text-[#12131a] break-words">
+                  <h3 className="font-sans font-bold text-xs md:text-sm tracking-wide text-white group-hover:text-[#12131a] break-words min-w-0">
                     GAME_PATCHING
                   </h3>
                 </div>
