@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { TabType } from '../types';
 
 interface ServicesViewProps {
@@ -11,35 +11,6 @@ interface ServicesViewProps {
 }
 
 export default function ServicesView({ onTabChange }: ServicesViewProps) {
-  // Setup reactive state arrays to support individual card hover triggers
-  const [phaseTexts, setPhaseTexts] = useState<Record<number, string>>({
-    1: '[INITIATED]',
-    2: '[IN_PROGRESS]',
-    3: '[ACTIVE]',
-    4: '[FINALIZING]',
-  });
-
-  const originalStates: Record<number, string> = {
-    1: '[INITIATED]',
-    2: '[IN_PROGRESS]',
-    3: '[ACTIVE]',
-    4: '[FINALIZING]',
-  };
-
-  const handleMouseEnter = (phaseNum: number) => {
-    setPhaseTexts((prev) => ({
-      ...prev,
-      [phaseNum]: '[SCANNING_VULNS...]',
-    }));
-  };
-
-  const handleMouseLeave = (phaseNum: number) => {
-    setPhaseTexts((prev) => ({
-      ...prev,
-      [phaseNum]: originalStates[phaseNum],
-    }));
-  };
-
   const stackManifest = [
     'PYTHON',
     'LARAVEL',
@@ -188,105 +159,88 @@ export default function ServicesView({ onTabChange }: ServicesViewProps) {
       </section>
 
       {/* EXECUTION PROTOCOL METHODOLOGY */}
-      <section className="py-12 border-t border-[#444748] bg-[#0d0e15] p-4 md:p-8 text-center select-none">
+      <section className="py-12 border-t border-[#444748] text-center select-none">
         <div className="mb-12">
           <h2 className="font-sans text-xl md:text-2xl font-black text-white uppercase inline-block border-b-2 border-white pb-1.5 tracking-wider">
             Execution Protocol
           </h2>
         </div>
 
-        <div className="relative">
-          {/* Desktop timeline backbone line overlay */}
-          <div className="hidden md:block absolute top-[55%] left-0 w-full h-[1px] bg-[#444748] -translate-y-1/2" />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 relative z-10 text-left">
-            {/* Phase 1 */}
-            <div
-              onMouseEnter={() => handleMouseEnter(1)}
-              onMouseLeave={() => handleMouseLeave(1)}
-              className="bg-[#12131a] border border-[#444748] p-5 hover:bg-white hover:text-[#12131a] transition-all duration-300 rounded-none cursor-default group"
-            >
-              <div className="font-mono text-[10px] text-[#8e9192] group-hover:text-[#474747] mb-2 font-bold tracking-widest">
-                PHASE_01
-              </div>
-              <h4 className="font-sans font-bold text-sm text-white group-hover:text-[#12131a] mb-3">
-                Discovery &amp; Strategy
-              </h4>
-              <p className="font-mono text-xs text-[#c4c7c8] group-hover:text-[#12131a] opacity-80 leading-relaxed font-light">
-                We align technical requirements with business goals to ensure a reliable project
-                roadmap from day one.
-              </p>
-              <div className="mt-6 flex items-center justify-between text-xs text-[#8e9192] group-hover:text-[#12131a]">
-                <span className="material-symbols-outlined text-[18px]">radar</span>
-                <span className="text-[10px] font-bold">{phaseTexts[1]}</span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          {/* Phase 1 */}
+          <div className="bg-[#12131a] border border-[#444748] p-6 hover:border-white hover:bg-[#1a1b22] transition-all duration-300 rounded-none flex flex-col text-left group">
+            <div className="flex items-center justify-between mb-4">
+              <span className="material-symbols-outlined text-3xl text-white group-hover:text-amber-300 transition-colors">
+                radar
+              </span>
+              <div className="w-8 h-8 rounded-full border border-[#444748] flex items-center justify-center text-xs font-bold text-white group-hover:border-white group-hover:bg-white group-hover:text-[#12131a] transition-all">
+                1
               </div>
             </div>
+            <h4 className="font-sans font-bold text-sm text-white mb-3">
+              Discovery &amp; Strategy
+            </h4>
+            <p className="font-mono text-xs text-[#c4c7c8] leading-relaxed">
+              We align technical requirements with business goals to ensure a reliable project
+              roadmap from day one.
+            </p>
+          </div>
 
-            {/* Phase 2 */}
-            <div
-              onMouseEnter={() => handleMouseEnter(2)}
-              onMouseLeave={() => handleMouseLeave(2)}
-              className="bg-[#12131a] border border-[#444748] p-5 hover:bg-white hover:text-[#12131a] transition-all duration-300 rounded-none cursor-default group"
-            >
-              <div className="font-mono text-[10px] text-[#8e9192] group-hover:text-[#474747] mb-2 font-bold tracking-widest">
-                PHASE_02
-              </div>
-              <h4 className="font-sans font-bold text-sm text-white group-hover:text-[#12131a] mb-3">
-                Technical Planning
-              </h4>
-              <p className="font-mono text-xs text-[#c4c7c8] group-hover:text-[#12131a] opacity-80 leading-relaxed font-light">
-                Defining system architecture and workflows to maximize performance and minimize
-                future technical debt.
-              </p>
-              <div className="mt-6 flex items-center justify-between text-xs text-[#8e9192] group-hover:text-[#12131a]">
-                <span className="material-symbols-outlined text-[18px]">analytics</span>
-                <span className="text-[10px] font-bold">{phaseTexts[2]}</span>
+          {/* Phase 2 */}
+          <div className="bg-[#12131a] border border-[#444748] p-6 hover:border-white hover:bg-[#1a1b22] transition-all duration-300 rounded-none flex flex-col text-left group">
+            <div className="flex items-center justify-between mb-4">
+              <span className="material-symbols-outlined text-3xl text-white group-hover:text-amber-300 transition-colors">
+                analytics
+              </span>
+              <div className="w-8 h-8 rounded-full border border-[#444748] flex items-center justify-center text-xs font-bold text-white group-hover:border-white group-hover:bg-white group-hover:text-[#12131a] transition-all">
+                2
               </div>
             </div>
+            <h4 className="font-sans font-bold text-sm text-white mb-3">
+              Technical Planning
+            </h4>
+            <p className="font-mono text-xs text-[#c4c7c8] leading-relaxed">
+              Defining system architecture and workflows to maximize performance and minimize
+              future technical debt.
+            </p>
+          </div>
 
-            {/* Phase 3 */}
-            <div
-              onMouseEnter={() => handleMouseEnter(3)}
-              onMouseLeave={() => handleMouseLeave(3)}
-              className="bg-[#12131a] border border-[#444748] p-5 hover:bg-white hover:text-[#12131a] transition-all duration-300 rounded-none cursor-default group"
-            >
-              <div className="font-mono text-[10px] text-[#8e9192] group-hover:text-[#474747] mb-2 font-bold tracking-widest">
-                PHASE_03
-              </div>
-              <h4 className="font-sans font-bold text-sm text-white group-hover:text-[#12131a] mb-3">
-                Agile Implementation
-              </h4>
-              <p className="font-mono text-xs text-[#c4c7c8] group-hover:text-[#12131a] opacity-80 leading-relaxed font-light">
-                Rapid, iterative development focusing on functional excellence and robust codebase
-                integrity.
-              </p>
-              <div className="mt-6 flex items-center justify-between text-xs text-[#8e9192] group-hover:text-[#12131a]">
-                <span className="material-symbols-outlined text-[18px]">code</span>
-                <span className="text-[10px] font-bold">{phaseTexts[3]}</span>
+          {/* Phase 3 */}
+          <div className="bg-[#12131a] border border-[#444748] p-6 hover:border-white hover:bg-[#1a1b22] transition-all duration-300 rounded-none flex flex-col text-left group">
+            <div className="flex items-center justify-between mb-4">
+              <span className="material-symbols-outlined text-3xl text-white group-hover:text-amber-300 transition-colors">
+                code
+              </span>
+              <div className="w-8 h-8 rounded-full border border-[#444748] flex items-center justify-center text-xs font-bold text-white group-hover:border-white group-hover:bg-white group-hover:text-[#12131a] transition-all">
+                3
               </div>
             </div>
+            <h4 className="font-sans font-bold text-sm text-white mb-3">
+              Agile Implementation
+            </h4>
+            <p className="font-mono text-xs text-[#c4c7c8] leading-relaxed">
+              Rapid, iterative development focusing on functional excellence and robust codebase
+              integrity.
+            </p>
+          </div>
 
-            {/* Phase 4 */}
-            <div
-              onMouseEnter={() => handleMouseEnter(4)}
-              onMouseLeave={() => handleMouseLeave(4)}
-              className="bg-[#12131a] border border-[#444748] p-5 hover:bg-white hover:text-[#12131a] transition-all duration-300 rounded-none cursor-default group"
-            >
-              <div className="font-mono text-[10px] text-[#8e9192] group-hover:text-[#474747] mb-2 font-bold tracking-widest">
-                PHASE_04
-              </div>
-              <h4 className="font-sans font-bold text-sm text-white group-hover:text-[#12131a] mb-3">
-                Security &amp; Optimization
-              </h4>
-              <p className="font-mono text-xs text-[#c4c7c8] group-hover:text-[#12131a] opacity-80 leading-relaxed font-light">
-                Ensuring total data protection and peak speed through rigorous testing and system
-                hardening.
-              </p>
-              <div className="mt-6 flex items-center justify-between text-xs text-[#8e9192] group-hover:text-[#12131a]">
-                <span className="material-symbols-outlined text-[18px]">lock</span>
-                <span className="text-[10px] font-bold">{phaseTexts[4]}</span>
+          {/* Phase 4 */}
+          <div className="bg-[#12131a] border border-[#444748] p-6 hover:border-white hover:bg-[#1a1b22] transition-all duration-300 rounded-none flex flex-col text-left group">
+            <div className="flex items-center justify-between mb-4">
+              <span className="material-symbols-outlined text-3xl text-white group-hover:text-amber-300 transition-colors">
+                lock
+              </span>
+              <div className="w-8 h-8 rounded-full border border-[#444748] flex items-center justify-center text-xs font-bold text-white group-hover:border-white group-hover:bg-white group-hover:text-[#12131a] transition-all">
+                4
               </div>
             </div>
+            <h4 className="font-sans font-bold text-sm text-white mb-3">
+              Security &amp; Optimization
+            </h4>
+            <p className="font-mono text-xs text-[#c4c7c8] leading-relaxed">
+              Ensuring total data protection and peak speed through rigorous testing and system
+              hardening.
+            </p>
           </div>
         </div>
       </section>
