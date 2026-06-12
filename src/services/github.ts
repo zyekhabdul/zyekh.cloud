@@ -1,4 +1,4 @@
-const GITHUB_USER = 'zyekhabdul';
+const GITHUB_USER = 'yakunzizhex';
 const CACHE_KEY = 'github_stats_cache';
 const REPOS_CACHE_KEY = 'github_repos_cache';
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
@@ -215,9 +215,13 @@ export async function fetchRepositories(): Promise<Repository[]> {
 
     const repos = await reposResponse.json();
 
+    if (!Array.isArray(repos) || repos.length === 0) {
+      throw new Error('No repositories found');
+    }
+
     // Filter and transform repos
     const transformedRepos: Repository[] = repos
-      .filter((repo: any) => !repo.fork && repo.name !== 'zyekhabdul') // Exclude forks and profile repo
+      .filter((repo: any) => !repo.fork && repo.name !== 'yakunzizhex') // Exclude forks and profile repo
       .slice(0, 12) // Show top 12
       .map((repo: any) => ({
         id: repo.id,
@@ -230,10 +234,30 @@ export async function fetchRepositories(): Promise<Repository[]> {
         updatedAt: repo.updated_at,
       }));
 
-    setCachedRepos(transformedRepos);
-    return transformedRepos;
+    if (transformedRepos.length > 0) {
+      setCachedRepos(transformedRepos);
+      return transformedRepos;
+    } else {
+      throw new Error('No valid repositories after filtering');
+    }
   } catch (error) {
     console.error('Failed to fetch repositories:', error);
-    return [];
+
+    // Return fallback data
+    const fallbackRepos: Repository[] = [
+      {
+        id: 1,
+        name: 'porto-sec-studio',
+        url: `https://github.com/${GITHUB_USER}/porto-sec-studio`,
+        description: 'Terminal-themed personal portfolio | React + Vite + TypeScript',
+        stars: 0,
+        forks: 0,
+        language: 'TypeScript',
+        updatedAt: new Date().toISOString(),
+      },
+    ];
+
+    setCachedRepos(fallbackRepos);
+    return fallbackRepos;
   }
 }

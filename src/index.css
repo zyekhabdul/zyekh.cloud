@@ -116,6 +116,52 @@
   pointer-events: none;
 }
 
+@keyframes terminal-line-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes terminal-line-glow {
+  0% {
+    text-shadow: none;
+  }
+  50% {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    text-shadow: none;
+  }
+}
+
+.terminal-line {
+  animation: terminal-line-fade 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+}
+
+.terminal-line-highlight {
+  animation: terminal-line-glow 2s ease-in-out 0.5s infinite;
+}
+
+@keyframes startup-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.terminal-startup {
+  animation: terminal-line-fade 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, startup-pulse 1.2s ease-in-out 0.3s infinite;
+  opacity: 0;
+}
+
 .invert-on-hover:hover {
   background-color: #ffffff !important;
   color: #12131a !important;
@@ -137,6 +183,51 @@
 
 .terminal-border.hover\:border-green-600:hover {
   border-color: #16a34a;
+}
+
+/* System Overview Cards */
+.system-card {
+  border: 1px solid #444748;
+  transition: all 0.2s ease;
+}
+
+.system-card:hover {
+  background-color: #ffffff;
+  color: #12131a;
+  border-color: #ffffff;
+}
+
+.system-card:hover > div:first-child {
+  color: #12131a;
+}
+
+.system-card:hover > div:nth-child(2) {
+  color: #12131a;
+}
+
+.system-card:hover > div:last-child {
+  color: #12131a;
+  border-top-color: #12131a;
+}
+
+/* Security Focus Card with Green Theme */
+.system-card-security:hover {
+  background-color: #16a34a;
+  color: #ffffff;
+  border-color: #16a34a;
+}
+
+.system-card-security:hover > div:first-child {
+  color: #ffffff;
+}
+
+.system-card-security:hover > div:nth-child(2) {
+  color: #ffffff;
+}
+
+.system-card-security:hover > div:last-child {
+  color: #ffffff;
+  border-top-color: #ffffff;
 }
 
 /* Proficiency label for beginner */

@@ -181,12 +181,14 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
           </div>
 
           <div className="absolute inset-0 flex flex-col p-4 md:p-6 pt-16 md:pt-20 font-mono text-[10px] md:text-[11px] leading-relaxed text-[#c4c7c8]/60 mix-blend-screen overflow-hidden select-none">
-            <div className="text-white mb-3 md:mb-4">[SYSTEM.SCAN.INIT] ... ACTIVE</div>
+            <div className="text-white mb-3 md:mb-4 terminal-line" style={{ animationDelay: '0s' }}>
+              [SYSTEM.SCAN.INIT] ... ACTIVE
+            </div>
 
             {logLines.map((line, idx) => {
               if (!line) return null;
               return (
-                <div key={idx} className="whitespace-nowrap transition-all duration-300 truncate md:truncate-none">
+                <div key={idx} className="terminal-line whitespace-nowrap truncate md:truncate-none" style={{ animationDelay: `${(idx + 1) * 0.05}s` }}>
                   <span className="text-[#8e9192]">{line.slice(0, 10)}</span>
                   {' '}
                   <span className="text-white font-medium">{line.slice(10, 58)}</span>
@@ -197,10 +199,14 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
             })}
 
             {logLines.length === hexDump.length && (
-              <div className="mt-4 text-[#c4c7c8] opacity-80">
+              <div className="mt-4 text-[#c4c7c8] space-y-0">
                 <br />
                 {startupMsgs.map((msg, i) => (
-                  <div key={i} className="leading-5">
+                  <div
+                    key={i}
+                    className="leading-5 terminal-startup"
+                    style={{ animationDelay: `${(hexDump.length + 2 + i) * 0.05}s, ${(hexDump.length + 2 + i) * 0.05 + 0.3}s` }}
+                  >
                     &gt; {msg}
                     {i === startupMsgs.length - 1 && <span className="cursor-block" />}
                   </div>
@@ -246,67 +252,70 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* Card items supporting total mouse-over black-white inversions */}
-          <div className="terminal-border border-[#444748] bg-[#12131a] p-6 flex flex-col gap-2 hover:bg-white hover:text-[#12131a] group transition-all duration-0 cursor-default select-none">
-            <div className="text-[#c4c7c8] font-sans font-semibold text-xs uppercase tracking-wider group-hover:text-[#12131a]">
+          {/* UPTIME Card */}
+          <div className="system-card border border-[#444748] bg-[#12131a] p-6 flex flex-col gap-2 cursor-default select-none transition-all duration-200">
+            <div className="text-[#c4c7c8] font-sans font-semibold text-xs uppercase tracking-wider">
               [UPTIME]
             </div>
-            <div className="font-sans text-3xl font-black text-white group-hover:text-[#12131a]">
+            <div className="font-sans text-3xl font-black text-white">
               {isLoadingGitHub ? (
                 <span className="inline-block animate-pulse">●●●</span>
               ) : (
                 '99.99%'
               )}
             </div>
-            <div className="font-mono text-xs text-[#c4c7c8] group-hover:text-[#12131a] border-t border-[#444748] group-hover:border-[#12131a] pt-2 mt-auto">
+            <div className="font-mono text-xs text-[#c4c7c8] border-t border-[#444748] pt-2 mt-auto">
               Node Stability
             </div>
           </div>
 
-          <div className="terminal-border border-[#444748] bg-[#12131a] p-6 flex flex-col gap-2 hover:bg-white hover:text-[#12131a] group transition-all duration-0 cursor-default select-none">
-            <div className="text-[#c4c7c8] font-sans font-semibold text-xs uppercase tracking-wider group-hover:text-[#12131a]">
+          {/* REPOSITORIES Card */}
+          <div className="system-card border border-[#444748] bg-[#12131a] p-6 flex flex-col gap-2 cursor-default select-none transition-all duration-200">
+            <div className="text-[#c4c7c8] font-sans font-semibold text-xs uppercase tracking-wider">
               [REPOSITORIES]
             </div>
-            <div className="font-sans text-3xl font-black text-white group-hover:text-[#12131a] relative">
+            <div className="font-sans text-3xl font-black text-white">
               {isLoadingGitHub ? (
                 <span className="inline-block animate-pulse">●●●</span>
               ) : (
                 gitHubStats?.repoCount || 12
               )}
             </div>
-            <div className="font-mono text-xs text-[#c4c7c8] group-hover:text-[#12131a] border-t border-[#444748] group-hover:border-[#12131a] pt-2 mt-auto">
+            <div className="font-mono text-xs text-[#c4c7c8] border-t border-[#444748] pt-2 mt-auto">
               Active Projects
             </div>
           </div>
 
-          <div className="terminal-border border-[#444748] bg-[#12131a] p-6 flex flex-col gap-2 hover:bg-white hover:text-[#12131a] group transition-all duration-0 cursor-default select-none">
-            <div className="text-[#c4c7c8] font-sans font-semibold text-xs uppercase tracking-wider group-hover:text-[#12131a]">
+          {/* REPO_HEALTH Card */}
+          <div className="system-card border border-[#444748] bg-[#12131a] p-6 flex flex-col gap-2 cursor-default select-none transition-all duration-200">
+            <div className="text-[#c4c7c8] font-sans font-semibold text-xs uppercase tracking-wider">
               [REPO_HEALTH]
             </div>
-            <div className="font-sans text-3xl font-black text-white group-hover:text-[#12131a]">
+            <div className="font-sans text-3xl font-black text-white">
               {isLoadingGitHub ? (
                 <span className="inline-block animate-pulse">●●●</span>
               ) : (
                 `${gitHubStats?.repoHealth || 72}%`
               )}
             </div>
-            <div className="font-mono text-xs text-[#c4c7c8] group-hover:text-[#12131a] border-t border-[#444748] group-hover:border-[#12131a] pt-2 mt-auto">
+            <div className="font-mono text-xs text-[#c4c7c8] border-t border-[#444748] pt-2 mt-auto">
               Repository Quality
             </div>
           </div>
 
-          <div className="terminal-border border-[#444748] bg-[#12131a] p-6 flex flex-col gap-2 hover:bg-green-600 hover:text-white hover:border-green-600 group transition-all duration-0 cursor-default select-none">
-            <div className="text-[#c4c7c8] font-sans font-semibold text-xs uppercase tracking-wider group-hover:text-white">
+          {/* SECURITY_FOCUS Card (Green Theme) */}
+          <div className="system-card system-card-security border border-[#444748] bg-[#12131a] p-6 flex flex-col gap-2 cursor-default select-none transition-all duration-200">
+            <div className="text-[#c4c7c8] font-sans font-semibold text-xs uppercase tracking-wider">
               [SECURITY_FOCUS]
             </div>
-            <div className="font-sans text-3xl font-black text-green-400 group-hover:text-white">
+            <div className="font-sans text-3xl font-black text-green-400">
               {isLoadingGitHub ? (
                 <span className="inline-block animate-pulse">●●●</span>
               ) : (
                 'ACTIVE'
               )}
             </div>
-            <div className="font-mono text-xs text-[#c4c7c8] group-hover:text-white border-t border-[#444748] group-hover:border-t-green-600 pt-2 mt-auto">
+            <div className="font-mono text-xs text-[#c4c7c8] border-t border-[#444748] pt-2 mt-auto">
               Defensive Research Active
             </div>
           </div>
