@@ -132,10 +132,10 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
 
         {/* Profile photo block */}
         <div className="w-full md:w-auto flex justify-center md:justify-end shrink-0">
-          <div className="w-56 h-56 md:w-64 md:h-64 border border-[#444748] relative overflow-hidden rounded-none group select-none shadow-[0_0_15px_rgba(255,255,255,0.05)]">
+          <div className="w-56 h-56 md:w-64 md:h-64 border border-[#444748] relative overflow-hidden rounded-none group select-none shadow-[0_0_15px_rgba(255,255,255,0.05)] bg-[#0d0e15] flex items-center justify-center">
             <img
               alt="Developer Profile"
-              className="w-full h-full object-cover opacity-90 transition-opacity duration-300 group-hover:opacity-100"
+              className="w-full h-full object-contain opacity-90 transition-opacity duration-300 group-hover:opacity-100"
               referrerPolicy="no-referrer"
               src="src/assets/images/pp-aqz220309-gmail-gumball-watterson.jpg"
             />
@@ -147,8 +147,11 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
       </section>
 
       {/* Infinite Scroll Philosophy Banner */}
-      <section className="border-y border-[#444748] py-8 overflow-hidden whitespace-nowrap select-none">
+      <section className="border-y border-[#444748] py-8 overflow-hidden select-none">
         <div className="flex gap-16 animate-infinite-scroll">
+          <span className="font-sans text-2xl font-black text-[#e3e1ec] opacity-15 italic uppercase shrink-0">
+            &quot;CODE IS TEMPORARY, SECURITY IS PERMANENT&quot;
+          </span>
           <span className="font-sans text-2xl font-black text-[#e3e1ec] opacity-15 italic uppercase shrink-0">
             &quot;CODE IS TEMPORARY, SECURITY IS PERMANENT&quot;
           </span>
