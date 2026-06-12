@@ -15,9 +15,9 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
 
   const capabilities = [
     { name: 'BASH', value: 40 },
-    { name: 'PYTHON', value: 30 },
+    { name: 'PYTHON', value: 10 },
     { name: 'LUA', value: 56 },
-    { name: 'LARAVEL/JS', value: 30 },
+    { name: 'LARAVEL/PHP', value: 56 },
   ];
 
   const timeline = [
@@ -41,9 +41,9 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
   ];
 
   const collaborators = [
-    { initials: 'JD', name: 'John Doe', role: 'Network Lead' },
-    { initials: 'AS', name: 'Alice Smith', role: 'QA Analyst' },
-    { initials: 'RB', name: 'Root Box', role: 'Security Consultant' },
+    { initials: 'AI', name: 'Claude AI', role: 'Development Assistant' },
+    { initials: 'AI', name: 'ChatGPT', role: 'Research & Analysis' },
+    { initials: 'CV', name: 'CV Framework', role: 'Code Review' },
   ];
 
   const certifications = [
@@ -118,15 +118,15 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
           </div>
 
           <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-white uppercase leading-[1.05]">
-            SOFTWARE ENGINEER &amp; <br className="hidden md:block" />
-            SYSTEMS ARCHITECT
+            FULL STACK DEVELOPER &amp; <br className="hidden md:block" />
+            SECURITY ENTHUSIAST
             <span className="cursor-block" />
           </h1>
 
           <p className="font-mono text-sm md:text-base text-[#c4c7c8] max-w-2xl leading-relaxed mx-auto md:mx-0">
-            Specializing in high-integrity software development and low-level system
-            &quot;oprek&quot;. Expert in Windows debloating, Linux for cybersecurity, and Android
-            modding. Focused on building scalable architectures that are resilient by design.
+            SMK software development student with deep interest in security research. Hands-on
+            experience with Windows hardening, Linux system administration, and Android custom ROM
+            development. Building secure, scalable web applications with focus on defensive practices.
           </p>
         </div>
 
@@ -180,11 +180,11 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
             <ul className="space-y-6">
               {capabilities.map((tech) => (
                 <li key={tech.name} className="group cursor-default">
-                  <div className="flex justify-between items-center mb-1.5">
-                    <span className="font-sans font-extrabold text-sm tracking-wide text-white group-hover:text-amber-300 transition-colors">
+                  <div className="flex justify-between items-center mb-1.5 gap-2">
+                    <span className="font-sans font-extrabold text-xs md:text-sm tracking-wide text-white group-hover:text-amber-300 transition-colors break-words">
                       {tech.name}
                     </span>
-                    <span className="text-xs text-[#8e9192]">[ {tech.value}% ]</span>
+                    <span className="text-xs text-[#8e9192] flex-shrink-0">[ {tech.value}% ]</span>
                   </div>
                   <div className="h-1 bg-[#444748] w-full rounded-none">
                     <div
@@ -203,22 +203,23 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
               02. Security &amp; Hardening
             </span>
             <div className="space-y-4">
-              <div className="p-4 border border-[#444748] invert-on-hover transition-all duration-0 rounded-none cursor-default">
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="material-symbols-outlined text-xl">terminal</span>
-                  <h3 className="font-sans font-bold text-sm tracking-wide text-white group-hover:text-[#12131a]">
-                    BACKDOOR_OPS
+              <div className="group p-4 border border-[#444748] invert-on-hover transition-all duration-0 rounded-none cursor-default">
+                <div className="flex items-start gap-3 mb-2">
+                  <span className="material-symbols-outlined text-lg md:text-xl flex-shrink-0">terminal</span>
+                  <h3 className="font-sans font-bold text-xs md:text-sm tracking-wide text-white group-hover:text-[#12131a] break-words">
+                    REMOTE_AGENT_RESEARCH
                   </h3>
                 </div>
                 <p className="text-xs leading-normal opacity-70">
-                  MeshAgent for Win/Mac/Linux and Androrat for Android deployment.
+                  Remote administration tooling for research and defensive analysis across
+                  platforms.
                 </p>
               </div>
 
-              <div className="p-4 border border-[#444748] invert-on-hover transition-all duration-0 rounded-none cursor-default">
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="material-symbols-outlined text-xl font-light">extension</span>
-                  <h3 className="font-sans font-bold text-sm tracking-wide text-white group-hover:text-[#12131a]">
+              <div className="group p-4 border border-[#444748] invert-on-hover transition-all duration-0 rounded-none cursor-default">
+                <div className="flex items-start gap-3 mb-2">
+                  <span className="material-symbols-outlined text-lg md:text-xl font-light flex-shrink-0">extension</span>
+                  <h3 className="font-sans font-bold text-xs md:text-sm tracking-wide text-white group-hover:text-[#12131a] break-words">
                     GAME_PATCHING
                   </h3>
                 </div>
@@ -232,24 +233,16 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
           {/* Infrastructure Section */}
           <div className="p-6 md:p-8 text-left bg-[#12131a]">
             <span className="font-sans font-bold text-xs uppercase text-[#8e9192] block mb-6 tracking-widest">
-              03. Infrastructure
+              03. System Hardening
             </span>
             <h3 className="font-sans font-extrabold text-sm tracking-wide text-white mb-4 uppercase">
-              NETWORK_SEC
+              HANDS_ON_SKILLS
             </h3>
-            <div className="font-mono text-[11px] text-[#c4c7c8]/60 space-y-1 mb-6 border border-[#444748] bg-[#0d0e15] p-3 select-all">
-              <div>$ netstat -tunlp</div>
-              <div>$ nmap -sV 192.168.1.1</div>
-              <div>$ wireshark --dump-interfaces</div>
-            </div>
-
             <div className="space-y-3">
               {[
-                { name: 'Wifi Installation', value: '58%' },
-                { name: 'PC Building', value: '40%' },
-                { name: 'Firewall Configuration' },
-                { name: 'IDS/IPS Deployment' },
-                { name: 'VPN Tunneling' },
+                { name: 'Custom Android ROMs', value: '68%' },
+                { name: 'Windows Debloating', value: '88%' },
+                { name: 'Linux Hardening', value: '74%' },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2">

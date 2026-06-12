@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Geist:wght@400;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block');
 @import 'tailwindcss';
 
 @theme {
@@ -34,7 +34,7 @@
 }
 
 .material-symbols-outlined {
-  font-family: 'Material Symbols Outlined';
+  font-family: 'Material Symbols Outlined' !important;
   font-weight: normal;
   font-style: normal;
   font-size: 24px;
@@ -47,6 +47,7 @@
   direction: ltr;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
 }
 
 /* Custom terminal design utility rules */
@@ -118,6 +119,30 @@
 .invert-on-hover:hover {
   background-color: #ffffff !important;
   color: #12131a !important;
+}
+
+.invert-on-hover:hover * {
+  color: #12131a !important;
+}
+
+/* Support border color on hover for cards */
+.group:hover .group-hover\:border-green-600 {
+  border-color: #16a34a !important;
+}
+
+.terminal-border {
+  border: 1px solid #444748;
+  transition: border-color 0.2s ease;
+}
+
+.terminal-border.hover\:border-green-600:hover {
+  border-color: #16a34a;
+}
+
+/* Proficiency label for beginner */
+.proficiency-beginner {
+  color: #fbbf24; /* Tailwind yellow-400 */
+  font-weight: 600;
 }
 
 /* Hide scrollbar but keep functionality */

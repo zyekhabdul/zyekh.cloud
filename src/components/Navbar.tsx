@@ -32,7 +32,7 @@ export default function Navbar({ currentTab, onTabChange }: NavbarProps) {
           }}
           className="font-sans text-xl md:text-2xl font-bold tracking-tighter text-white cursor-pointer z-50 hover:opacity-85 transition-opacity"
         >
-          SEC-STUDIO
+          ZYEKH_ABDUL
         </button>
 
         <div className="flex items-center gap-8 z-50">

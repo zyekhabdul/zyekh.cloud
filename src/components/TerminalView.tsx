@@ -8,7 +8,7 @@ import { TerminalLogLine } from '../types';
 
 export default function TerminalView() {
   const [history, setHistory] = useState<TerminalLogLine[]>([
-    { text: 'SEC-STUDIO CORE OS [Version 4.1.0-Onyx]', type: 'success' },
+    { text: 'ZYEKH_ABDUL CORE OS [Version 4.1.0-Onyx]', type: 'success' },
     { text: 'Initial handshake complete. System localized Jakarta, IDN.', type: 'output' },
     { text: 'Type "help" to view list of available diagnostic commands.', type: 'output' },
   ]);
@@ -107,7 +107,7 @@ export default function TerminalView() {
             type: 'output',
           },
           {
-            text: '  PYTHON          [ 30% ] — Custom automated pentest scripts & payloads development.',
+            text: '  PYTHON          [ BEGINNER ] — Custom automated pentest scripts & payloads development.',
             type: 'output',
           },
           {
@@ -115,11 +115,7 @@ export default function TerminalView() {
             type: 'output',
           },
           {
-            text: '  LARAVEL/JS      [ 30% ] — Hardened enterprise RESTful secure APIs & interfaces.',
-            type: 'output',
-          },
-          {
-            text: '  C / C++         [ INTERMEDIATE ] — Reverse engineering & raw vulnerability checks.',
+            text: '  LARAVEL/JS      [ BEGINNER ] — Hardened enterprise RESTful secure APIs & interfaces.',
             type: 'output',
           },
         ]);
@@ -139,7 +135,7 @@ export default function TerminalView() {
             type: 'error',
           },
           { text: '   -> https://github.com/yakunzizhex', type: 'success' },
-          { text: '3. MeshAgent Cross-Platform Backdoor [PUBLIC] | JS, MeshAgent', type: 'output' },
+          { text: '3. Remote Agent Research [PUBLIC] | JS, Remote_Agent', type: 'output' },
           { text: '   -> https://github.com/yakunzizhex', type: 'success' },
           { text: '4. OS Debloat & Modding Scripts [PUBLIC] | Bash, PowerShell', type: 'output' },
           { text: '   -> https://github.com/yakunzizhex', type: 'success' },
@@ -165,10 +161,10 @@ export default function TerminalView() {
       case 'neofetch':
         setHistory((prev) => [
           ...prev,
-          { text: '             ,gg,                     guest_user@sec-studio', type: 'success' },
+          { text: '             ,gg,                     guest_user@zyekh_abdul', type: 'success' },
           { text: '            i8""8i                    ---------------------', type: 'success' },
           {
-            text: '            d8  8b                    OS: SEC-STUDIO Onyx v4.1.0-Onyx x86_64',
+            text: '            d8  8b                    OS: ZYEKH_ABDUL Onyx v4.1.0-Onyx x86_64',
             type: 'success',
           },
           {
@@ -197,7 +193,7 @@ export default function TerminalView() {
             type: 'output',
           },
           {
-            text: '"Y88P"   "Y8" "Y8                       Theme: Cosmic Slate Minimalist Dark Mode',
+            text: '"Y88P"   "Y8" "Y8"                    Theme: Cosmic Slate Minimalist Dark Mode',
             type: 'output',
           },
         ]);
@@ -332,11 +328,11 @@ export default function TerminalView() {
         {/* Matrix Rain overlays */}
         {showMatrix && (
           <div className="absolute inset-0 bg-black/90 z-20 flex items-center justify-center text-green-500 font-bold overflow-hidden select-none">
-            <div className="text-center font-mono text-[10px] md:text-sm animate-pulse flex flex-col gap-2">
+            <div className="text-center font-mono text-[10px] md:text-sm animate-pulse flex flex-col gap-2 px-4">
               <span className="text-white bg-green-900 border border-green-500 px-4 py-2 font-bold">
                 [BUFFER_DUMPING_STARTING]
               </span>
-              <div className="grid grid-cols-4 gap-8 tracking-wider opacity-60">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8 tracking-wider opacity-60">
                 <span>01011001</span>
                 <span>11001010</span>
                 <span>00110110</span>
@@ -358,7 +354,7 @@ export default function TerminalView() {
             <span className="w-2.5 h-2.5 bg-green-500 rounded-none inline-block" />
           </div>
           <span className="text-[10px] md:text-xs text-[#c4c7c8]/60 uppercase font-semibold">
-            SEC-STUDIO://guest_user@virtualbox-tty1
+            ZYEKH_ABDUL://guest_user@virtualbox-tty1
           </span>
           <div className="w-10" />
         </div>

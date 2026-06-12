@@ -1,8 +1,15 @@
 {
-  "name": "react-example",
-  "private": true,
-  "version": "0.0.0",
+  "name": "zyekh-abdul-portfolio",
+  "description": "Terminal-themed personal portfolio | React + Vite + TypeScript",
+  "private": false,
+  "version": "1.0.0",
+  "license": "MIT",
   "type": "module",
+  "author": "Zyekh Abdul Qadir Jailani",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yakunzizhex/porto-sec-studio"
+  },
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",

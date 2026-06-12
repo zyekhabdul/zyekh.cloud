@@ -15,7 +15,7 @@ export default function Footer({ onTabChange }: FooterProps) {
     <footer className="w-full bg-[#12131a] border-t border-[#444748] mt-12 md:mt-24 font-mono">
       <div className="flex flex-col md:flex-row justify-between items-center py-8 px-4 md:px-6 max-w-[1280px] mx-auto gap-4 md:gap-0">
         <div className="font-sans font-semibold text-xs tracking-wider text-white uppercase text-center md:text-left">
-          © 2024 SEC-STUDIO [PPLG_DEV]
+          © 2026 ZYEKH_ABDUL [PPLG_DEV]
         </div>
         <div className="flex gap-6 md:gap-8 justify-center items-center">
           <a

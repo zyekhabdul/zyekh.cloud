@@ -32,7 +32,7 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
 
   const repositories: Repository[] = [
     {
-      year: 2024,
+      year: 2026,
       name: 'Android Persistence Research',
       description:
         'Deep-dive research into Android persistence techniques and defensive mitigations.',
@@ -42,10 +42,11 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
       url: 'https://github.com/yakunzizhex',
     },
     {
-      year: 2024,
-      name: 'MeshAgent Integration Research',
-      description: 'Orchestration and secure command routing analysis for MeshAgent-like systems.',
-      technologies: ['JS', 'MESHAGENT'],
+      year: 2026,
+      name: 'Remote Agent Orchestration Research',
+      description:
+        'Orchestration and secure command routing analysis for remote agent systems and defensive tooling.',
+      technologies: ['JS', 'REMOTE_AGENT'],
       category: 'Network Tool',
       categoryColor: 'bg-white',
       url: 'https://github.com/yakunzizhex',
@@ -62,7 +63,7 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
       url: 'https://github.com/yakunzizhex',
     },
     {
-      year: 2024,
+      year: 2026,
       name: 'OS Debloat & Modding Scripts',
       description:
         'Clean collection of PowerShell and Bash tasks automating bloat removal and kernel security tweaks.',
@@ -126,7 +127,7 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
           </span>
           <span className="text-[#8e9192] text-xs">v4.1.0</span>
         </div>
-        <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight mb-4">
+        <h1 className="font-sans text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white uppercase tracking-normal md:tracking-tight mb-4">
           PROJECT_ARCHIVE
         </h1>
         <p className="font-mono text-sm md:text-base text-[#c4c7c8] max-w-2xl leading-relaxed">
@@ -393,7 +394,7 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
             Found 4 validated assets. Rendering presentation layer.
           </p>
           <p className="opacity-60 whitespace-nowrap leading-tight">
-            Status: <span className="text-white font-bold">Ready</span> since Tue 2024-05-21
+            Status: <span className="text-white font-bold">Ready</span> since Tue 2026-05-21
             04:20:11 UTC
           </p>
           <p className="whitespace-nowrap leading-tight">
@@ -410,8 +411,8 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
       </section>
 
       {/* Contact CTA container consistent wrapper */}
-      <section className="border border-[#444748] p-8 md:p-14 text-center bg-[#0d0e15] rounded-none text-left select-none font-mono">
-        <h2 className="font-sans text-2xl font-black mb-4 uppercase text-white tracking-widest leading-none">
+      <section className="border border-[#444748] p-6 md:p-14 text-center bg-[#0d0e15] rounded-none select-none font-mono">
+        <h2 className="font-sans text-lg sm:text-xl md:text-2xl font-black mb-4 uppercase text-white tracking-wide md:tracking-widest leading-snug md:leading-none break-words">
           Initiate_Contact
         </h2>
         <p className="text-[#c4c7c8] mb-8 max-w-lg mx-auto text-xs md:text-sm font-medium leading-relaxed">

@@ -41,14 +41,14 @@ export default function ServicesView({ onTabChange }: ServicesViewProps) {
   };
 
   const stackManifest = [
-    'RUST',
-    'GOLANG',
-    'TYPESCRIPT',
-    'KALI LINUX',
+    'PYTHON',
+    'LARAVEL',
     'DOCKER',
-    'UNREAL ENGINE',
-    'POSTGRESQL',
-    'KUBERNETES',
+    'MYSQL',
+    'BASH',
+    'LUA',
+    'LINUX',
+    'GITHUB',
   ];
 
   return (
@@ -129,58 +129,58 @@ export default function ServicesView({ onTabChange }: ServicesViewProps) {
             </div>
           </div>
 
-          {/* AUDITING DIVISION */}
+          {/* SECURITY RESEARCH DIVISION */}
           <div className="p-6 md:p-8 border-b md:border-b-0 md:border-r border-[#444748] hover:bg-[#1a1b22] transition-colors duration-300 group rounded-none flex flex-col text-left">
             <div className="flex items-center justify-between mb-8 md:mb-12 select-none">
               <span className="material-symbols-outlined text-4xl text-white group-hover:scale-110 transition-transform">
-                terminal
+                security
               </span>
               <span className="font-mono text-xs opacity-40 font-bold">02</span>
             </div>
             <h3 className="font-sans font-bold text-base md:text-lg text-white mb-4">
-              Cyber Audit &amp; Analysis
+              System Hardening &amp; Research
             </h3>
             <p className="font-mono text-xs md:text-sm text-[#c4c7c8] mb-8 leading-relaxed">
-              Deep-dive vulnerability assessment and penetration testing. We analyze codebases and
-              network architecture to identify critical failure points.
+              Hands-on defensive research. Windows system optimization, Linux hardening, and Android
+              security customization. Focus on practical system-level security improvements.
             </p>
             <div className="flex flex-wrap gap-2 mt-auto select-none">
               <span className="border border-[#444748] px-2 py-0.5 text-[10px] text-[#c4c7c8]">
-                Static Analysis
+                System Hardening
               </span>
               <span className="border border-[#444748] px-2 py-0.5 text-[10px] text-[#c4c7c8]">
-                CVE Discovery
+                Code Review
               </span>
               <span className="border border-[#444748] px-2 py-0.5 text-[10px] text-[#c4c7c8]">
-                Compliance
+                Best Practices
               </span>
             </div>
           </div>
 
-          {/* PPLG DEVELOPMENT */}
+          {/* BACKEND & ARCHITECTURE */}
           <div className="p-6 md:p-8 hover:bg-[#1a1b22] transition-colors duration-300 group rounded-none flex flex-col text-left">
             <div className="flex items-center justify-between mb-8 md:mb-12 select-none">
               <span className="material-symbols-outlined text-4xl text-white group-hover:scale-110 transition-transform">
-                sports_esports
+                architecture
               </span>
               <span className="font-mono text-xs opacity-40 font-bold">03</span>
             </div>
             <h3 className="font-sans font-bold text-base md:text-lg text-white mb-4">
-              Web &amp; Game Development
+              Backend Architecture &amp; Scripting
             </h3>
             <p className="font-mono text-xs md:text-sm text-[#c4c7c8] mb-8 leading-relaxed">
-              Core PPLG competencies. High-fidelity interactive experiences and scalable web
-              platforms optimized for performance and security.
+              Building scalable web applications and microservices. System scripting, automation,
+              and performance optimization with focus on clean, maintainable code.
             </p>
             <div className="flex flex-wrap gap-2 mt-auto select-none">
               <span className="border border-[#444748] px-2 py-0.5 text-[10px] text-[#c4c7c8]">
-                WebGL
+                Microservices
               </span>
               <span className="border border-[#444748] px-2 py-0.5 text-[10px] text-[#c4c7c8]">
-                Architecture
+                REST APIs
               </span>
               <span className="border border-[#444748] px-2 py-0.5 text-[10px] text-[#c4c7c8]">
-                Real-time
+                Automation
               </span>
             </div>
           </div>

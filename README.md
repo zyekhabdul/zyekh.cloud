@@ -1,4 +1,10 @@
-# SEC-STUDIO — Personal Portfolio
+# ZYEKH_ABDUL — Personal Portfolio
+
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![Node](https://img.shields.io/badge/Node-%3E%3D18-brightgreen)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript)
+![Vite](https://img.shields.io/badge/Vite-6.2-646CFF?logo=vite)
 
 Terminal-themed personal portfolio built with React, Vite and TypeScript.
 
@@ -85,7 +91,7 @@ Update these files to replace placeholders with your own data (names, links, ima
 
 ## License
 
-Add a license file if you intend to publish (e.g., `MIT`).
+MIT License © 2024 Zyekh Abdul Qadir Jailani. See [LICENSE](LICENSE) file for details.
 
 ---
 
