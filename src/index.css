@@ -65,12 +65,13 @@
 .cursor-block {
   display: inline-block;
   width: 8px;
-  height: 0.8em;
+  height: 0.75em;
   background-color: #ffffff;
   animation: blink 1s step-end infinite;
   vertical-align: baseline;
   margin-left: 4px;
   line-height: 1;
+  transform: translateY(-0.05em);
 }
 
 @keyframes infinite-scroll {
