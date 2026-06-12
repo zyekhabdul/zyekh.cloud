@@ -66,6 +66,9 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
     };
 
     loadGitHubStats();
+    // Refresh every 5 minutes
+    const interval = setInterval(loadGitHubStats, 5 * 60 * 1000);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -82,6 +85,9 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
     };
 
     loadRepositories();
+    // Refresh every 5 minutes
+    const interval = setInterval(loadRepositories, 5 * 60 * 1000);
+    return () => clearInterval(interval);
   }, []);
 
   return (

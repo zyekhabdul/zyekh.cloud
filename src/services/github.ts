@@ -1,7 +1,8 @@
-const GITHUB_USER = 'yakunzizhex';
+const GITHUB_USER = 'zyekhabdul';
+const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN || '';
 const CACHE_KEY = 'github_stats_cache';
 const REPOS_CACHE_KEY = 'github_repos_cache';
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes (will be refreshed every 5 min from component)
 
 export interface GitHubStats {
   repoCount: number;
@@ -115,6 +116,7 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
       {
         headers: {
           'Accept': 'application/vnd.github.v3+json',
+          'Authorization': `token ${GITHUB_TOKEN}`,
         },
       }
     );
@@ -138,6 +140,7 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
           {
             headers: {
               'Accept': 'application/vnd.github.v3+json',
+              'Authorization': `token ${GITHUB_TOKEN}`,
             },
           }
         );
@@ -205,6 +208,7 @@ export async function fetchRepositories(): Promise<Repository[]> {
       {
         headers: {
           'Accept': 'application/vnd.github.v3+json',
+          'Authorization': `token ${GITHUB_TOKEN}`,
         },
       }
     );
@@ -221,7 +225,7 @@ export async function fetchRepositories(): Promise<Repository[]> {
 
     // Filter and transform repos
     const transformedRepos: Repository[] = repos
-      .filter((repo: any) => !repo.fork && repo.name !== 'yakunzizhex') // Exclude forks and profile repo
+      .filter((repo: any) => !repo.fork && repo.name !== 'zyekhabdul') // Exclude forks and profile repo
       .slice(0, 12) // Show top 12
       .map((repo: any) => ({
         id: repo.id,
