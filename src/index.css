@@ -65,10 +65,10 @@
 .cursor-block {
   display: inline-block;
   width: 8px;
-  height: 1em;
+  height: 0.9em;
   background-color: #ffffff;
   animation: blink 1s step-end infinite;
-  vertical-align: middle;
+  vertical-align: text-top;
   margin-left: 4px;
 }
 
