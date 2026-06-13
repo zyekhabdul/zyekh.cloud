@@ -26,6 +26,7 @@ export default function TerminalView() {
   // Typewriter/timing configuration
   const baseCharDelay = 20; // ms per character
   const baseLinePause = 60; // ms pause after each line
+  const TYPEWRITER = false; // set false to make lines appear instantly
 
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -47,7 +48,14 @@ export default function TerminalView() {
         continue;
       }
 
-      // For output lines, simulate typewriter per-character
+      // For output lines, either typewriter per-character or appear instantly
+      if (!TYPEWRITER) {
+        setHistory((prev) => [...prev, line]);
+        // small pause to preserve ordering rhythm
+        await sleep(baseLinePause + Math.floor(Math.random() * 40));
+        continue;
+      }
+
       let current = '';
       // Add an empty line first so container reserves the node for smooth scrolling
       setHistory((prev) => [...prev, { text: '', type: line.type }] );
