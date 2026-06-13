@@ -45,17 +45,29 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
 
   useEffect(() => {
     let index = 0;
-    const interval = setInterval(() => {
+    let startupIndex = 0;
+    const pushHexInterval = setInterval(() => {
       if (index < hexDump.length) {
         const currentLine = hexDump[index];
         setLogLines((prev) => [...prev, currentLine]);
         index++;
       } else {
-        clearInterval(interval);
+        clearInterval(pushHexInterval);
+        // start pushing startup messages at the same 500ms cadence
+        const pushStartupInterval = setInterval(() => {
+          if (startupIndex < startupMsgs.length) {
+            setLogLines((prev) => [...prev, `> ${startupMsgs[startupIndex]}`]);
+            startupIndex++;
+          } else {
+            clearInterval(pushStartupInterval);
+          }
+        }, 500);
       }
-    }, 400);
+    }, 500);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(pushHexInterval);
+    };
   }, []);
 
   useEffect(() => {
@@ -187,7 +199,7 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
 
             {/* Security Level */}
             <div className="terminal-border border-[#444748] bg-[#12131a]/90 px-3 py-2 inline-block">
-              <div className="text-[9px] md:text-[10px] text-green-400 font-bold tracking-widest mb-1">
+              <div className="text-[9px] md:text-[10px] text-cyan-400 font-bold tracking-widest mb-1">
                 SEC_LVL
               </div>
               <div className="text-xs md:text-sm text-white font-bold">OMEGA</div>

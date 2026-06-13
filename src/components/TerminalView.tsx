@@ -406,7 +406,7 @@ export default function TerminalView() {
           {history.map((line, idx) => {
             let styleClass = 'text-[#c4c7c8]';
             if (line.type === 'input') styleClass = 'text-white font-bold leading-relaxed';
-            if (line.type === 'success') styleClass = 'text-green-400 font-semibold';
+            if (line.type === 'success') styleClass = 'text-cyan-400 font-semibold';
             if (line.type === 'error') styleClass = 'text-red-400 font-semibold';
             if (line.type === 'warn') styleClass = 'text-yellow-500 font-regular';
 
