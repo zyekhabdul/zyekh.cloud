@@ -181,7 +181,7 @@ export default function ContactView() {
               {/* Success validation notifier logs */}
               {formFeedback && (
                 <div className="text-zinc-400 font-mono text-xs p-3 border border-zinc-700 bg-zinc-900/40 rounded-none w-full flex items-center gap-1.5 animate-pulse">
-                  <span className="material-symbols-outlined text-green-400 text-[14px]">
+                  <span className="material-symbols-outlined text-white text-[14px]">
                     done_all
                   </span>
                   {formFeedback}
@@ -234,7 +234,7 @@ export default function ContactView() {
               <span className="font-sans font-semibold text-[10px] text-[#8e9192] block mb-2 tracking-widest uppercase">
                 AVAILABILITY
               </span>
-              <div className="font-mono text-sm text-green-400 font-bold">[OPEN_FOR_COLLAB]</div>
+              <div className="font-mono text-sm text-white font-bold">[OPEN_FOR_COLLAB]</div>
             </div>
           </div>
 
@@ -244,7 +244,7 @@ export default function ContactView() {
               <span className="font-sans font-extrabold text-[10px] uppercase text-[#8e9192] tracking-widest">
                 Technical_Signature
               </span>
-              <span className="material-symbols-outlined text-[18px] text-green-400">
+              <span className="material-symbols-outlined text-[18px] text-white">
                 verified_user
               </span>
             </div>

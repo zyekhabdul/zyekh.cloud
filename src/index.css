@@ -118,6 +118,8 @@
   }
 }
 
+
+
 .scanline {
   width: 100%;
   height: 2px;
@@ -189,7 +191,7 @@
 
 /* Support border color on hover for cards */
 .group:hover .group-hover\:border-green-600 {
-  border-color: #16a34a !important;
+  border-color: #ffffff !important;
 }
 
 .terminal-border {
@@ -198,7 +200,7 @@
 }
 
 .terminal-border.hover\:border-green-600:hover {
-  border-color: #16a34a;
+  border-color: #ffffff;
 }
 
 /* System Overview Cards */

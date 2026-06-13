@@ -22,10 +22,13 @@ export default function TerminalView() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const queueRef = useRef<TerminalLogLine[]>([]);
   const processingRef = useRef(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const atBottomRef = useRef(true);
 
   // Typewriter/timing configuration
   const baseCharDelay = 20; // ms per character
-  const baseLinePause = 60; // ms pause after each line
+  // ms pause after each line when TYPEWRITER is false — use ~3000ms per requirement
+  const baseLinePause = 3000; // ms pause after each line
   const TYPEWRITER = false; // set false to make lines appear instantly
 
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -83,9 +86,16 @@ export default function TerminalView() {
   };
 
   useEffect(() => {
-    // Keep console scrolled to the bottom
-    consoleEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // Keep console scrolled to the bottom only when user is at (or near) bottom.
+    if (atBottomRef.current) consoleEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [history]);
+
+  const handleScroll = () => {
+    const el = containerRef.current;
+    if (!el) return;
+    const threshold = 80; // px to consider "near bottom"
+    atBottomRef.current = el.scrollTop + el.clientHeight >= el.scrollHeight - threshold;
+  };
 
   useEffect(() => {
     // Focus terminal input automatically
@@ -369,9 +379,9 @@ export default function TerminalView() {
 
         {/* Matrix Rain overlays */}
         {showMatrix && (
-          <div className="absolute inset-0 bg-black/90 z-20 flex items-center justify-center text-green-500 font-bold overflow-hidden select-none">
+          <div className="absolute inset-0 bg-black/90 z-20 flex items-center justify-center text-white font-bold overflow-hidden select-none">
             <div className="text-center font-mono text-[10px] md:text-sm animate-pulse flex flex-col gap-2 px-4">
-              <span className="text-white bg-green-900 border border-green-500 px-4 py-2 font-bold">
+              <span className="text-white bg-[#0d0e15] border border-[#444748] px-4 py-2 font-bold">
                 [BUFFER_DUMPING_STARTING]
               </span>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8 tracking-wider opacity-60">
@@ -391,9 +401,9 @@ export default function TerminalView() {
         {/* Console title line header */}
         <div className="flex items-center justify-between px-4 py-2 bg-[#1a1b22] border-b border-[#444748] select-none">
           <div className="flex space-x-1.5">
-            <span className="w-2.5 h-2.5 bg-red-600 rounded-none inline-block" />
-            <span className="w-2.5 h-2.5 bg-yellow-500 rounded-none inline-block" />
-            <span className="w-2.5 h-2.5 bg-green-500 rounded-none inline-block" />
+            <span className="w-2.5 h-2.5 bg-white/80 rounded-none inline-block" />
+            <span className="w-2.5 h-2.5 bg-white/60 rounded-none inline-block" />
+            <span className="w-2.5 h-2.5 bg-white/40 rounded-none inline-block" />
           </div>
           <span className="text-[10px] md:text-xs text-[#c4c7c8]/60 uppercase font-semibold">
             ZYEKH_ABDUL://guest_user@virtualbox-tty1
@@ -402,13 +412,17 @@ export default function TerminalView() {
         </div>
 
         {/* Simulated Command prompt stream list */}
-        <div className="p-4 md:p-6 flex-grow flex flex-col gap-2.5 overflow-y-auto text-left text-xs md:text-sm select-text selection:bg-white selection:text-black">
+        <div
+          ref={containerRef}
+          onScroll={handleScroll}
+          className="p-4 md:p-6 pb-12 md:pb-16 flex-grow flex flex-col gap-2.5 overflow-y-auto text-left text-xs md:text-sm select-text selection:bg-white selection:text-black"
+        >
           {history.map((line, idx) => {
             let styleClass = 'text-[#c4c7c8]';
             if (line.type === 'input') styleClass = 'text-white font-bold leading-relaxed';
-            if (line.type === 'success') styleClass = 'text-cyan-400 font-semibold';
-            if (line.type === 'error') styleClass = 'text-red-400 font-semibold';
-            if (line.type === 'warn') styleClass = 'text-yellow-500 font-regular';
+            if (line.type === 'success') styleClass = 'text-white font-semibold';
+            if (line.type === 'error') styleClass = 'text-white font-semibold';
+            if (line.type === 'warn') styleClass = 'text-white font-regular';
 
             return (
               <div
@@ -441,7 +455,7 @@ export default function TerminalView() {
           )}
 
           {isScanning && (
-            <div className="flex items-center gap-2 text-yellow-500 font-bold animate-pulse">
+            <div className="flex items-center gap-2 text-white font-bold">
               <span>SCANNING_AND_COMPILING_LOCAL_REPOS...</span>
             </div>
           )}

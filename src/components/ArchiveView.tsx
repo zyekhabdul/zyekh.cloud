@@ -38,7 +38,7 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
         'Deep-dive research into Android persistence techniques and defensive mitigations.',
       technologies: ['PYTHON', 'ANDROID'],
       category: 'Security Research',
-      categoryColor: 'bg-red-500',
+      categoryColor: 'bg-white',
       url: 'https://github.com/yakunzizhex',
     },
     {
@@ -290,13 +290,13 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
                 />
               </div>
 
-              <h3 className="font-sans font-extrabold text-sm text-white mb-6 leading-tight min-h-10 hover:text-white group-hover:text-amber-300 transition-colors">
+              <h3 className="font-sans font-extrabold text-sm text-white mb-6 leading-tight min-h-10 hover:text-white group-hover:text-white transition-colors">
                 {cred.title}
               </h3>
 
               <div className="inline-flex items-center gap-2 text-white border-t border-[#444748] pt-3 group-hover:border-zinc-400 font-sans font-bold text-[9px] uppercase tracking-wider select-none mt-auto">
                 VIEW_CREDENTIAL{' '}
-                <span className="material-symbols-outlined text-[13px] text-green-400">
+                <span className="material-symbols-outlined text-[13px] text-white">
                   verified
                 </span>
               </div>
@@ -315,7 +315,7 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
             <span className="font-mono text-xs text-[#c4c7c8]/80 select-none">
               CLICK ANYWHERE TO CLOSE
             </span>
-            <button className="text-white hover:text-red-400 text-3xl font-bold cursor-pointer transition-colors">
+            <button className="text-white hover:text-white text-3xl font-bold cursor-pointer transition-colors">
               &times;
             </button>
           </div>

@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
-import TerminalShell from './TerminalShell';
+import React, { useState, useEffect, useRef } from 'react';
+// TerminalShell removed per request
 import { TabType } from '../types';
 import {
   fetchGitHubStats,
@@ -24,39 +24,54 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
   const [isLoadingGitHub, setIsLoadingGitHub] = useState(true);
   const [repositories, setRepositories] = useState<GitHubRepository[]>([]);
   const [isLoadingRepos, setIsLoadingRepos] = useState(true);
+  const terminalEndRef = useRef<HTMLDivElement | null>(null);
 
-  // Hex dump data to output in the terminal component
-  const hexDump = [
-    '0x00000000 45 78 65 63 75 74 69 6e 67 20 63 6f 72 65 20 62  Executing core b',
-    '0x00000010 69 6e 61 72 79 2e 2e 2e 0a 4c 6f 61 64 69 6e 67  inary....Loading',
-    '0x00000020 20 6d 6f 64 75 6c 65 73 3a 20 5b 4f 4b 5d 0a 41   modules: [OK].A',
-    '0x00000030 6e 61 6c 79 7a 69 6e 67 20 74 72 61 66 66 69 63  nalyzing traffic',
-    '0x00000040 20 70 61 74 74 65 72 6e 73 2e 2e 2e 20 5b 57 41  patterns... [WA',
-    '0x00000050 52 4e 49 4e 47 5d 0a 44 65 63 72 79 70 74 69 6f  RNING].Decryptio',
-    '0x00000060 6e 20 6b 65 79 20 67 65 6e 65 72 61 74 65 64 2e  n key generated.',
+  // System scan and diagnostics output for terminal
+  const systemScan = [
+    '$ ./security_audit.sh',
+    'Initializing system diagnostics...',
+    '[✓] Kernel: Linux 5.15.0-generic #1 SMP',
+    '[✓] Architecture: x86_64 | Uptime: 247d 14h 32m',
+    '[✓] Memory: 32GB | Available: 28.6GB (89%)',
+    '[✓] Core binaries verified',
+    '[✓] SSH configuration secure',
+    '[✓] Firewall rules active',
+    '[✓] Port 22/ssh - OpenSSH 8.2p1',
+    '[✓] Port 80/http - nginx 1.18.0',
+    '[✓] Port 443/https - active',
+    '[✓] No suspicious connections',
+    '[✓] DNS queries normal',
+    '[✓] Intrusion detection: CLEAN',
   ];
 
   const startupMsgs = [
-    'CONNECTING TO SECURE NODE...',
-    'BYPASSING FIREWALL... [SUCCESS]',
-    'ESTABLISHING UPLINK...',
-    'AWAITING_COMMAND',
+    'Initializing secure connection...',
+    'Loading cryptographic modules... [OK]',
+    'Authenticating credentials... [OK]',
+    'Ready for commands.',
   ];
+
+  // NOTE: auto-scroll intentionally disabled to avoid forcing viewport jump on reload.
+  // If needed, re-enable only when user is at the bottom using a scroll handler.
 
   useEffect(() => {
     let index = 0;
     let startupIndex = 0;
-    const pushHexInterval = setInterval(() => {
-      if (index < hexDump.length) {
-        const currentLine = hexDump[index];
+    let pushScanInterval: any = null;
+    let pushStartupInterval: any = null;
+
+    // Increase timing between lines to 500ms (user requested 0.5s)
+    pushScanInterval = setInterval(() => {
+      if (index < systemScan.length) {
+        const currentLine = systemScan[index];
         setLogLines((prev) => [...prev, currentLine]);
         index++;
       } else {
-        clearInterval(pushHexInterval);
-        // start pushing startup messages at the same 500ms cadence
-        const pushStartupInterval = setInterval(() => {
+        clearInterval(pushScanInterval);
+        // start pushing startup messages after scan completes
+        pushStartupInterval = setInterval(() => {
           if (startupIndex < startupMsgs.length) {
-            setLogLines((prev) => [...prev, `> ${startupMsgs[startupIndex]}`]);
+            setLogLines((prev) => [...prev, startupMsgs[startupIndex]]);
             startupIndex++;
           } else {
             clearInterval(pushStartupInterval);
@@ -66,7 +81,8 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
     }, 500);
 
     return () => {
-      clearInterval(pushHexInterval);
+      if (pushScanInterval) clearInterval(pushScanInterval);
+      if (pushStartupInterval) clearInterval(pushStartupInterval);
     };
   }, []);
 
@@ -109,7 +125,7 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
   }, []);
 
   return (
-    <div className="flex flex-col gap-12 font-mono max-w-[1280px] mx-auto px-4 md:px-6 relative py-8 animate-fade-in text-[#e3e1ec] overflow-hidden">
+    <div className="flex flex-col gap-12 font-mono max-w-[1280px] mx-auto px-4 md:px-6 relative py-8 animate-fade-in text-[#e3e1ec] overflow-visible">
       {/* Hero Grid Section */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-start relative min-h-[400px] md:min-h-[500px]">
         {/* Background micro grid pattern absolute helper */}
@@ -126,7 +142,7 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
           <div className="inline-flex items-center gap-2 border border-[#8e9192] px-3 py-1 self-start font-sans font-semibold text-xs text-[#c4c7c8] bg-[#12131a] select-none">
             <span
               className={`w-2 h-2 rounded-none ${
-                statusOnline ? 'bg-white animate-pulse' : 'bg-red-500'
+                statusOnline ? 'bg-white animate-pulse' : 'bg-white/30'
               }`}
             />
             <span>SYSTEM_STATUS: {statusOnline ? 'ONLINE' : 'OFFLINE'}</span>
@@ -161,7 +177,7 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
         </div>
 
         {/* Diagnostic Simulator Column */}
-        <div className="no-animations lg:col-span-5 h-[320px] sm:h-[380px] lg:h-[450px] relative terminal-border bg-[#12131a] overflow-hidden flex flex-col">
+        <div className="no-animations lg:col-span-5 h-[51vh] sm:h-[66vh] lg:h-[65vh] relative terminal-border bg-[#12131a] overflow-hidden flex flex-col">
           {/* Scanning lines */}
           <div className="scanline" />
           <div
@@ -174,20 +190,38 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
           />
 
           {/* Active Hud overlay tag labels */}
-          <div className="absolute top-4 left-4 z-20 font-mono text-[9px] md:text-xs text-white bg-[#12131a] border border-white px-2 md:px-3 py-1 uppercase shadow-[0_0_8px_rgba(255,255,255,0.2)] flex items-center gap-1 md:gap-1.5 font-bold whitespace-nowrap">
+          <div className="absolute top-4 left-4 md:top-4 z-40 font-mono text-[9px] md:text-xs text-white bg-[#12131a] border border-white px-2 md:px-3 py-2 sm:py-3 md:py-4 lg:py-3 uppercase shadow-[0_0_8px_rgba(255,255,255,0.2)] flex items-center gap-1 md:gap-1.5 font-bold whitespace-nowrap">
             <span className="material-symbols-outlined text-xs md:text-sm">radar</span>
             <span className="hidden sm:inline">NETWORK_TAP_ACTIVE</span>
             <span className="sm:hidden">NET_TAP</span>
           </div>
 
-          {/* System Status Indicators - Only on desktop */}
-          <div className="hidden lg:flex absolute bottom-4 right-4 z-20 font-mono text-white text-right space-y-3 flex-col items-end">
+          {/* Terminal Log Display - Monochrome Professional */}
+          <div className="absolute inset-0 flex flex-col p-4 pt-16 pb-0 sm:p-6 sm:pt-20 sm:pb-0 lg:pt-18 lg:pb-0 overflow-hidden bg-[#0d0e15]">
+            <div className="flex-1 overflow-y-auto pb-0 font-mono text-[9px] sm:text-xs lg:text-xs text-[#c4c7c8] leading-relaxed space-y-0">
+              {logLines.map((line, idx) => (
+                <div key={idx} className="text-[#c4c7c8] font-mono whitespace-pre-wrap break-words overflow-hidden" style={{
+                  animation: `terminal-line-fade 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards`,
+                  animationDelay: `${idx * 500}ms`
+                }}>
+                  {line}
+                </div>
+              ))}
+              {logLines.length === 0 && (
+                <div className="text-[#8e9192] animate-pulse font-light">$ connecting...</div>
+              )}
+              <div ref={terminalEndRef} className="h-0" />
+            </div>
+          </div>
+
+          {/* System Status Indicators - Floating boxes inside terminal */}
+          <div className="hidden lg:flex absolute top-4 right-4 z-40 font-mono text-white text-right space-y-2 flex-col items-end">
             {/* Status Badge */}
-            <div className="terminal-border border-[#444748] bg-[#12131a]/90 px-3 py-2 inline-block">
+            <div className="terminal-border border-[#444748] bg-[#12131a]/95 px-3 py-2 inline-block shadow-lg">
               <div className="text-[9px] md:text-[10px] text-[#8e9192] font-bold tracking-widest mb-2">
                 LOCATION
               </div>
-              <div className="text-[10px] md:text-xs leading-relaxed space-y-1">
+              <div className="text-[10px] md:text-xs leading-relaxed space-y-0.5">
                 <div>
                   LAT: <span className="text-white font-mono">6.2088°S</span>
                 </div>
@@ -198,31 +232,12 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
             </div>
 
             {/* Security Level */}
-            <div className="terminal-border border-[#444748] bg-[#12131a]/90 px-3 py-2 inline-block">
-              <div className="text-[9px] md:text-[10px] text-cyan-400 font-bold tracking-widest mb-1">
+            <div className="terminal-border border-[#444748] bg-[#12131a]/95 px-3 py-2 inline-block shadow-lg">
+              <div className="text-[9px] md:text-[10px] text-white font-bold tracking-widest mb-1">
                 SEC_LVL
               </div>
               <div className="text-xs md:text-sm text-white font-bold">OMEGA</div>
             </div>
-          </div>
-
-          <div className="absolute inset-0">
-            {/* Build terminal lines: header + hex dump + startup messages */}
-            {(() => {
-              const lines = [] as any[];
-              lines.push({ text: '[SYSTEM.SCAN.INIT] ... ACTIVE', type: 'success' });
-              lines.push(...logLines.map((l) => ({ text: l, type: 'output' })));
-              if (logLines.length === hexDump.length) {
-                lines.push(...startupMsgs.map((m) => ({ text: `> ${m}`, type: 'success' })));
-              }
-              return (
-                <TerminalShell
-                  lines={lines}
-                  className="absolute inset-0 bg-transparent"
-                  height="100%"
-                />
-              );
-            })()}
           </div>
         </div>
       </section>
@@ -244,7 +259,7 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
 
         {/* Security Level */}
         <div className="terminal-border border-[#444748] bg-[#12131a] px-4 py-3 flex-1">
-          <div className="text-[9px] text-green-400 font-bold tracking-widest mb-2">SEC_LVL</div>
+          <div className="text-[9px] text-white font-bold tracking-widest mb-2">SEC_LVL</div>
           <div className="text-sm text-white font-bold">OMEGA</div>
         </div>
       </div>
@@ -312,7 +327,7 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
             <div className="text-[#c4c7c8] font-sans font-semibold text-xs uppercase tracking-wider">
               [SECURITY_FOCUS]
             </div>
-            <div className="font-sans text-3xl font-black text-green-400">
+            <div className="font-sans text-3xl font-black text-white">
               {isLoadingGitHub ? <span className="inline-block animate-pulse">●●●</span> : 'ACTIVE'}
             </div>
             <div className="font-mono text-xs text-[#c4c7c8] border-t border-[#444748] pt-2 mt-auto">
@@ -361,7 +376,7 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
               >
                 <div className="p-6 flex-grow flex flex-col gap-4 text-left min-w-0">
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
-                    <h3 className="font-sans font-bold text-sm md:text-base text-white hover:text-amber-300 transition-colors line-clamp-2 break-words">
+                    <h3 className="font-sans font-bold text-sm md:text-base text-white hover:text-white transition-colors line-clamp-2 break-words">
                       {repo.name.replace(/-/g, '_').toUpperCase()}
                     </h3>
                     <span className="border border-[#8e9192] px-2 py-0.5 text-[10px] text-[#c4c7c8] flex-shrink-0 whitespace-nowrap">

@@ -183,14 +183,14 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
               {capabilities.map((tech) => (
                 <li key={tech.name} className="group cursor-default">
                   <div className="flex justify-between items-center mb-1.5 gap-2">
-                    <span className="font-sans font-extrabold text-xs md:text-sm tracking-wide text-white group-hover:text-amber-300 transition-colors break-words">
+                    <span className="font-sans font-extrabold text-xs md:text-sm tracking-wide text-white group-hover:text-white transition-colors break-words">
                       {tech.name}
                     </span>
                     <span className="text-xs text-[#8e9192] flex-shrink-0">[ {tech.value}% ]</span>
                   </div>
                   <div className="h-1 bg-[#444748] w-full rounded-none">
                     <div
-                      className="h-full bg-white transition-all duration-500 rounded-none group-hover:bg-amber-300"
+                      className="h-full bg-white transition-all duration-500 rounded-none group-hover:bg-white"
                       style={{ width: `${tech.value}%` }}
                     />
                   </div>
@@ -285,7 +285,7 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:underline text-white hover:text-amber-300 transition-colors"
+                      className="hover:underline text-white hover:text-white transition-colors"
                     >
                       {item.institution}
                     </a>
@@ -383,7 +383,7 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
             <span className="font-mono text-xs text-[#c4c7c8]/80 select-none">
               CLICK ANYWHERE TO CLOSE
             </span>
-            <button className="text-white hover:text-amber-300 text-3xl font-bold cursor-pointer transition-colors">
+            <button className="text-white hover:text-white text-3xl font-bold cursor-pointer transition-colors">
               &times;
             </button>
           </div>

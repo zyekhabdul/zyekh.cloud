@@ -161,7 +161,7 @@ export default function ServicesView({ onTabChange }: ServicesViewProps) {
           {/* Phase 1 */}
           <div className="bg-[#12131a] border border-[#444748] p-6 hover:border-white hover:bg-[#1a1b22] transition-all duration-300 rounded-none flex flex-col text-left group">
             <div className="flex items-center justify-between mb-4">
-              <span className="material-symbols-outlined text-3xl text-white group-hover:text-amber-300 transition-colors">
+              <span className="material-symbols-outlined text-3xl text-white group-hover:text-white transition-colors">
                 radar
               </span>
               <div className="w-8 h-8 rounded-full border border-[#444748] flex items-center justify-center text-xs font-bold text-white group-hover:border-white group-hover:bg-white group-hover:text-[#12131a] transition-all">
@@ -180,7 +180,7 @@ export default function ServicesView({ onTabChange }: ServicesViewProps) {
           {/* Phase 2 */}
           <div className="bg-[#12131a] border border-[#444748] p-6 hover:border-white hover:bg-[#1a1b22] transition-all duration-300 rounded-none flex flex-col text-left group">
             <div className="flex items-center justify-between mb-4">
-              <span className="material-symbols-outlined text-3xl text-white group-hover:text-amber-300 transition-colors">
+              <span className="material-symbols-outlined text-3xl text-white group-hover:text-white transition-colors">
                 analytics
               </span>
               <div className="w-8 h-8 rounded-full border border-[#444748] flex items-center justify-center text-xs font-bold text-white group-hover:border-white group-hover:bg-white group-hover:text-[#12131a] transition-all">
@@ -197,7 +197,7 @@ export default function ServicesView({ onTabChange }: ServicesViewProps) {
           {/* Phase 3 */}
           <div className="bg-[#12131a] border border-[#444748] p-6 hover:border-white hover:bg-[#1a1b22] transition-all duration-300 rounded-none flex flex-col text-left group">
             <div className="flex items-center justify-between mb-4">
-              <span className="material-symbols-outlined text-3xl text-white group-hover:text-amber-300 transition-colors">
+              <span className="material-symbols-outlined text-3xl text-white group-hover:text-white transition-colors">
                 code
               </span>
               <div className="w-8 h-8 rounded-full border border-[#444748] flex items-center justify-center text-xs font-bold text-white group-hover:border-white group-hover:bg-white group-hover:text-[#12131a] transition-all">
@@ -214,7 +214,7 @@ export default function ServicesView({ onTabChange }: ServicesViewProps) {
           {/* Phase 4 */}
           <div className="bg-[#12131a] border border-[#444748] p-6 hover:border-white hover:bg-[#1a1b22] transition-all duration-300 rounded-none flex flex-col text-left group">
             <div className="flex items-center justify-between mb-4">
-              <span className="material-symbols-outlined text-3xl text-white group-hover:text-amber-300 transition-colors">
+              <span className="material-symbols-outlined text-3xl text-white group-hover:text-white transition-colors">
                 lock
               </span>
               <div className="w-8 h-8 rounded-full border border-[#444748] flex items-center justify-center text-xs font-bold text-white group-hover:border-white group-hover:bg-white group-hover:text-[#12131a] transition-all">
