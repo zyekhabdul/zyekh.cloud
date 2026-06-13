@@ -5,7 +5,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { TabType } from '../types';
-import { fetchGitHubStats, GitHubStats, fetchRepositories, Repository } from '../services/github';
+import {
+  fetchGitHubStats,
+  GitHubStats,
+  fetchRepositories,
+  GitHubRepository,
+} from '../services/github';
 
 interface HomeViewProps {
   onTabChange: (tab: TabType) => void;
@@ -16,7 +21,7 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
   const [statusOnline] = useState(true);
   const [gitHubStats, setGitHubStats] = useState<GitHubStats | null>(null);
   const [isLoadingGitHub, setIsLoadingGitHub] = useState(true);
-  const [repositories, setRepositories] = useState<Repository[]>([]);
+  const [repositories, setRepositories] = useState<GitHubRepository[]>([]);
   const [isLoadingRepos, setIsLoadingRepos] = useState(true);
 
   // Hex dump data to output in the terminal component
@@ -170,8 +175,12 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
                 LOCATION
               </div>
               <div className="text-[10px] md:text-xs leading-relaxed space-y-1">
-                <div>LAT: <span className="text-white font-mono">6.2088°S</span></div>
-                <div>LON: <span className="text-white font-mono">106.8456°E</span></div>
+                <div>
+                  LAT: <span className="text-white font-mono">6.2088°S</span>
+                </div>
+                <div>
+                  LON: <span className="text-white font-mono">106.8456°E</span>
+                </div>
               </div>
             </div>
 
@@ -180,9 +189,7 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
               <div className="text-[9px] md:text-[10px] text-green-400 font-bold tracking-widest mb-1">
                 SEC_LVL
               </div>
-              <div className="text-xs md:text-sm text-white font-bold">
-                OMEGA
-              </div>
+              <div className="text-xs md:text-sm text-white font-bold">OMEGA</div>
             </div>
           </div>
 
@@ -194,11 +201,13 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
             {logLines.map((line, idx) => {
               if (!line) return null;
               return (
-                <div key={idx} className="terminal-line whitespace-nowrap truncate md:truncate-none" style={{ animationDelay: `${(idx + 1) * 0.05}s` }}>
-                  <span className="text-[#8e9192]">{line.slice(0, 10)}</span>
-                  {' '}
-                  <span className="text-white font-medium">{line.slice(10, 58)}</span>
-                  {' '}
+                <div
+                  key={idx}
+                  className="terminal-line whitespace-nowrap truncate md:truncate-none"
+                  style={{ animationDelay: `${(idx + 1) * 0.05}s` }}
+                >
+                  <span className="text-[#8e9192]">{line.slice(0, 10)}</span>{' '}
+                  <span className="text-white font-medium">{line.slice(10, 58)}</span>{' '}
                   <span className="text-[#c4c7c8]/40">{line.slice(58)}</span>
                 </div>
               );
@@ -211,7 +220,11 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
                   <div
                     key={i}
                     className="leading-5 terminal-startup"
-                    style={{ animationDelay: `${(hexDump.length + 2 + i) * 0.05}s, ${(hexDump.length + 2 + i) * 0.05 + 0.3}s` }}
+                    style={{
+                      animationDelay: `${(hexDump.length + 2 + i) * 0.05}s, ${
+                        (hexDump.length + 2 + i) * 0.05 + 0.3
+                      }s`,
+                    }}
                   >
                     &gt; {msg}
                     {i === startupMsgs.length - 1 && <span className="cursor-block" />}
@@ -227,23 +240,21 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
       <div className="lg:hidden flex flex-col sm:flex-row gap-4 font-mono text-white">
         {/* Status Badge */}
         <div className="terminal-border border-[#444748] bg-[#12131a] px-4 py-3 flex-1">
-          <div className="text-[9px] text-[#8e9192] font-bold tracking-widest mb-2">
-            LOCATION
-          </div>
+          <div className="text-[9px] text-[#8e9192] font-bold tracking-widest mb-2">LOCATION</div>
           <div className="text-xs leading-relaxed space-y-1">
-            <div>LAT: <span className="text-white font-mono">6.2088°S</span></div>
-            <div>LON: <span className="text-white font-mono">106.8456°E</span></div>
+            <div>
+              LAT: <span className="text-white font-mono">6.2088°S</span>
+            </div>
+            <div>
+              LON: <span className="text-white font-mono">106.8456°E</span>
+            </div>
           </div>
         </div>
 
         {/* Security Level */}
         <div className="terminal-border border-[#444748] bg-[#12131a] px-4 py-3 flex-1">
-          <div className="text-[9px] text-green-400 font-bold tracking-widest mb-2">
-            SEC_LVL
-          </div>
-          <div className="text-sm text-white font-bold">
-            OMEGA
-          </div>
+          <div className="text-[9px] text-green-400 font-bold tracking-widest mb-2">SEC_LVL</div>
+          <div className="text-sm text-white font-bold">OMEGA</div>
         </div>
       </div>
 
@@ -264,11 +275,7 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
               [UPTIME]
             </div>
             <div className="font-sans text-3xl font-black text-white">
-              {isLoadingGitHub ? (
-                <span className="inline-block animate-pulse">●●●</span>
-              ) : (
-                '99.99%'
-              )}
+              {isLoadingGitHub ? <span className="inline-block animate-pulse">●●●</span> : '99.99%'}
             </div>
             <div className="font-mono text-xs text-[#c4c7c8] border-t border-[#444748] pt-2 mt-auto">
               Node Stability
@@ -315,11 +322,7 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
               [SECURITY_FOCUS]
             </div>
             <div className="font-sans text-3xl font-black text-green-400">
-              {isLoadingGitHub ? (
-                <span className="inline-block animate-pulse">●●●</span>
-              ) : (
-                'ACTIVE'
-              )}
+              {isLoadingGitHub ? <span className="inline-block animate-pulse">●●●</span> : 'ACTIVE'}
             </div>
             <div className="font-mono text-xs text-[#c4c7c8] border-t border-[#444748] pt-2 mt-auto">
               Defensive Research Active
@@ -332,7 +335,9 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
       <section className="flex flex-col gap-6 mt-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-[#444748] pb-4 gap-4">
           <div className="flex items-center gap-4 min-w-0">
-            <span className="material-symbols-outlined text-white text-3xl flex-shrink-0">folder_data</span>
+            <span className="material-symbols-outlined text-white text-3xl flex-shrink-0">
+              folder_data
+            </span>
             <h2 className="font-sans text-xl md:text-2xl font-black text-white uppercase tracking-tight">
               CORE_REPOSITORIES
             </h2>

@@ -76,59 +76,57 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
 
   const credentials = [
     {
-      tag: 'Internship',
-      title: 'Sertifikat Praktek Kerja - PT. Intitama',
-      img: 'https://i.postimg.cc/fTF8WpWC/Sertifikat-Magang-Zyekh-Abdul-Qadir-Jailani.jpg',
-    },
-    {
       tag: 'Webinar',
       title: 'Webinar Episode 2 - Skillage Academy',
-      img: 'https://i.postimg.cc/QxPfNwN4/Sertifikat-Webinar-Episode-2-Zyekh-Abdul-Qadir-Jailani.png',
+      img: '/certificates/cert-webinar.png',
     },
     {
       tag: 'Competency',
       title: 'MS Word Operation - Skillage',
-      img: 'https://i.postimg.cc/ncMdJpx2/Sertifikat-Kompetensi-Operasi-MS-Word-Zyekh-Abdul-page-0001.jpg',
+      img: '/certificates/cert-msword.jpg',
     },
     {
       tag: 'Project',
       title: 'Proja Dutif - PT. Intitama',
-      img: 'https://i.postimg.cc/xT76jhjs/Sertifikat-Proja-Dutif-PT-Intitama-Berkah-Nusantara.jpg',
+      img: '/certificates/cert-projadutif-sesi-1.jpg',
     },
     {
       tag: 'Competency',
       title: 'Web Browser Operation - Skillage',
-      img: 'https://i.postimg.cc/BQth043N/Sertifikat-Kompetensi-Operasi-Web-Browser-Zyekh-Abdul-page-0001.jpg',
+      img: '/certificates/cert-browser.jpg',
     },
     {
       tag: 'Competency',
       title: 'Windows Beginner - Skillage',
-      img: 'https://i.postimg.cc/yYWfHsK2/Sertifikat-Kompetensi-Operasi-Windows-Beginner-Zyekh-Abdul-page-0001.jpg',
+      img: '/certificates/cert-skillage-window.jpg',
     },
     {
       tag: 'Habituation',
       title: 'DUDI Habituasi (Front) - Skillage',
-      img: 'https://i.postimg.cc/jdC8btTQ/Sertifikat-Habituasi-DUDI-bagian-depan-Zyekh-Abdul.png',
+      img: '/certificates/cert-habituasi-front.png',
     },
     {
       tag: 'Habituation',
       title: 'DUDI Habituasi (Back) - Skillage',
-      img: 'https://i.postimg.cc/ncMdJpxv/Sertifikat-Habituasi-DUDI-bagian-belakang-Zyekh-Abdul.png',
+      img: '/certificates/cert-habituasi-back.png',
     },
   ];
 
   return (
     <div className="flex flex-col gap-12 font-mono max-w-[1280px] mx-auto px-4 md:px-6 py-8 animate-fade-in text-[#e3e1ec]">
       {/* Header index tags */}
-      <section className="border-l-4 border-white pl-4 md:pl-6 text-left">
+      <section className="text-left">
         <div className="flex items-center gap-4 mb-4 select-none">
           <span className="px-2 py-0.5 border border-[#444748] text-xs font-semibold text-[#c4c7c8]">
             [ REPOSITORY_INDEX ]
           </span>
           <span className="text-[#8e9192] text-xs">v4.1.0</span>
         </div>
-        <h1 className="font-sans text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white uppercase tracking-normal md:tracking-tight mb-4">
-          PROJECT_ARCHIVE
+        <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-white uppercase leading-none">
+          Project
+          <br />
+          Archive
+          <span className="cursor-block" />
         </h1>
         <p className="font-mono text-sm md:text-base text-[#c4c7c8] max-w-2xl leading-relaxed">
           Index of technical repositories, security audits, and software prototypes. Curated
@@ -281,6 +279,15 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
             >
               <div className="text-[#8e9192] font-mono text-[9px] mb-2 uppercase tracking-widest select-none">
                 {cred.tag}
+              </div>
+
+              <div className="w-full border border-[#444748] overflow-hidden mb-3 aspect-square bg-black select-none">
+                <img
+                  src={cred.img}
+                  alt={cred.title}
+                  className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-300"
+                  referrerPolicy="no-referrer"
+                />
               </div>
 
               <h3 className="font-sans font-extrabold text-sm text-white mb-6 leading-tight min-h-10 hover:text-white group-hover:text-amber-300 transition-colors">

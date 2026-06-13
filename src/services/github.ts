@@ -13,7 +13,7 @@ export interface GitHubStats {
   repoHealth?: number; // 0-100 health score
 }
 
-export interface Repository {
+export interface GitHubRepository {
   id: number;
   name: string;
   url: string;
@@ -30,7 +30,7 @@ interface CachedData {
 }
 
 interface CachedRepos {
-  data: Repository[];
+  data: GitHubRepository[];
   timestamp: number;
 }
 
@@ -68,7 +68,7 @@ function setCachedData(data: GitHubStats): void {
   }
 }
 
-function getCachedRepos(): Repository[] | null {
+function getCachedRepos(): GitHubRepository[] | null {
   try {
     const cached = localStorage.getItem(REPOS_CACHE_KEY);
     if (!cached) return null;
@@ -88,7 +88,7 @@ function getCachedRepos(): Repository[] | null {
   }
 }
 
-function setCachedRepos(data: Repository[]): void {
+function setCachedRepos(data: GitHubRepository[]): void {
   try {
     localStorage.setItem(
       REPOS_CACHE_KEY,
@@ -115,8 +115,8 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
       `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`,
       {
         headers: {
-          'Accept': 'application/vnd.github.v3+json',
-          'Authorization': `token ${GITHUB_TOKEN}`,
+          Accept: 'application/vnd.github.v3+json',
+          Authorization: `token ${GITHUB_TOKEN}`,
         },
       }
     );
@@ -139,8 +139,8 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
           `https://api.github.com/repos/${GITHUB_USER}/${repo.name}/commits?per_page=1`,
           {
             headers: {
-              'Accept': 'application/vnd.github.v3+json',
-              'Authorization': `token ${GITHUB_TOKEN}`,
+              Accept: 'application/vnd.github.v3+json',
+              Authorization: `token ${GITHUB_TOKEN}`,
             },
           }
         );
@@ -195,7 +195,7 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
   }
 }
 
-export async function fetchRepositories(): Promise<Repository[]> {
+export async function fetchRepositories(): Promise<GitHubRepository[]> {
   // Check cache first
   const cached = getCachedRepos();
   if (cached) {
@@ -207,8 +207,8 @@ export async function fetchRepositories(): Promise<Repository[]> {
       `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=stars&direction=desc`,
       {
         headers: {
-          'Accept': 'application/vnd.github.v3+json',
-          'Authorization': `token ${GITHUB_TOKEN}`,
+          Accept: 'application/vnd.github.v3+json',
+          Authorization: `token ${GITHUB_TOKEN}`,
         },
       }
     );
@@ -224,7 +224,7 @@ export async function fetchRepositories(): Promise<Repository[]> {
     }
 
     // Filter and transform repos
-    const transformedRepos: Repository[] = repos
+    const transformedRepos: GitHubRepository[] = repos
       .filter((repo: any) => !repo.fork && repo.name !== 'zyekhabdul') // Exclude forks and profile repo
       .slice(0, 12) // Show top 12
       .map((repo: any) => ({
@@ -248,7 +248,7 @@ export async function fetchRepositories(): Promise<Repository[]> {
     console.error('Failed to fetch repositories:', error);
 
     // Return fallback data
-    const fallbackRepos: Repository[] = [
+    const fallbackRepos: GitHubRepository[] = [
       {
         id: 1,
         name: 'porto-sec-studio',

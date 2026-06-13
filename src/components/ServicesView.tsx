@@ -11,16 +11,7 @@ interface ServicesViewProps {
 }
 
 export default function ServicesView({ onTabChange }: ServicesViewProps) {
-  const stackManifest = [
-    'PYTHON',
-    'LARAVEL',
-    'DOCKER',
-    'MYSQL',
-    'BASH',
-    'LUA',
-    'LINUX',
-    'GITHUB',
-  ];
+  const stackManifest = ['PYTHON', 'LARAVEL', 'DOCKER', 'MYSQL', 'BASH', 'LUA', 'LINUX', 'GITHUB'];
 
   return (
     <div className="flex flex-col gap-12 font-mono max-w-[1280px] mx-auto px-4 md:px-6 py-8 animate-fade-in text-[#e3e1ec]">
@@ -196,12 +187,10 @@ export default function ServicesView({ onTabChange }: ServicesViewProps) {
                 2
               </div>
             </div>
-            <h4 className="font-sans font-bold text-sm text-white mb-3">
-              Technical Planning
-            </h4>
+            <h4 className="font-sans font-bold text-sm text-white mb-3">Technical Planning</h4>
             <p className="font-mono text-xs text-[#c4c7c8] leading-relaxed">
-              Defining system architecture and workflows to maximize performance and minimize
-              future technical debt.
+              Defining system architecture and workflows to maximize performance and minimize future
+              technical debt.
             </p>
           </div>
 
@@ -215,9 +204,7 @@ export default function ServicesView({ onTabChange }: ServicesViewProps) {
                 3
               </div>
             </div>
-            <h4 className="font-sans font-bold text-sm text-white mb-3">
-              Agile Implementation
-            </h4>
+            <h4 className="font-sans font-bold text-sm text-white mb-3">Agile Implementation</h4>
             <p className="font-mono text-xs text-[#c4c7c8] leading-relaxed">
               Rapid, iterative development focusing on functional excellence and robust codebase
               integrity.

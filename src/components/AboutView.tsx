@@ -48,52 +48,46 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
 
   const certifications = [
     {
-      id: 'CERT_01',
-      type: 'INTERNSHIP',
-      title: 'Sertifikat Praktek Kerja - PT. Intitama',
-      img: 'src/assets/images/certificates/Sertifikat-Magang-Zyekh-Abdul-Qadir-Jailani.jpg',
-    },
-    {
       id: 'CERT_02',
       type: 'WEBINAR_HOST',
       title: 'Webinar Episode 2 - Skillage Academy',
-      img: 'src/assets/images/certificates/Sertifikat-Webinar-Skill-Academy-Zyekh-Abdul-Qadir-Jailani.jpg',
+      img: '/certificates/cert-webinar.png',
     },
     {
       id: 'CERT_03',
       type: 'MS_WORD_COMP',
       title: 'MS Word Operation - Skillage',
-      img: 'src/assets/images/certificates/Sertifikat-Kompetensi-Operasi-MS-Word-Zyekh-Abdul-page-0001.jpg',
+      img: '/certificates/cert-msword.jpg',
     },
     {
       id: 'CERT_04',
       type: 'PROJA_DUTIF',
       title: 'Proja Dutif - PT. Intitama',
-      img: 'src/assets/images/certificates/Sertifikat-Proja-Dutif-PT-Intitama-Berkah-Nusantara.jpg',
+      img: '/certificates/cert-projadutif-sesi-1.jpg',
     },
     {
       id: 'CERT_05',
       type: 'WEB_BROWSER',
       title: 'Web Browser Operation - Skillage',
-      img: 'src/assets/images/certificates/Sertifikat-Kompetensi-Operasi-Web-Browser-Zyekh-Abdul-page-0001.jpg',
+      img: '/certificates/cert-browser.jpg',
     },
     {
       id: 'CERT_06',
       type: 'WIN_BEGINNER',
       title: 'Windows Beginner - Skillage',
-      img: 'src/assets/images/certificates/Sertifikat-Kompetensi-Operasi-Windows-Beginner-Zyekh-Abdul-page-0001.jpg',
+      img: '/certificates/cert-skillage-window.jpg',
     },
     {
       id: 'CERT_07',
       type: 'HABITUASI_F',
       title: 'DUDI Habituasi (Front) - Skillage',
-      img: 'src/assets/images/certificates/Sertifikat-Habituasi-DUDI-bagian-depan-Zyekh-Abdul.png',
+      img: '/certificates/cert-habituasi-front.png',
     },
     {
       id: 'CERT_08',
       type: 'HABITUASI_B',
       title: 'DUDI Habituasi (Back) - Skillage',
-      img: 'src/assets/images/certificates/Sertifikat-Habituasi-DUDI-bagian-belakang-Zyekh-Abdul.png',
+      img: '/certificates/cert-habituasi-back.png',
     },
   ];
 
@@ -124,13 +118,14 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
             Developer &amp;
             <br />
             Security Enthusiast
-            <span className="cursor-block" />
+            <span className="cursor-blink" />
           </h1>
 
           <p className="font-mono text-sm md:text-base text-[#c4c7c8] leading-relaxed">
             SMK software development student with deep interest in security research. Hands-on
             experience with Windows hardening, Linux system administration, and Android custom ROM
-            development. Building secure, scalable web applications with focus on defensive practices.
+            development. Building secure, scalable web applications with focus on defensive
+            practices.
           </p>
         </div>
 
@@ -212,7 +207,9 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
             <div className="space-y-4">
               <div className="group p-4 border border-[#444748] invert-on-hover transition-all duration-0 rounded-none cursor-default">
                 <div className="flex items-start gap-3 mb-2 min-w-0">
-                  <span className="material-symbols-outlined text-lg md:text-xl flex-shrink-0">terminal</span>
+                  <span className="material-symbols-outlined text-lg md:text-xl flex-shrink-0">
+                    terminal
+                  </span>
                   <h3 className="font-sans font-bold text-xs md:text-sm tracking-wide text-white group-hover:text-[#12131a] break-words min-w-0">
                     REMOTE_AGENT_RESEARCH
                   </h3>
@@ -225,7 +222,9 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
 
               <div className="group p-4 border border-[#444748] invert-on-hover transition-all duration-0 rounded-none cursor-default">
                 <div className="flex items-start gap-3 mb-2 min-w-0">
-                  <span className="material-symbols-outlined text-lg md:text-xl font-light flex-shrink-0">extension</span>
+                  <span className="material-symbols-outlined text-lg md:text-xl font-light flex-shrink-0">
+                    extension
+                  </span>
                   <h3 className="font-sans font-bold text-xs md:text-sm tracking-wide text-white group-hover:text-[#12131a] break-words min-w-0">
                     GAME_PATCHING
                   </h3>
