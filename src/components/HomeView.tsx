@@ -148,7 +148,7 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
         </div>
 
         {/* Diagnostic Simulator Column */}
-        <div className="lg:col-span-5 h-[320px] sm:h-[380px] lg:h-[450px] relative terminal-border bg-[#12131a] overflow-hidden flex flex-col">
+        <div className="no-animations lg:col-span-5 h-[320px] sm:h-[380px] lg:h-[450px] relative terminal-border bg-[#12131a] overflow-hidden flex flex-col">
           {/* Scanning lines */}
           <div className="scanline" />
           <div
