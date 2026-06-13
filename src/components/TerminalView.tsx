@@ -20,6 +20,59 @@ export default function TerminalView() {
 
   const consoleEndRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const queueRef = useRef<TerminalLogLine[]>([]);
+  const processingRef = useRef(false);
+
+  // Typewriter/timing configuration
+  const baseCharDelay = 20; // ms per character
+  const baseLinePause = 60; // ms pause after each line
+
+  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+  const enqueueLines = (lines: TerminalLogLine[]) => {
+    queueRef.current.push(...lines);
+    processQueue();
+  };
+
+  const processQueue = async () => {
+    if (processingRef.current) return;
+    processingRef.current = true;
+    while (queueRef.current.length > 0) {
+      const line = queueRef.current.shift()!;
+      // For input lines, append immediately (user typed)
+      if (line.type === 'input') {
+        setHistory((prev) => [...prev, line]);
+        // small pause after command input
+        await sleep(120);
+        continue;
+      }
+
+      // For output lines, simulate typewriter per-character
+      let current = '';
+      // Add an empty line first so container reserves the node for smooth scrolling
+      setHistory((prev) => [...prev, { text: '', type: line.type }] );
+
+      for (let i = 0; i < line.text.length; i++) {
+        current += line.text[i];
+        setHistory((prev) => {
+          const copy = prev.slice(0, -1);
+          copy.push({ text: current, type: line.type });
+          return copy;
+        });
+        // Vary speed slightly for realism
+        const jitter = Math.floor(Math.random() * 12) - 6; // -6..+5
+        let charDelay = baseCharDelay + jitter;
+        if (line.type === 'success' || line.type === 'error') charDelay += 8;
+        if (charDelay < 6) charDelay = 6;
+        await sleep(charDelay);
+      }
+
+      // Small pause after the line completes
+      const linePause = baseLinePause + Math.floor(Math.random() * 80);
+      await sleep(linePause);
+    }
+    processingRef.current = false;
+  };
 
   useEffect(() => {
     // Keep console scrolled to the bottom
@@ -39,8 +92,8 @@ export default function TerminalView() {
     const cmd = rawCmd.trim().toLowerCase();
     if (!cmd) return;
 
-    // Append user input line
-    setHistory((prev) => [...prev, { text: `guest_user@sec-studio:~$ ${rawCmd}`, type: 'input' }]);
+    // Append user input line (enqueue — input lines render immediately)
+    enqueueLines([{ text: `guest_user@sec-studio:~$ ${rawCmd}`, type: 'input' }]);
 
     // Save to historical queue
     setCommandHistory((prev) => [rawCmd, ...prev]);
@@ -50,8 +103,7 @@ export default function TerminalView() {
 
     switch (match) {
       case 'help':
-        setHistory((prev) => [
-          ...prev,
+        enqueueLines([
           { text: '---------------------------------------------------------', type: 'output' },
           { text: 'AVAILABLE INTEGRITY CORE COMMANDS:', type: 'success' },
           {
@@ -82,8 +134,7 @@ export default function TerminalView() {
         break;
 
       case 'about':
-        setHistory((prev) => [
-          ...prev,
+        enqueueLines([
           { text: '=== ZYEKH ABDUL QADIR JAILANI ID REPORT ===', type: 'success' },
           { text: 'ROLE: Software Engineer & Systems Architect', type: 'output' },
           { text: 'HQ: Jakarta, IDN (6.2088° S, 106.8456° E)', type: 'output' },
@@ -99,8 +150,7 @@ export default function TerminalView() {
         break;
 
       case 'skills':
-        setHistory((prev) => [
-          ...prev,
+        enqueueLines([
           { text: '=== CAPABILITY DEPLOYMENT MATRIX ===', type: 'success' },
           {
             text: '  BASH/SHELL      [ 40% ] — Expert automation frameworks & deployment controls.',
@@ -122,8 +172,7 @@ export default function TerminalView() {
         break;
 
       case 'archive':
-        setHistory((prev) => [
-          ...prev,
+        enqueueLines([
           { text: '=== LOCAL REPOSITORY ARCHIVE ===', type: 'success' },
           {
             text: '1. Laravel_12_Microservices [PUBLIC] — Stars: 1.2k | PHP, Redis, Docker',
@@ -143,8 +192,7 @@ export default function TerminalView() {
         break;
 
       case 'contact':
-        setHistory((prev) => [
-          ...prev,
+        enqueueLines([
           { text: '=== SECURE TRANSMISSION UPLINK ===', type: 'success' },
           { text: 'Coordinates: Jakarta, IDN (6.2088° S, 106.8456° E)', type: 'output' },
           {
@@ -159,8 +207,7 @@ export default function TerminalView() {
         break;
 
       case 'neofetch':
-        setHistory((prev) => [
-          ...prev,
+        enqueueLines([
           { text: '             ,gg,                     guest_user@zyekh_abdul', type: 'success' },
           { text: '            i8""8i                    ---------------------', type: 'success' },
           {
@@ -201,60 +248,48 @@ export default function TerminalView() {
 
       case 'clear':
         setHistory([]);
+        queueRef.current = [];
         break;
 
       case 'matrix':
         setShowMatrix(true);
         setTimeout(() => {
           setShowMatrix(false);
-          setHistory((prev) => [
-            ...prev,
-            { text: '[SYSTEM_INFO] Matrix binary fallback buffer completed.', type: 'success' },
-          ]);
+          enqueueLines([{ text: '[SYSTEM_INFO] Matrix binary fallback buffer completed.', type: 'success' }]);
         }, 4000);
         break;
 
       case 'vuln-scan':
         if (isScanning) {
-          setHistory((prev) => [
-            ...prev,
+          enqueueLines([
             { text: '[ERROR] Scan process already active.', type: 'error' },
           ]);
           return;
         }
         setIsScanning(true);
-        setHistory((prev) => [
-          ...prev,
+        enqueueLines([
           {
             text: '[SYSTEM] Initializing complete security audits in current modules...',
             type: 'warn',
           },
         ]);
 
-        await new Promise((r) => setTimeout(r, 600));
-        setHistory((prev) => [
-          ...prev,
-          { text: '[SCAN] Probing localhost:3000 web frameworks (Laravel v12)...', type: 'output' },
-        ]);
+        await sleep(600);
+        enqueueLines([{ text: '[SCAN] Probing localhost:3000 web frameworks (Laravel v12)...', type: 'output' }]);
 
-        await new Promise((r) => setTimeout(r, 800));
-        setHistory((prev) => [
-          ...prev,
-          { text: '[SCAN] 0 vulnerabilities detected in routing structures.', type: 'success' },
-        ]);
+        await sleep(800);
+        enqueueLines([{ text: '[SCAN] 0 vulnerabilities detected in routing structures.', type: 'success' }]);
 
-        await new Promise((r) => setTimeout(r, 700));
-        setHistory((prev) => [
-          ...prev,
+        await sleep(700);
+        enqueueLines([
           {
             text: '[PROBE] Scanning low-level service ports... [OPEN PORT 22 / SSH]',
             type: 'warn',
           },
         ]);
 
-        await new Promise((r) => setTimeout(r, 900));
-        setHistory((prev) => [
-          ...prev,
+        await sleep(900);
+        enqueueLines([
           {
             text: '[SUCCESS] Audit finished. Core layers verified. System Integrity is at 100%.',
             type: 'success',
@@ -264,8 +299,7 @@ export default function TerminalView() {
         break;
 
       default:
-        setHistory((prev) => [
-          ...prev,
+        enqueueLines([
           {
             text: `bash: ${match}: command not found. Type "help" to view diagnostic manuals.`,
             type: 'error',
@@ -299,7 +333,7 @@ export default function TerminalView() {
   };
 
   return (
-    <div className="flex flex-col gap-8 font-mono max-w-[1280px] mx-auto px-4 md:px-6 py-8 animate-fade-in text-[#e3e1ec] min-h-[50vh]">
+    <div className="no-animations flex flex-col gap-8 font-mono max-w-[1280px] mx-auto px-4 md:px-6 py-8 text-[#e3e1ec] min-h-[50vh]">
       {/* Header index tag indicators */}
       <section className="border-l-4 border-white pl-4 md:pl-6 text-left select-none">
         <div className="flex items-center gap-4 mb-4">

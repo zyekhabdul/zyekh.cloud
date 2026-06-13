@@ -266,3 +266,23 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #ffffff;
 }
+
+/* Disable non-terminal-like animations for terminal area */
+.no-animations .animate-infinite-scroll,
+.no-animations .scanline,
+.no-animations .terminal-line,
+.no-animations .terminal-line-highlight,
+.no-animations .terminal-startup,
+.no-animations .invert-on-hover,
+.no-animations .system-card,
+.no-animations .terminal-border {
+  animation: none !important;
+  transition: none !important;
+}
+
+.no-animations .scanline {
+  /* make scanline a subtle static divider instead of animated glow */
+  height: 1px;
+  background: rgba(255,255,255,0.02);
+  box-shadow: none;
+}
