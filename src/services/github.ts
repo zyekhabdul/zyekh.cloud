@@ -4,6 +4,19 @@ const CACHE_KEY = 'github_stats_cache';
 const REPOS_CACHE_KEY = 'github_repos_cache';
 const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes (will be refreshed every 5 min from component)
 
+// Minimal GitHub API repo shape used by this module
+interface GHRepo {
+  id: number;
+  name: string;
+  html_url: string;
+  description: string | null;
+  stargazers_count: number;
+  forks_count: number;
+  language: string | null;
+  updated_at: string;
+  fork: boolean;
+}
+
 export interface GitHubStats {
   repoCount: number;
   totalCommits: number;
@@ -125,7 +138,7 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
       throw new Error(`GitHub API error: ${reposResponse.status}`);
     }
 
-    const repos = await reposResponse.json();
+    const repos: GHRepo[] = await reposResponse.json();
 
     // Calculate stats
     let totalCommits = 0;
@@ -133,7 +146,7 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
     let totalForks = 0;
 
     // Fetch commit count for each repo (all repos, but with optimization)
-    const commitPromises = repos.map(async (repo: any) => {
+    const commitPromises = repos.map(async (repo: GHRepo) => {
       try {
         const commitsResponse = await fetch(
           `https://api.github.com/repos/${GITHUB_USER}/${repo.name}/commits?per_page=1`,
@@ -164,7 +177,7 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
     totalCommits = commitCounts.reduce((a, b) => a + b, 0);
 
     // Sum stars and forks from all repos
-    repos.forEach((repo: any) => {
+    repos.forEach((repo: GHRepo) => {
       totalStars += repo.stargazers_count || 0;
       totalForks += repo.forks_count || 0;
     });
@@ -217,7 +230,7 @@ export async function fetchRepositories(): Promise<GitHubRepository[]> {
       throw new Error(`GitHub API error: ${reposResponse.status}`);
     }
 
-    const repos = await reposResponse.json();
+    const repos: GHRepo[] = await reposResponse.json();
 
     if (!Array.isArray(repos) || repos.length === 0) {
       throw new Error('No repositories found');
@@ -225,9 +238,9 @@ export async function fetchRepositories(): Promise<GitHubRepository[]> {
 
     // Filter and transform repos
     const transformedRepos: GitHubRepository[] = repos
-      .filter((repo: any) => !repo.fork && repo.name !== 'zyekhabdul') // Exclude forks and profile repo
+      .filter((repo: GHRepo) => !repo.fork && repo.name !== 'zyekhabdul') // Exclude forks and profile repo
       .slice(0, 12) // Show top 12
-      .map((repo: any) => ({
+      .map((repo: GHRepo) => ({
         id: repo.id,
         name: repo.name,
         url: repo.html_url,

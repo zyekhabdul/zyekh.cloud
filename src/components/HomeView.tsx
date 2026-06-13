@@ -360,7 +360,7 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
               No repositories found
             </div>
           ) : (
-            repositories.slice(0, 2).map((repo, idx) => (
+            repositories.slice(0, 2).map((repo) => (
               <a
                 key={repo.id}
                 href={repo.url}
