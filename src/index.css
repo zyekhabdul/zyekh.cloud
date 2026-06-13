@@ -285,6 +285,22 @@
   display: none;
 }
 
+/* Ensure terminal lines are visible when animations are disabled (they
+   rely on keyframe animations to set opacity to 1). */
+.no-animations .terminal-line,
+.no-animations .terminal-line-highlight,
+.no-animations .terminal-startup {
+  opacity: 1 !important;
+  animation: none !important;
+  text-shadow: none !important;
+}
+
+/* Hide blinking cursor for fully static terminal */
+.no-animations .cursor-blink,
+.no-animations .cursor-block {
+  display: none !important;
+}
+
 /* Strong override: disable any animation or transition for terminal area */
 .no-animations,
 .no-animations * {
