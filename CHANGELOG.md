@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented in this file.
 
-## Unreleased
+## v1.0.0 - 2026-06-13
 
 ### Changed
 - Move `express` and `dotenv` into `devDependencies` and set `private: true` in `package.json`.
