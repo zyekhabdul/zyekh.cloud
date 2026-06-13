@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import TerminalShell from './TerminalShell';
 import { TabType } from '../types';
 import {
   fetchGitHubStats,
@@ -193,45 +194,23 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
             </div>
           </div>
 
-          <div className="absolute inset-0 flex flex-col p-4 md:p-6 pt-16 md:pt-20 font-mono text-[10px] md:text-[11px] leading-relaxed text-[#c4c7c8]/60 mix-blend-screen overflow-hidden select-none">
-            <div className="text-white mb-3 md:mb-4 terminal-line" style={{ animationDelay: '0s' }}>
-              [SYSTEM.SCAN.INIT] ... ACTIVE
-            </div>
-
-            {logLines.map((line, idx) => {
-              if (!line) return null;
+          <div className="absolute inset-0">
+            {/* Build terminal lines: header + hex dump + startup messages */}
+            {(() => {
+              const lines = [] as any[];
+              lines.push({ text: '[SYSTEM.SCAN.INIT] ... ACTIVE', type: 'success' });
+              lines.push(...logLines.map((l) => ({ text: l, type: 'output' })));
+              if (logLines.length === hexDump.length) {
+                lines.push(...startupMsgs.map((m) => ({ text: `> ${m}`, type: 'success' })));
+              }
               return (
-                <div
-                  key={idx}
-                  className="terminal-line whitespace-nowrap truncate md:truncate-none"
-                  style={{ animationDelay: `${(idx + 1) * 0.05}s` }}
-                >
-                  <span className="text-[#8e9192]">{line.slice(0, 10)}</span>{' '}
-                  <span className="text-white font-medium">{line.slice(10, 58)}</span>{' '}
-                  <span className="text-[#c4c7c8]/40">{line.slice(58)}</span>
-                </div>
+                <TerminalShell
+                  lines={lines}
+                  className="absolute inset-0 bg-transparent"
+                  height="100%"
+                />
               );
-            })}
-
-            {logLines.length === hexDump.length && (
-              <div className="mt-4 text-[#c4c7c8] space-y-0">
-                <br />
-                {startupMsgs.map((msg, i) => (
-                  <div
-                    key={i}
-                    className="leading-5 terminal-startup"
-                    style={{
-                      animationDelay: `${(hexDump.length + 2 + i) * 0.05}s, ${
-                        (hexDump.length + 2 + i) * 0.05 + 0.3
-                      }s`,
-                    }}
-                  >
-                    &gt; {msg}
-                    {i === startupMsgs.length - 1 && <span className="cursor-block" />}
-                  </div>
-                ))}
-              </div>
-            )}
+            })()}
           </div>
         </div>
       </section>
