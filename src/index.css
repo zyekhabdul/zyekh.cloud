@@ -281,8 +281,15 @@
 }
 
 .no-animations .scanline {
-  /* make scanline a subtle static divider instead of animated glow */
-  height: 1px;
-  background: rgba(255,255,255,0.02);
-  box-shadow: none;
+  /* hide scanline entirely for a strict terminal look */
+  display: none;
+}
+
+/* Strong override: disable any animation or transition for terminal area */
+.no-animations,
+.no-animations * {
+  animation: none !important;
+  transition: none !important;
+  -webkit-animation: none !important;
+  -webkit-transition: none !important;
 }
