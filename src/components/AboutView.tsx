@@ -12,6 +12,7 @@ interface AboutViewProps {
 
 export default function AboutView({ onTabChange }: AboutViewProps) {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const baseUrl = import.meta.env.BASE_URL;
 
   const capabilities = [
     { name: 'BASH', value: 40 },
@@ -51,43 +52,43 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
       id: 'CERT_02',
       type: 'WEBINAR_HOST',
       title: 'Webinar Episode 2 - Skillage Academy',
-      img: '/certificates/cert-webinar.png',
+      img: `${baseUrl}certificates/cert-webinar.png`,
     },
     {
       id: 'CERT_03',
       type: 'MS_WORD_COMP',
       title: 'MS Word Operation - Skillage',
-      img: '/certificates/cert-msword.jpg',
+      img: `${baseUrl}certificates/cert-msword.jpg`,
     },
     {
       id: 'CERT_04',
       type: 'PROJA_DUTIF',
       title: 'Proja Dutif - PT. Intitama',
-      img: '/certificates/cert-projadutif-sesi-1.jpg',
+      img: `${baseUrl}certificates/cert-projadutif-sesi-1.jpg`,
     },
     {
       id: 'CERT_05',
       type: 'WEB_BROWSER',
       title: 'Web Browser Operation - Skillage',
-      img: '/certificates/cert-browser.jpg',
+      img: `${baseUrl}certificates/cert-browser.jpg`,
     },
     {
       id: 'CERT_06',
       type: 'WIN_BEGINNER',
       title: 'Windows Beginner - Skillage',
-      img: '/certificates/cert-skillage-window.jpg',
+      img: `${baseUrl}certificates/cert-skillage-window.jpg`,
     },
     {
       id: 'CERT_07',
       type: 'HABITUASI_F',
       title: 'DUDI Habituasi (Front) - Skillage',
-      img: '/certificates/cert-habituasi-front.png',
+      img: `${baseUrl}certificates/cert-habituasi-front.png`,
     },
     {
       id: 'CERT_08',
       type: 'HABITUASI_B',
       title: 'DUDI Habituasi (Back) - Skillage',
-      img: '/certificates/cert-habituasi-back.png',
+      img: `${baseUrl}certificates/cert-habituasi-back.png`,
     },
   ];
 
@@ -136,7 +137,7 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
               alt="Developer Profile"
               className="w-full h-full object-contain opacity-90 transition-opacity duration-300 group-hover:opacity-100"
               referrerPolicy="no-referrer"
-              src="src/assets/images/pp-aqz220309-gmail-gumball-watterson.jpg"
+              src={`${baseUrl}pp-aqz220309-gmail-gumball-watterson.jpg`}
             />
             <div className="absolute bottom-0 left-0 px-2 py-0.5 bg-[#12131a] border-t border-r border-[#444748] text-xs text-white">
               SEC_USR_01

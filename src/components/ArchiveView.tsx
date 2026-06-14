@@ -13,6 +13,7 @@ interface ArchiveViewProps {
 export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const [syncTime, setSyncTime] = useState('02:14:09');
+  const baseUrl = import.meta.env.BASE_URL;
 
   useEffect(() => {
     // Generate real-time updates for Last Sync simulation log
@@ -59,7 +60,7 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
       technologies: ['PHP', 'LARAVEL 12'],
       category: 'Enterprise Prototype',
       categoryColor: 'bg-[#8e9192]',
-      screenshot: 'src/assets/images/etc/ss-bukti-porto-2.png',
+      screenshot: `${baseUrl}ss-bukti-porto-2.png`,
       url: 'https://github.com/yakunzizhex',
     },
     {
@@ -78,37 +79,37 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
     {
       tag: 'Webinar',
       title: 'Webinar Episode 2 - Skillage Academy',
-      img: '/certificates/cert-webinar.png',
+      img: `${baseUrl}certificates/cert-webinar.png`,
     },
     {
       tag: 'Competency',
       title: 'MS Word Operation - Skillage',
-      img: '/certificates/cert-msword.jpg',
+      img: `${baseUrl}certificates/cert-msword.jpg`,
     },
     {
       tag: 'Project',
       title: 'Proja Dutif - PT. Intitama',
-      img: '/certificates/cert-projadutif-sesi-1.jpg',
+      img: `${baseUrl}certificates/cert-projadutif-sesi-1.jpg`,
     },
     {
       tag: 'Competency',
       title: 'Web Browser Operation - Skillage',
-      img: '/certificates/cert-browser.jpg',
+      img: `${baseUrl}certificates/cert-browser.jpg`,
     },
     {
       tag: 'Competency',
       title: 'Windows Beginner - Skillage',
-      img: '/certificates/cert-skillage-window.jpg',
+      img: `${baseUrl}certificates/cert-skillage-window.jpg`,
     },
     {
       tag: 'Habituation',
       title: 'DUDI Habituasi (Front) - Skillage',
-      img: '/certificates/cert-habituasi-front.png',
+      img: `${baseUrl}certificates/cert-habituasi-front.png`,
     },
     {
       tag: 'Habituation',
       title: 'DUDI Habituasi (Back) - Skillage',
-      img: '/certificates/cert-habituasi-back.png',
+      img: `${baseUrl}certificates/cert-habituasi-back.png`,
     },
   ];
 
