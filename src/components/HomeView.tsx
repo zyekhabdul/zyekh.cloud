@@ -26,6 +26,11 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
   const [isLoadingRepos, setIsLoadingRepos] = useState(true);
   const terminalEndRef = useRef<HTMLDivElement | null>(null);
 
+  const formatCount = (n?: number | null) => {
+    if (n == null) return '--';
+    return n > 1000 ? `${(n / 1000).toFixed(1)}k` : n;
+  };
+
   // System scan and diagnostics output for terminal
   const systemScan = [
     '$ ./security_audit.sh',
@@ -275,16 +280,20 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* UPTIME Card */}
+          {/* TOTAL_STARS Card (replaces previous UPTIME) */}
           <div className="system-card border border-[#444748] bg-[#12131a] p-6 flex flex-col gap-2 cursor-default select-none transition-all duration-200">
             <div className="text-[#c4c7c8] font-sans font-semibold text-xs uppercase tracking-wider">
-              [UPTIME]
+              [TOTAL_STARS]
             </div>
             <div className="font-sans text-3xl font-black text-white">
-              {isLoadingGitHub ? <span className="inline-block animate-pulse">●●●</span> : '99.99%'}
+              {isLoadingGitHub ? (
+                <span className="inline-block animate-pulse">●●●</span>
+              ) : (
+                formatCount(gitHubStats?.totalStars)
+              )}
             </div>
             <div className="font-mono text-xs text-[#c4c7c8] border-t border-[#444748] pt-2 mt-auto">
-              Node Stability
+              Total GitHub Stars
             </div>
           </div>
 
