@@ -33,8 +33,8 @@ jobs:
         env:
           VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
         run: |
-          echo "Building inside node:20 container"
-          docker run --rm -v "$GITHUB_WORKSPACE":/work -w /work node:20-bullseye bash -lc '
+          echo "Building inside node:20 container (passing secrets into container)"
+          docker run --rm -e VITE_GITHUB_TOKEN="$VITE_GITHUB_TOKEN" -v "$GITHUB_WORKSPACE":/work -w /work node:20-bullseye bash -lc '
             npm ci --prefer-offline --no-audit --no-fund && \
             npm run fetch:github && \
             npm run build --loglevel verbose
