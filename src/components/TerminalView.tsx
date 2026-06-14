@@ -436,14 +436,14 @@ export default function TerminalView() {
 
           {/* Interactive input row block */}
           {!isScanning && (
-            <div className="flex items-center gap-2 mt-1">
+            <div className="flex items-center gap-2.5 leading-tight">
               <span className="text-white font-bold shrink-0">guest_user@sec-studio:~$</span>
               <input
                 ref={inputRef}
                 value={inputVal}
                 onChange={(e) => setInputVal(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="flex-grow bg-transparent text-white border-none outline-none ring-0 p-0 m-0 font-mono text-xs md:text-sm focus:ring-0 focus:outline-none"
+                className="flex-grow bg-transparent text-white border-none outline-none ring-0 p-0 m-0 font-mono text-xs md:text-sm focus:ring-0 focus:outline-none placeholder:text-[#666] caret-white"
                 type="text"
                 autoComplete="off"
                 autoCapitalize="off"
