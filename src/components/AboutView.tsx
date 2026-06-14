@@ -95,8 +95,9 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
   const handleDownloadCV = () => {
     // Elegant client feedback indicating download process initialized
     const link = document.createElement('a');
-    link.href = 'https://drive.google.com/uc?export=download&id=1l_ZhNoTn2TlekKWCkB9y2aEh6ZdsY11v';
-    link.setAttribute('download', 'CV_Zyekh_Abdul_Qadir_Jailani.pdf');
+    link.href = `${baseUrl}certificates/CV-ATS-Zyekh-Abdul.docx`;
+    link.setAttribute('download', 'CV-ATS-Zyekh-Abdul.docx');
+    link.click();
     alert('[SYSTEM_INFO] CV binary payload download requested. Starting secure file stream...');
   };
 
