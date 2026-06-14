@@ -18,6 +18,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Debug environment
+        run: |
+          echo "== node/npm versions =="
+          node -v
+          npm -v
+          echo "== env vars summary (no secrets printed) =="
+          if [ -z "$VITE_GITHUB_TOKEN" ]; then echo "VITE_GITHUB_TOKEN: not set"; else echo "VITE_GITHUB_TOKEN: set"; fi
+          echo "== workspace listing =="
+          ls -la
+
       - name: Fetch GitHub data (build-time)
         env:
           VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
