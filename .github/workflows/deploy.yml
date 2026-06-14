@@ -33,8 +33,20 @@ jobs:
           VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
         run: npm run fetch:github
 
-      - name: Build
-        run: npm run build
+      - name: Build (verbose)
+        run: |
+          echo "== Build start =="
+          node -v
+          npm -v
+          echo "== env check (no secrets) =="
+          if [ -z "$VITE_GITHUB_TOKEN" ]; then echo "VITE_GITHUB_TOKEN: not set"; else echo "VITE_GITHUB_TOKEN: set"; fi
+          echo "== disk usage =="
+          if command -v df >/dev/null 2>&1; then df -h; else du -sh .; fi
+          echo "== npm ci (verify) =="
+          npm ci --prefer-offline --no-audit --no-fund
+          echo "== running build (npm run build) =="
+          set -x
+          npm run build --loglevel verbose
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
