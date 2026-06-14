@@ -5,6 +5,8 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
+    // GitHub Pages: repository name is porto-sec-studio
+    base: '/porto-sec-studio/',
     // Standard public directory for static assets (we copy favicons here before build)
     publicDir: 'public',
     plugins: [react(), tailwindcss()],
