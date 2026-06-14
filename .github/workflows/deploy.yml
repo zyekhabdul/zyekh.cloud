@@ -15,6 +15,15 @@ jobs:
         with:
           node-version: '20.19.0'
 
+      - name: Force install Node 20 on runner
+        run: |
+          echo "Forcing Node 20 installation via NodeSource"
+          sudo apt-get update
+          curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+          node -v
+          npm -v
+
       - name: Install dependencies
         run: npm ci
 
