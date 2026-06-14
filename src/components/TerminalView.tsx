@@ -100,9 +100,17 @@ export default function TerminalView() {
   };
 
   useEffect(() => {
-    // Focus terminal input automatically
+    // Focus terminal input automatically on mount
     inputRef.current?.focus();
   }, []);
+
+  useEffect(() => {
+    // When processing/scanning finishes, ensure the input regains focus
+    if (!isProcessing && !isScanning) {
+      // Focus after a tick so the input is present in the DOM
+      setTimeout(() => inputRef.current?.focus(), 0);
+    }
+  }, [isProcessing, isScanning]);
 
   const handleTerminalClick = () => {
     inputRef.current?.focus();
@@ -355,14 +363,14 @@ export default function TerminalView() {
   return (
     <div className="no-animations flex flex-col gap-8 font-mono max-w-[1280px] mx-auto px-4 md:px-6 py-8 text-[#e3e1ec] min-h-[50vh]">
       {/* Header index tag indicators */}
-      <section className="border-l-4 border-white pl-4 md:pl-6 text-left select-none">
+      <section className="text-left select-none">
         <div className="flex items-center gap-4 mb-4">
           <span className="px-2 py-0.5 border border-[#444748] text-xs font-semibold text-[#c4c7c8]">
             [ CORE_SHELL_INTERFACE ]
           </span>
           <span className="text-[#8e9192] text-xs">ONLINE</span>
         </div>
-        <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight mb-4">
+        <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-white uppercase leading-none">
           TERMINAL_CONSOLE
         </h1>
         <p className="font-mono text-sm md:text-base text-[#c4c7c8] max-w-2xl leading-relaxed">
