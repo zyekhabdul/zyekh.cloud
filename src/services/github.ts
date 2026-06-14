@@ -121,15 +121,26 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
   if (cached) {
     return cached;
   }
+  // First try pre-generated static JSON (produced at build time)
+  try {
+    const staticResp = await fetch('/github-stats.json');
+    if (staticResp.ok) {
+      const s = await staticResp.json();
+      setCachedData(s);
+      return s as GitHubStats;
+    }
+  } catch (_) {
+    // ignore and fallback to API
+  }
 
   try {
-    // Fetch user repos
+    // Fallback: fetch directly from GitHub API (may be unauthenticated)
     const reposResponse = await fetch(
       `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`,
       {
         headers: {
           Accept: 'application/vnd.github.v3+json',
-          Authorization: `token ${GITHUB_TOKEN}`,
+          Authorization: GITHUB_TOKEN ? `token ${GITHUB_TOKEN}` : undefined,
         },
       }
     );
@@ -145,7 +156,6 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
     let totalStars = 0;
     let totalForks = 0;
 
-    // Fetch commit count for each repo (all repos, but with optimization)
     const commitPromises = repos.map(async (repo: GHRepo) => {
       try {
         const commitsResponse = await fetch(
@@ -153,7 +163,7 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
           {
             headers: {
               Accept: 'application/vnd.github.v3+json',
-              Authorization: `token ${GITHUB_TOKEN}`,
+              Authorization: GITHUB_TOKEN ? `token ${GITHUB_TOKEN}` : undefined,
             },
           }
         );
@@ -161,7 +171,6 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
         if (commitsResponse.ok) {
           const linkHeader = commitsResponse.headers.get('link');
           if (linkHeader) {
-            // Parse last page number from Link header for total commit count
             const lastMatch = linkHeader.match(/page=(\d+)>; rel="last"/);
             return lastMatch ? parseInt(lastMatch[1], 10) : 1;
           }
@@ -176,7 +185,6 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
     const commitCounts = await Promise.all(commitPromises);
     totalCommits = commitCounts.reduce((a, b) => a + b, 0);
 
-    // Sum stars and forks from all repos
     repos.forEach((repo: GHRepo) => {
       totalStars += repo.stargazers_count || 0;
       totalForks += repo.forks_count || 0;
@@ -188,7 +196,7 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
       totalStars,
       totalForks,
       lastUpdated: Date.now(),
-      repoHealth: Math.min(100, Math.round((totalStars / Math.max(1, repos.length)) * 2 + 20)), // Health score: stars per repo + base
+      repoHealth: Math.min(100, Math.round((totalStars / Math.max(1, repos.length)) * 2 + 20)),
     };
 
     setCachedData(stats);
@@ -214,6 +222,17 @@ export async function fetchRepositories(): Promise<GitHubRepository[]> {
   if (cached) {
     return cached;
   }
+  // Try static JSON generated at build time first
+  try {
+    const staticResp = await fetch('/github-repos.json');
+    if (staticResp.ok) {
+      const r = await staticResp.json();
+      setCachedRepos(r);
+      return r as GitHubRepository[];
+    }
+  } catch (_) {
+    // ignore and fallback to API
+  }
 
   try {
     const reposResponse = await fetch(
@@ -221,7 +240,7 @@ export async function fetchRepositories(): Promise<GitHubRepository[]> {
       {
         headers: {
           Accept: 'application/vnd.github.v3+json',
-          Authorization: `token ${GITHUB_TOKEN}`,
+          Authorization: GITHUB_TOKEN ? `token ${GITHUB_TOKEN}` : undefined,
         },
       }
     );
@@ -236,10 +255,9 @@ export async function fetchRepositories(): Promise<GitHubRepository[]> {
       throw new Error('No repositories found');
     }
 
-    // Filter and transform repos
     const transformedRepos: GitHubRepository[] = repos
-      .filter((repo: GHRepo) => !repo.fork && repo.name !== 'zyekhabdul') // Exclude forks and profile repo
-      .slice(0, 12) // Show top 12
+      .filter((repo: GHRepo) => !repo.fork && repo.name !== GITHUB_USER)
+      .slice(0, 12)
       .map((repo: GHRepo) => ({
         id: repo.id,
         name: repo.name,
@@ -260,7 +278,6 @@ export async function fetchRepositories(): Promise<GitHubRepository[]> {
   } catch (error) {
     console.error('Failed to fetch repositories:', error);
 
-    // Return fallback data
     const fallbackRepos: GitHubRepository[] = [
       {
         id: 1,
