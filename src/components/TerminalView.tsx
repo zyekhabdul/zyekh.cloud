@@ -17,6 +17,7 @@ export default function TerminalView() {
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [showMatrix, setShowMatrix] = useState(false);
   const [isScanning, setIsScanning] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const consoleEndRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -27,8 +28,8 @@ export default function TerminalView() {
 
   // Typewriter/timing configuration
   const baseCharDelay = 20; // ms per character
-  // ms pause after each line when TYPEWRITER is false — reduced for responsiveness
-  const baseLinePause = 180; // ms pause after each line (was 3000ms)
+  // INSTANT mode: no per-line delay — all output renders immediately
+  const baseLinePause = 0; // ms pause after each line (instant)
   const TYPEWRITER = false; // set false to make lines appear instantly
 
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -41,21 +42,21 @@ export default function TerminalView() {
   const processQueue = async () => {
     if (processingRef.current) return;
     processingRef.current = true;
+    setIsProcessing(true);
     while (queueRef.current.length > 0) {
       const line = queueRef.current.shift()!;
       // For input lines, append immediately (user typed)
       if (line.type === 'input') {
         setHistory((prev) => [...prev, line]);
         // small pause after command input
-        await sleep(120);
+        await sleep(50);
         continue;
       }
 
       // For output lines, either typewriter per-character or appear instantly
       if (!TYPEWRITER) {
         setHistory((prev) => [...prev, line]);
-        // small pause to preserve ordering rhythm
-        await sleep(baseLinePause + Math.floor(Math.random() * 40));
+        // NO DELAY — instant rendering
         continue;
       }
 
@@ -83,6 +84,7 @@ export default function TerminalView() {
       await sleep(linePause);
     }
     processingRef.current = false;
+    setIsProcessing(false);
   };
 
   useEffect(() => {
@@ -434,8 +436,8 @@ export default function TerminalView() {
             );
           })}
 
-          {/* Interactive input row block */}
-          {!isScanning && (
+          {/* Interactive input row block — only show when queue is empty */}
+          {!isScanning && !isProcessing && (
             <div className="flex items-center gap-2.5 leading-tight">
               <span className="text-white font-bold shrink-0">guest_user@sec-studio:~$</span>
               <input
