@@ -27,8 +27,8 @@ export default function TerminalView() {
 
   // Typewriter/timing configuration
   const baseCharDelay = 20; // ms per character
-  // ms pause after each line when TYPEWRITER is false — use ~3000ms per requirement
-  const baseLinePause = 3000; // ms pause after each line
+  // ms pause after each line when TYPEWRITER is false — reduced for responsiveness
+  const baseLinePause = 180; // ms pause after each line (was 3000ms)
   const TYPEWRITER = false; // set false to make lines appear instantly
 
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
