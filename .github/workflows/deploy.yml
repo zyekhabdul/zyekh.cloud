@@ -24,37 +24,22 @@ jobs:
           node -v
           npm -v
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Debug environment
+      - name: Install Node20, fetch data and build (single step)
+        env:
+          VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
         run: |
+          echo "Forcing Node 20 installation via NodeSource"
+          sudo apt-get update
+          curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+          sudo apt-get install -y nodejs
           echo "== node/npm versions =="
           node -v
           npm -v
-          echo "== env vars summary (no secrets printed) =="
-          if [ -z "$VITE_GITHUB_TOKEN" ]; then echo "VITE_GITHUB_TOKEN: not set"; else echo "VITE_GITHUB_TOKEN: set"; fi
-          echo "== workspace listing =="
-          ls -la
-
-      - name: Fetch GitHub data (build-time)
-        env:
-          VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
-        run: npm run fetch:github
-
-      - name: Build (verbose)
-        run: |
-          echo "== Build start =="
-          node -v
-          npm -v
-          echo "== env check (no secrets) =="
-          if [ -z "$VITE_GITHUB_TOKEN" ]; then echo "VITE_GITHUB_TOKEN: not set"; else echo "VITE_GITHUB_TOKEN: set"; fi
-          echo "== disk usage =="
-          if command -v df >/dev/null 2>&1; then df -h; else du -sh .; fi
-          echo "== npm ci (verify) =="
+          echo "== installing dependencies =="
           npm ci --prefer-offline --no-audit --no-fund
-          echo "== running build (npm run build) =="
-          set -x
+          echo "== fetching GitHub data (build-time) =="
+          npm run fetch:github
+          echo "== running build =="
           npm run build --loglevel verbose
 
       - name: Deploy to GitHub Pages
