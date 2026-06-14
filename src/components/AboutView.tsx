@@ -212,12 +212,12 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
                     terminal
                   </span>
                   <h3 className="font-sans font-bold text-xs md:text-sm tracking-wide text-white group-hover:text-[#12131a] break-words min-w-0">
-                    REMOTE_AGENT_RESEARCH
+                    SYSTEM_SECURITY_WORKFLOW
                   </h3>
                 </div>
                 <p className="text-xs leading-normal opacity-70">
-                  Remote administration tooling for research and defensive analysis across
-                  platforms.
+                  Hardening and configuration analysis for Windows, Linux, and Android system
+                  security optimization.
                 </p>
               </div>
 
@@ -227,11 +227,12 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
                     extension
                   </span>
                   <h3 className="font-sans font-bold text-xs md:text-sm tracking-wide text-white group-hover:text-[#12131a] break-words min-w-0">
-                    GAME_PATCHING
+                    GAME_MODIFICATION
                   </h3>
                 </div>
                 <p className="text-xs leading-normal opacity-70">
-                  Binary modification and runtime memory patching for security research.
+                  Custom ROM development and game modding for Android platform and system
+                  customization.
                 </p>
               </div>
             </div>

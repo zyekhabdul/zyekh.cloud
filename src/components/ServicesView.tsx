@@ -30,9 +30,9 @@ export default function ServicesView({ onTabChange }: ServicesViewProps) {
             </h1>
 
             <p className="font-mono text-sm md:text-base text-[#c4c7c8] max-w-2xl leading-relaxed mt-2">
-              A specialized multidisciplinary studio focused on Secure Software Development, Cyber
-              Auditing, and Technical Design. We bridge the gap between high-performance engineering
-              and defensive security.
+              Focus on Secure Web Development and Cyber Security hardening. Building secure
+              applications with hands-on experience in system security, platform optimization, and
+              defensive coding practices.
             </p>
           </div>
 
