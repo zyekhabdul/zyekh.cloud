@@ -135,13 +135,15 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
 
   try {
     // Fallback: fetch directly from GitHub API (may be unauthenticated)
+    const repoHeaders: Record<string, string> = {
+      Accept: 'application/vnd.github.v3+json',
+    };
+    if (GITHUB_TOKEN) repoHeaders.Authorization = `token ${GITHUB_TOKEN}`;
+
     const reposResponse = await fetch(
       `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`,
       {
-        headers: {
-          Accept: 'application/vnd.github.v3+json',
-          Authorization: GITHUB_TOKEN ? `token ${GITHUB_TOKEN}` : undefined,
-        },
+        headers: repoHeaders,
       }
     );
 
@@ -158,13 +160,13 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
 
     const commitPromises = repos.map(async (repo: GHRepo) => {
       try {
+        const commitHeaders: Record<string, string> = { Accept: 'application/vnd.github.v3+json' };
+        if (GITHUB_TOKEN) commitHeaders.Authorization = `token ${GITHUB_TOKEN}`;
+
         const commitsResponse = await fetch(
           `https://api.github.com/repos/${GITHUB_USER}/${repo.name}/commits?per_page=1`,
           {
-            headers: {
-              Accept: 'application/vnd.github.v3+json',
-              Authorization: GITHUB_TOKEN ? `token ${GITHUB_TOKEN}` : undefined,
-            },
+            headers: commitHeaders,
           }
         );
 
@@ -235,13 +237,13 @@ export async function fetchRepositories(): Promise<GitHubRepository[]> {
   }
 
   try {
+    const repoHeaders2: Record<string, string> = { Accept: 'application/vnd.github.v3+json' };
+    if (GITHUB_TOKEN) repoHeaders2.Authorization = `token ${GITHUB_TOKEN}`;
+
     const reposResponse = await fetch(
       `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=stars&direction=desc`,
       {
-        headers: {
-          Accept: 'application/vnd.github.v3+json',
-          Authorization: GITHUB_TOKEN ? `token ${GITHUB_TOKEN}` : undefined,
-        },
+        headers: repoHeaders2,
       }
     );
 
