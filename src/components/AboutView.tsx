@@ -12,7 +12,7 @@ interface AboutViewProps {
 
 export default function AboutView({ onTabChange }: AboutViewProps) {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
-  const baseUrl = import.meta.env.BASE_URL;
+  const baseUrl = import.meta.env.BASE_URL || './';
 
   const capabilities = [
     { name: 'BASH', value: 40 },

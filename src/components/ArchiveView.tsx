@@ -13,7 +13,7 @@ interface ArchiveViewProps {
 export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const [syncTime, setSyncTime] = useState('02:14:09');
-  const baseUrl = import.meta.env.BASE_URL;
+  const baseUrl = import.meta.env.BASE_URL || './';
 
   useEffect(() => {
     // Generate real-time updates for Last Sync simulation log
