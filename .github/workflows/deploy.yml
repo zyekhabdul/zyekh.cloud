@@ -24,23 +24,16 @@ jobs:
           node -v
           npm -v
 
-      - name: Install Node20, fetch data and build (single step)
+      - name: Build inside official Node 20 Docker
         env:
           VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
         run: |
-          echo "Forcing Node 20 installation via NodeSource"
-          sudo apt-get update
-          curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-          sudo apt-get install -y nodejs
-          echo "== node/npm versions =="
-          node -v
-          npm -v
-          echo "== installing dependencies =="
-          npm ci --prefer-offline --no-audit --no-fund
-          echo "== fetching GitHub data (build-time) =="
-          npm run fetch:github
-          echo "== running build =="
-          npm run build --loglevel verbose
+          echo "Building inside node:20 container"
+          docker run --rm -v "$GITHUB_WORKSPACE":/work -w /work node:20-bullseye bash -lc '
+            npm ci --prefer-offline --no-audit --no-fund && \
+            npm run fetch:github && \
+            npm run build --loglevel verbose
+          '
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
