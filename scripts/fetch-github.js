@@ -15,14 +15,13 @@ async function fetchJson(url, headers = {}) {
 async function main() {
   try {
     if (!TOKEN) {
-      console.warn('[fetch-github] No token provided in environment; aborting fetch.');
-      return;
+      console.warn('[fetch-github] No token provided in environment; continuing with unauthenticated requests (may be rate-limited).');
     }
 
     const headers = {
       Accept: 'application/vnd.github.v3+json',
-      Authorization: `token ${TOKEN}`,
     };
+    if (TOKEN) headers.Authorization = `token ${TOKEN}`;
 
     console.log('[fetch-github] Fetching repos...');
     const repos = await fetchJson(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`, headers);
