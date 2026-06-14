@@ -1,12 +1,72 @@
 [
   {
     "id": 1,
-    "name": "porto-sec-studio",
-    "url": "https://github.com/zyekhabdul/porto-sec-studio",
-    "description": "Terminal-themed personal portfolio | React + Vite + TypeScript",
+    "name": "android-persistence-research",
+    "url": "https://github.com/zyekhabdul/android-persistence-research",
+    "description": "Android persistence research",
+    "stars": 0,
+    "forks": 0,
+    "language": "Unknown",
+    "updatedAt": "2026-06-14T16:02:16.340Z"
+  },
+  {
+    "id": 2,
+    "name": "laravel-12-enterprise",
+    "url": "https://github.com/zyekhabdul/laravel-12-enterprise",
+    "description": "Laravel enterprise prototype",
+    "stars": 0,
+    "forks": 0,
+    "language": "PHP",
+    "updatedAt": "2026-06-14T16:02:16.342Z"
+  },
+  {
+    "id": 3,
+    "name": "laravel-12-microservices",
+    "url": "https://github.com/zyekhabdul/laravel-12-microservices",
+    "description": "Microservices examples",
+    "stars": 0,
+    "forks": 0,
+    "language": "PHP",
+    "updatedAt": "2026-06-14T16:02:16.342Z"
+  },
+  {
+    "id": 4,
+    "name": "md-editor",
+    "url": "https://github.com/zyekhabdul/md-editor",
+    "description": "Markdown editor",
     "stars": 0,
     "forks": 0,
     "language": "TypeScript",
-    "updatedAt": "2026-06-14T00:00:00Z"
+    "updatedAt": "2026-06-14T16:02:16.342Z"
+  },
+  {
+    "id": 5,
+    "name": "os-debloat-scripts",
+    "url": "https://github.com/zyekhabdul/os-debloat-scripts",
+    "description": "OS debloat scripts",
+    "stars": 0,
+    "forks": 0,
+    "language": "Bash",
+    "updatedAt": "2026-06-14T16:02:16.342Z"
+  },
+  {
+    "id": 6,
+    "name": "remote-agent-orchestration",
+    "url": "https://github.com/zyekhabdul/remote-agent-orchestration",
+    "description": "Remote agent orchestration research",
+    "stars": 0,
+    "forks": 0,
+    "language": "JS",
+    "updatedAt": "2026-06-14T16:02:16.342Z"
+  },
+  {
+    "id": 7,
+    "name": "zyekh_abdul-porto",
+    "url": "https://github.com/zyekhabdul/zyekh_abdul-porto",
+    "description": "Portfolio source",
+    "stars": 0,
+    "forks": 0,
+    "language": "TypeScript",
+    "updatedAt": "2026-06-14T16:02:16.342Z"
   }
 ]
