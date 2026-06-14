@@ -4,6 +4,11 @@ on:
   push:
     branches: [ main ]
 
+# Grant minimal permissions needed for publishing
+permissions:
+  contents: write
+  pages: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
