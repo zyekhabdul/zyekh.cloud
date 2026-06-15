@@ -5,7 +5,8 @@ type Line = { text: string; type?: 'output' | 'success' | 'warn' };
 
 export default function TerminalView(): JSX.Element {
   const [lines, setLines] = useState<Line[]>([
-    ...ascii.split('\n').map(l => ({ text: l, type: 'success' as const })),
+    { text: 'guest_user@sec-studio:~$', type: 'output' },
+    { text: "Type 'neofetch' to show system info and ASCII logo.", type: 'warn' },
     { text: '' }
   ]);
   const [input, setInput] = useState('');
