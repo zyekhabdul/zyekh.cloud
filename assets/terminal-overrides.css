@@ -1,0 +1,19 @@
+:root{
+  --terminal-bg: #0b0b0d;
+  --terminal-text: #e3e1ec;
+  --terminal-muted: #c4c7c8;
+  --terminal-border: rgba(80,80,80,0.6);
+}
+
+/* Terminal overrides */
+.terminal-output, .terminal-border {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  box-sizing: border-box !important;
+  color: var(--terminal-text) !important;
+  background: var(--terminal-bg) !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+}
+.cursor-blink, .cursor-block { background-color: var(--terminal-text) !important; }
+.terminal-wrapper textarea, .terminal-wrapper input { white-space: pre-wrap !important; overflow-wrap: break-word !important; padding-left: 12px !important; padding-right: 12px !important; }

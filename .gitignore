@@ -1,0 +1,7 @@
+node_modules/
+dist/
+joblogs.zip
+.env
+.env.local
+/.cache
+.DS_Store
