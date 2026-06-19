@@ -91,7 +91,7 @@ Update these files to replace placeholders with your own data (names, links, ima
 
 ## License
 
-MIT License © 2024 Zyekh Abdul Qadir Jailani. See [LICENSE](LICENSE) file for details.
+MIT License © 2026 Zyekh Abdul Qadir Jailani. See [LICENSE](LICENSE) file for details.
 
 ---
 
