@@ -1,102 +1,78 @@
-# ZYEKH_ABDUL — Personal Portfolio
+# 🎨 ZYEKH ABDUL — Terminal & Security Portfolio (`zyekh_abdul-porto`)
 
-![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
-![Node](https://img.shields.io/badge/Node-%3E%3D18-brightgreen)
-![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript)
-![Vite](https://img.shields.io/badge/Vite-6.2-646CFF?logo=vite)
+<p align="center">
+  <a href="https://github.com/zyekhabdul/zyekh_abdul-porto/actions/workflows/ci.yml">
+    <img src="https://github.com/zyekhabdul/zyekh_abdul-porto/actions/workflows/ci.yml/badge.svg" alt="CI Build Status">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
+  </a>
+  <a href="https://react.dev/">
+    <img src="https://img.shields.io/badge/React-19-61DAFB.svg?logo=react&logoColor=black" alt="React 19">
+  </a>
+  <a href="https://www.typescriptlang.org/">
+    <img src="https://img.shields.io/badge/TypeScript-5.8-3178C6.svg?logo=typescript&logoColor=white" alt="TypeScript 5.8">
+  </a>
+  <a href="https://vitejs.dev/">
+    <img src="https://img.shields.io/badge/Vite-6.2-646CFF.svg?logo=vite&logoColor=white" alt="Vite 6.2">
+  </a>
+  <a href="https://tailwindcss.com/">
+    <img src="https://img.shields.io/badge/Tailwind-CSS-38BDF8.svg?logo=tailwindcss&logoColor=white" alt="Tailwind CSS">
+  </a>
+</p>
 
-Terminal-themed personal portfolio built with React, Vite and TypeScript.
-
-## Overview
-
-This repository contains a single-page React portfolio focused on security engineering and system tooling. The site is built with Vite and styled with Tailwind CSS. It includes an interactive "terminal" view, portfolio archive, and contact UI.
-
-## Tech stack
-
-- React + TypeScript
-- Vite
-- Tailwind CSS
-- Optional: Express (listed in package.json but not required for frontend deploy)
-
-## Quick start (development)
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Run dev server (Vite):
-
-```bash
-npm run dev
-```
-
-Build for production:
-
-```bash
-npm run build
-```
-
-Preview production build locally:
-
-```bash
-npm run preview
-```
-
-Notes:
-- On Windows the `clean` script (`rm -rf dist server.js`) may fail; use `npx rimraf dist server.js` or update `package.json` to use `rimraf` for cross-platform removal.
-
-## Deploy
-
-This is a static frontend app. Deploy options:
-- Vercel — connect the repo and set the build command to `npm run build` and output directory to `dist`.
-- Netlify — same build command and publish directory `dist`.
-- Any static host that serves files from the `dist` folder.
-
-## Where to customize user data (replace with your real info)
-
-Update these files to replace placeholders with your own data (names, links, images):
-
-- About page profile photo and certificates: [src/components/AboutView.tsx](src/components/AboutView.tsx)
-   - Profile image path: `/src/assets/images/gumball_profile_1781018320851.png` — replace with your photo or place your image under `src/assets/images/` and update the `src` value.
-   - `certifications` array: each item has `img` (image URL) and `title` — replace with your certificate images or use local assets.
-
-- Portfolio repos and project screenshots: [src/components/ArchiveView.tsx](src/components/ArchiveView.tsx)
-   - `repositories` array contains `name`, `url`, `screenshot`, and `technologies` — update `url` to your GitHub repos and `screenshot` to local images if desired.
-
-- Terminal command text and quick links (static strings): [src/components/TerminalView.tsx](src/components/TerminalView.tsx)
-   - Commands like `archive`, `about`, `contact` contain hardcoded URLs and PGP/coordinates — modify or remove sensitive content.
-
-- Footer social links: [src/components/Footer.tsx](src/components/Footer.tsx)
-   - Replace the `href` values for GitHub and LinkedIn with your profiles.
-
-- Hero/name and subtitle: [src/components/HomeView.tsx](src/components/HomeView.tsx) and [src/components/AboutView.tsx](src/components/AboutView.tsx)
-   - Replace displayed full name, roles, and short bio.
-
-- Static images folder: `src/assets/images/`
-   - Place local assets (profile photo, project screenshots, certificate images) here and reference them via relative paths.
-
-## Security & content notes
-
-- The site contains references to security research and repository names that may appear sensitive (e.g., research into persistence/backdoors). If this content might be misinterpreted, revise wording to clarify "research / responsible disclosure" or remove sensitive project titles.
-- If you enable a real contact form (currently simulated in `ContactView.tsx`), implement a secure backend endpoint with input validation, rate limiting, and spam protection.
-
-## Recommended small improvements before hosting
-
-- Replace external image hosting with local assets in `src/assets/images/` for reliability.
-- Remove unused dependencies (e.g., `express` if unused) or add a simple server implementation if you plan to handle form submissions.
-- Add linting/formatting (ESLint + Prettier) and a simple CI workflow to run `npm run build` on push.
-
-## License
-
-MIT License © 2026 Zyekh Abdul Qadir Jailani. See [LICENSE](LICENSE) file for details.
+A terminal-themed, interactive single-page portfolio application focused on Digital Forensics & Incident Response (DFIR), Linux Kernel Security, and Full-Stack Web Development. Built with **React 19**, **Vite 6**, **TypeScript 5**, and **Tailwind CSS**.
 
 ---
 
-If you want, I can automatically:
-- update `Footer` links to your GitHub/LinkedIn,
-- replace the profile photo with a provided file, and
-- move certificate images into `src/assets/images/` and update references.
-Send the URLs or image files to proceed.
+## 🏗️ Architecture & Component Overview
+
+```mermaid
+graph TD
+    A["Single Page App Entry (index.html)"] --> B["React App Root (src/App.tsx)"]
+    
+    B --> C["Interactive Terminal View (src/components/TerminalView.tsx)"]
+    B --> D["Portfolio Archive Grid (src/components/ArchiveView.tsx)"]
+    B --> E["About & Certificates Showcase (src/components/AboutView.tsx)"]
+    B --> F["Contact Form UI (src/components/ContactView.tsx)"]
+    
+    C --> G["Command Parser: archive, about, contact, help, clear"]
+    D --> H["GitHub API & Open-Source Projects Synchronization"]
+```
+
+---
+
+## 🚀 Key Features
+
+- 🖥️ **Interactive Cyber Terminal**: Custom command-line interface supporting shell-like navigation (`archive`, `about`, `contact`, `help`, `clear`, `cat`).
+- 📁 **Repository Archive Showcase**: Grid view displaying top open-source projects, badges, tech tags, and direct GitHub links.
+- 🎨 **Modern Dark Mode Aesthetic**: Sleek, high-contrast dark theme with glassmorphism and subtle glowing micro-animations.
+- ⚡ **Lightning Fast Vite Build**: Zero-delay HMR and optimized static production bundle.
+
+---
+
+## 💻 Development & Quick Start
+
+```bash
+# Clone repository
+git clone https://github.com/zyekhabdul/zyekh_abdul-porto.git
+cd zyekh_abdul-porto
+
+# Install dependencies
+npm install
+
+# Start local development server
+npm run dev
+
+# Build production distribution (dist/)
+npm run build
+
+# Preview production build locally
+npm run preview
+```
+
+---
+
+## 📜 License
+
+MIT License © 2026 Zyekh Abdul Qadir Jailani. Designed for Security Engineers & Developers.
