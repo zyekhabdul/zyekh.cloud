@@ -1,8 +1,18 @@
 const GITHUB_USER = 'zyekhabdul';
 const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN || '';
-const CACHE_KEY = 'github_stats_cache';
-const REPOS_CACHE_KEY = 'github_repos_cache';
-const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes (will be refreshed every 5 min from component)
+const CACHE_KEY = 'github_stats_cache_v2';
+const REPOS_CACHE_KEY = 'github_repos_cache_v2';
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+// Purge legacy cache keys from localStorage immediately on module load
+try {
+  localStorage.removeItem('github_stats_cache');
+  localStorage.removeItem('github_repos_cache');
+  localStorage.removeItem('github_stats_cache_v1');
+  localStorage.removeItem('github_repos_cache_v1');
+} catch (_) {
+  // Ignore SSR/storage restriction errors
+}
 
 // Minimal GitHub API repo shape used by this module
 interface GHRepo {
@@ -121,9 +131,9 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
   if (cached) {
     return cached;
   }
-  // First try pre-generated static JSON (produced at build time)
+  // First try pre-generated static JSON (produced at build time with cache-busting timestamp)
   try {
-    const staticResp = await fetch('/github-stats.json');
+    const staticResp = await fetch(`/github-stats.json?t=${Date.now()}`);
     if (staticResp.ok) {
       const s = await staticResp.json();
       setCachedData(s);
@@ -195,9 +205,9 @@ export async function fetchRepositories(): Promise<GitHubRepository[]> {
   if (cached) {
     return cached;
   }
-  // Try static JSON generated at build time first
+  // Try static JSON generated at build time first with cache-busting timestamp
   try {
-    const staticResp = await fetch('/github-repos.json');
+    const staticResp = await fetch(`/github-repos.json?t=${Date.now()}`);
     if (staticResp.ok) {
       const r = await staticResp.json();
       setCachedRepos(r);
