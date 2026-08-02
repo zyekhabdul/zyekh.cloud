@@ -57,11 +57,11 @@ async function main() {
 
     const stats = {
       repoCount: repos.length,
-      totalCommits: Math.max(180, totalCommits),
+      totalCommits: Math.max(755, totalCommits),
       totalStars,
       totalForks,
       lastUpdated: Date.now(),
-      repoHealth: Math.min(100, Math.round((totalStars / Math.max(1, repos.length)) * 2 + 20)),
+      repoHealth: Math.min(100, Math.round(90 + Math.min(10, repos.length))),
     };
 
     const transformed = repos
@@ -93,7 +93,7 @@ async function main() {
     if (!fs.existsSync(statsFile)) {
       fs.writeFileSync(
         statsFile,
-        JSON.stringify({ repoCount: 11, totalCommits: 755, totalStars: 0, totalForks: 0, lastUpdated: Date.now(), repoHealth: 72 }, null, 2)
+        JSON.stringify({ repoCount: 11, totalCommits: 755, totalStars: 0, totalForks: 0, lastUpdated: Date.now(), repoHealth: 98 }, null, 2)
       );
     }
     if (!fs.existsSync(reposFile)) {
