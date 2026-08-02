@@ -133,7 +133,9 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
   }
   // First try pre-generated static JSON (produced at build time with cache-busting timestamp)
   try {
-    const staticResp = await fetch(`/github-stats.json?t=${Date.now()}`);
+    const baseUrl = import.meta.env.BASE_URL || './';
+    const statsUrl = `${baseUrl.replace(/\/$/, '')}/github-stats.json?t=${Date.now()}`;
+    const staticResp = await fetch(statsUrl);
     if (staticResp.ok) {
       const s = await staticResp.json();
       setCachedData(s);
@@ -207,7 +209,9 @@ export async function fetchRepositories(): Promise<GitHubRepository[]> {
   }
   // Try static JSON generated at build time first with cache-busting timestamp
   try {
-    const staticResp = await fetch(`/github-repos.json?t=${Date.now()}`);
+    const baseUrl = import.meta.env.BASE_URL || './';
+    const reposUrl = `${baseUrl.replace(/\/$/, '')}/github-repos.json?t=${Date.now()}`;
+    const staticResp = await fetch(reposUrl);
     if (staticResp.ok) {
       const r = await staticResp.json();
       setCachedRepos(r);
