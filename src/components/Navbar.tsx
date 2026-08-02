@@ -19,6 +19,29 @@ const NAV_ITEMS: { label: string; value: TabType }[] = [
   { label: 'Contact', value: 'contact' },
 ];
 
+const PRELOAD_VIEW = (tab: TabType) => {
+  switch (tab) {
+    case 'home':
+      import('./HomeView');
+      break;
+    case 'about':
+      import('./AboutView');
+      break;
+    case 'services':
+      import('./ServicesView');
+      break;
+    case 'archive':
+      import('./ArchiveView');
+      break;
+    case 'contact':
+      import('./ContactView');
+      break;
+    case 'terminal':
+      import('./TerminalView');
+      break;
+  }
+};
+
 export default function Navbar({ currentTab, onTabChange }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -43,6 +66,8 @@ export default function Navbar({ currentTab, onTabChange }: NavbarProps) {
                 <button
                   key={item.value}
                   onClick={() => onTabChange(item.value)}
+                  onMouseEnter={() => PRELOAD_VIEW(item.value)}
+                  onFocus={() => PRELOAD_VIEW(item.value)}
                   className={`font-mono text-sm tracking-tight cursor-pointer ${
                     isActive
                       ? 'text-white border-b border-white pb-1 font-medium'
@@ -87,6 +112,8 @@ export default function Navbar({ currentTab, onTabChange }: NavbarProps) {
                     onTabChange(item.value);
                     setMobileMenuOpen(false);
                   }}
+                  onMouseEnter={() => PRELOAD_VIEW(item.value)}
+                  onFocus={() => PRELOAD_VIEW(item.value)}
                   className={`w-full text-center font-mono py-1 cursor-pointer ${
                     isActive
                       ? 'text-white border-b border-white pb-1 font-medium'
