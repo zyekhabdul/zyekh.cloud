@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1266440945,
+    "name": "zyekh.cloud",
+    "url": "https://github.com/zyekhabdul/zyekh.cloud",
+    "description": "🎨 Interactive terminal-themed developer portfolio showcasing software engineering, security research, and open-source contributions.",
+    "stars": 0,
+    "forks": 0,
+    "language": "TypeScript",
+    "updatedAt": "2026-08-02T04:51:04Z"
+  },
+  {
+    "id": 1262791743,
+    "name": "os-debloat-scripts",
+    "url": "https://github.com/zyekhabdul/os-debloat-scripts",
+    "description": "🧹 Shell & PowerShell scripts for automated OS debloating, privacy hardening, and telemetry neutralization on Linux & Windows.",
+    "stars": 0,
+    "forks": 0,
+    "language": "PowerShell",
+    "updatedAt": "2026-08-02T04:36:02Z"
+  },
+  {
+    "id": 1263947872,
+    "name": "md-editor",
+    "url": "https://github.com/zyekhabdul/md-editor",
+    "description": "✍️ Fast, lightweight web-based Markdown editor with live preview, syntax highlighting, and technical documentation templates.",
+    "stars": 0,
+    "forks": 0,
+    "language": "HTML",
+    "updatedAt": "2026-08-02T04:35:48Z"
+  },
+  {
+    "id": 1312551278,
+    "name": "zyekh.com",
+    "url": "https://github.com/zyekhabdul/zyekh.com",
+    "description": "⚡ Official personal web portal, security research log, and technical blog of Zyekh Abdul.",
+    "stars": 0,
+    "forks": 0,
+    "language": "HTML",
+    "updatedAt": "2026-08-02T04:35:34Z"
+  },
+  {
+    "id": 1266497549,
+    "name": "laravel-12-microservices",
+    "url": "https://github.com/zyekhabdul/laravel-12-microservices",
+    "description": "🌐 Event-driven microservices architecture blueprint built with Laravel 12, API Gateway, gRPC, and message brokers.",
+    "stars": 0,
+    "forks": 0,
+    "language": "PHP",
+    "updatedAt": "2026-08-02T04:30:14Z"
+  },
+  {
+    "id": 1262796842,
+    "name": "laravel-12-enterprise",
+    "url": "https://github.com/zyekhabdul/laravel-12-enterprise",
+    "description": "🏛️ Production-ready Laravel 12 enterprise boilerplate featuring Domain-Driven Design (DDD), strict typing, CI/CD, and TDD setup.",
+    "stars": 0,
+    "forks": 0,
+    "language": "PHP",
+    "updatedAt": "2026-08-02T04:30:12Z"
+  },
+  {
+    "id": 1262789825,
+    "name": "android-persistence-research",
+    "url": "https://github.com/zyekhabdul/android-persistence-research",
+    "description": "📱 Technical research on low-level Android persistence mechanisms, boot image hooking, init daemons, and malware survival techniques.",
+    "stars": 0,
+    "forks": 0,
+    "language": "Python",
+    "updatedAt": "2026-08-02T04:30:08Z"
+  },
+  {
+    "id": 1266848469,
+    "name": "remote-agent-orchestration",
+    "url": "https://github.com/zyekhabdul/remote-agent-orchestration",
+    "description": "🛰️ Lightweight, scalable framework for remote AI agent orchestration, distributed task execution, and secure node communication.",
+    "stars": 0,
+    "forks": 0,
+    "language": "TypeScript",
+    "updatedAt": "2026-08-02T04:30:06Z"
+  },
+  {
+    "id": 1318942151,
+    "name": "volatility3-ai-triage",
+    "url": "https://github.com/zyekhabdul/volatility3-ai-triage",
+    "description": "🤖 AI-powered automated memory forensics & triage pipeline integrated with Volatility 3 for rapid incident response.",
+    "stars": 0,
+    "forks": 0,
+    "language": "Python",
+    "updatedAt": "2026-08-02T04:30:04Z"
+  },
+  {
+    "id": 1319324532,
+    "name": "vol3-ebpf-detector",
+    "url": "https://github.com/zyekhabdul/vol3-ebpf-detector",
+    "description": "🛡️ Advanced Volatility 3 plugin & standalone memory carver for eBPF rootkit detection, eBPF map inspection, and Linux kernel forensics.",
+    "stars": 0,
+    "forks": 0,
+    "language": "Python",
+    "updatedAt": "2026-08-02T04:30:02Z"
+  }
+]

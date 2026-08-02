@@ -6,17 +6,105 @@
 import React, { useState, useEffect } from 'react';
 import { TabType, Repository } from '../types';
 
-interface ArchiveViewProps {
-  onTabChange: (tab: TabType) => void;
-}
+const getBaseUrl = () => import.meta.env.BASE_URL || './';
 
-export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
-  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
-  const [syncTime, setSyncTime] = useState('02:14:09');
-  const baseUrl = import.meta.env.BASE_URL || './';
+const REPOSITORIES: Repository[] = [
+  {
+    year: 2026,
+    name: 'Android Persistence Research',
+    description:
+      'Deep-dive research into Android persistence techniques and defensive mitigations.',
+    technologies: ['PYTHON', 'ANDROID'],
+    category: 'Security Research',
+    categoryColor: 'bg-white',
+    url: 'https://github.com/zyekhabdul/android-persistence-research',
+  },
+  {
+    year: 2026,
+    name: 'Remote Agent Orchestration Research',
+    description:
+      'Orchestration and secure command routing analysis for remote agent systems and defensive tooling.',
+    technologies: ['JS', 'REMOTE_AGENT'],
+    category: 'Network Tool',
+    categoryColor: 'bg-white',
+    url: 'https://github.com/zyekhabdul/remote-agent-orchestration',
+  },
+  {
+    year: 2025,
+    name: 'Laravel 12 Enterprise Prototype',
+    description:
+      'Index of architectural routing components, multi-factor guards, and modular databases configuration.',
+    technologies: ['PHP', 'LARAVEL 12'],
+    category: 'Enterprise Prototype',
+    categoryColor: 'bg-[#8e9192]',
+    screenshot: `${getBaseUrl()}ss-bukti-porto-2.png`,
+    url: 'https://github.com/zyekhabdul/laravel-12-enterprise',
+  },
+  {
+    year: 2026,
+    name: 'OS Debloat & Modding Scripts',
+    description:
+      'Clean collection of PowerShell and Bash tasks automating bloat removal and kernel security tweaks.',
+    technologies: ['BASH', 'POWERSHELL'],
+    category: 'System Utility',
+    categoryColor: 'bg-[#c6c6c6]',
+    url: 'https://github.com/zyekhabdul/os-debloat-scripts',
+  },
+];
+
+const CREDENTIALS = [
+  {
+    tag: 'Webinar',
+    title: 'Webinar Episode 2 - Skillage Academy',
+    img: `${getBaseUrl()}certificates/cert-webinar.png`,
+  },
+  {
+    tag: 'Competency',
+    title: 'MS Word Operation - Skillage',
+    img: `${getBaseUrl()}certificates/cert-msword.jpg`,
+  },
+  {
+    tag: 'Project',
+    title: 'Proja Dutif - PT. Intitama',
+    img: `${getBaseUrl()}certificates/cert-projadutif-sesi-1.jpg`,
+  },
+  {
+    tag: 'Competency',
+    title: 'Web Browser Operation - Skillage',
+    img: `${getBaseUrl()}certificates/cert-browser.jpg`,
+  },
+  {
+    tag: 'Competency',
+    title: 'Typing Skill - Skillage',
+    img: `${getBaseUrl()}certificates/cert-typing.jpg`,
+  },
+  {
+    tag: 'Competency',
+    title: 'Operating System Basics - Skillage',
+    img: `${getBaseUrl()}certificates/cert-os.jpg`,
+  },
+  {
+    tag: 'Competency',
+    title: 'Windows Beginner - Skillage',
+    img: `${getBaseUrl()}certificates/cert-skillage-window.jpg`,
+  },
+  {
+    tag: 'Habituation',
+    title: 'DUDI Habituasi (Front) - Skillage',
+    img: `${getBaseUrl()}certificates/cert-habituasi-front.png`,
+  },
+  {
+    tag: 'Habituation',
+    title: 'DUDI Habituasi (Back) - Skillage',
+    img: `${getBaseUrl()}certificates/cert-habituasi-back.png`,
+  },
+];
+
+// Isolated clock component to prevent parent re-renders every 1 second
+function LiveClock() {
+  const [syncTime, setSyncTime] = useState('00:00:00');
 
   useEffect(() => {
-    // Generate real-time updates for Last Sync simulation log
     const timer = setInterval(() => {
       const now = new Date();
       setSyncTime(
@@ -31,87 +119,15 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
     return () => clearInterval(timer);
   }, []);
 
-  const repositories: Repository[] = [
-    {
-      year: 2026,
-      name: 'Android Persistence Research',
-      description:
-        'Deep-dive research into Android persistence techniques and defensive mitigations.',
-      technologies: ['PYTHON', 'ANDROID'],
-      category: 'Security Research',
-      categoryColor: 'bg-white',
-      url: 'https://github.com/yakunzizhex',
-    },
-    {
-      year: 2026,
-      name: 'Remote Agent Orchestration Research',
-      description:
-        'Orchestration and secure command routing analysis for remote agent systems and defensive tooling.',
-      technologies: ['JS', 'REMOTE_AGENT'],
-      category: 'Network Tool',
-      categoryColor: 'bg-white',
-      url: 'https://github.com/yakunzizhex',
-    },
-    {
-      year: 2025,
-      name: 'Laravel 12 Enterprise Prototype',
-      description:
-        'Index of architectural routing components, multi-factor guards, and modular databases configuration.',
-      technologies: ['PHP', 'LARAVEL 12'],
-      category: 'Enterprise Prototype',
-      categoryColor: 'bg-[#8e9192]',
-      screenshot: `${baseUrl}ss-bukti-porto-2.png`,
-      url: 'https://github.com/yakunzizhex',
-    },
-    {
-      year: 2026,
-      name: 'OS Debloat & Modding Scripts',
-      description:
-        'Clean collection of PowerShell and Bash tasks automating bloat removal and kernel security tweaks.',
-      technologies: ['BASH', 'POWERSHELL'],
-      category: 'System Utility',
-      categoryColor: 'bg-[#c6c6c6]',
-      url: 'https://github.com/yakunzizhex',
-    },
-  ];
+  return <div className="font-sans text-2xl font-black text-white leading-none">{syncTime}</div>;
+}
 
-  const credentials = [
-    {
-      tag: 'Webinar',
-      title: 'Webinar Episode 2 - Skillage Academy',
-      img: `${baseUrl}certificates/cert-webinar.png`,
-    },
-    {
-      tag: 'Competency',
-      title: 'MS Word Operation - Skillage',
-      img: `${baseUrl}certificates/cert-msword.jpg`,
-    },
-    {
-      tag: 'Project',
-      title: 'Proja Dutif - PT. Intitama',
-      img: `${baseUrl}certificates/cert-projadutif-sesi-1.jpg`,
-    },
-    {
-      tag: 'Competency',
-      title: 'Web Browser Operation - Skillage',
-      img: `${baseUrl}certificates/cert-browser.jpg`,
-    },
-    {
-      tag: 'Competency',
-      title: 'Windows Beginner - Skillage',
-      img: `${baseUrl}certificates/cert-skillage-window.jpg`,
-    },
-    {
-      tag: 'Habituation',
-      title: 'DUDI Habituasi (Front) - Skillage',
-      img: `${baseUrl}certificates/cert-habituasi-front.png`,
-    },
-    {
-      tag: 'Habituation',
-      title: 'DUDI Habituasi (Back) - Skillage',
-      img: `${baseUrl}certificates/cert-habituasi-back.png`,
-    },
-  ];
+interface ArchiveViewProps {
+  onTabChange: (tab: TabType) => void;
+}
+
+export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
   return (
     <div className="flex flex-col gap-12 font-mono max-w-[1280px] mx-auto px-4 md:px-6 py-8 animate-fade-in text-[#e3e1ec]">
@@ -137,7 +153,7 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
 
       {/* Primary Mobile Portfolios List */}
       <section className="block md:hidden space-y-4">
-        {repositories.map((repo, idx) => (
+        {REPOSITORIES.map((repo, idx) => (
           <div
             key={idx}
             className="border border-[#444748] p-5 bg-[#1a1b22] hover:bg-[#1e1f26] transition-colors text-left"
@@ -158,6 +174,8 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
                   alt={repo.name}
                   className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-300 object-top"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  decoding="async"
                   src={repo.screenshot}
                 />
               </div>
@@ -200,7 +218,7 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
             </tr>
           </thead>
           <tbody className="divide-y divide-[#444748]/40">
-            {repositories.map((repo, idx) => (
+            {REPOSITORIES.map((repo, idx) => (
               <tr key={idx} className="hover:bg-[#1a1b22] transition-colors group">
                 <td className="p-4 text-[#8e9192] italic">{repo.year}</td>
                 <td className="p-4">
@@ -212,6 +230,8 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
                           alt={repo.name}
                           className="w-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500 object-top"
                           referrerPolicy="no-referrer"
+                          loading="lazy"
+                          decoding="async"
                           src={repo.screenshot}
                         />
                       </div>
@@ -272,7 +292,7 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {credentials.map((cred, idx) => (
+          {CREDENTIALS.map((cred, idx) => (
             <div
               key={idx}
               onClick={() => setLightboxImage(cred.img)}
@@ -288,6 +308,8 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
                   alt={cred.title}
                   className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-300"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
 
@@ -369,7 +391,7 @@ export default function ArchiveView({ onTabChange }: ArchiveViewProps) {
             </span>
             <span className="material-symbols-outlined text-white text-[18px]">update</span>
           </div>
-          <div className="font-sans text-2xl font-black text-white leading-none">{syncTime}</div>
+          <LiveClock />
           <div className="mt-6 font-mono text-[11px] text-[#c4c7c8] truncate">
             [UTC_TIME_SIGNAL]
           </div>

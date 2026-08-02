@@ -86,8 +86,37 @@ async function main() {
 
     console.log('[fetch-github] Wrote github-stats.json and github-repos.json to public/');
   } catch (error) {
-    console.error('[fetch-github] Failed:', error.message);
-    process.exitCode = 1;
+    console.warn('[fetch-github] API fetch failed (continuing build with existing/fallback data):', error.message);
+    if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+    const statsFile = path.join(outDir, 'github-stats.json');
+    const reposFile = path.join(outDir, 'github-repos.json');
+    if (!fs.existsSync(statsFile)) {
+      fs.writeFileSync(
+        statsFile,
+        JSON.stringify({ repoCount: 11, totalCommits: 755, totalStars: 0, totalForks: 0, lastUpdated: Date.now(), repoHealth: 72 }, null, 2)
+      );
+    }
+    if (!fs.existsSync(reposFile)) {
+      fs.writeFileSync(
+        reposFile,
+        JSON.stringify(
+          [
+            {
+              id: 1,
+              name: 'zyekh.cloud',
+              url: `https://github.com/${GITHUB_USER}/zyekh.cloud`,
+              description: 'Terminal-themed personal portfolio | React + Vite + TypeScript',
+              stars: 0,
+              forks: 0,
+              language: 'TypeScript',
+              updatedAt: new Date().toISOString(),
+            },
+          ],
+          null,
+          2
+        )
+      );
+    }
   }
 }
 

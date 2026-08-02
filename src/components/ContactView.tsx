@@ -5,25 +5,13 @@
 
 import React, { useState, useEffect } from 'react';
 
-export default function ContactView() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
-
-  const [buttonText, setButtonText] = useState('Send_Message');
-  const [isSending, setIsSending] = useState(false);
-  const [formFeedback, setFormFeedback] = useState<string | null>(null);
-
+// Sub-component for dynamic Jakarta UTC+7 clock to prevent re-renders of the parent form
+function JakartaClock() {
   const [localTime, setLocalTime] = useState('--:--:-- UTC+7');
 
   useEffect(() => {
-    // Generate simulated dynamic timezone clock UTC+7
     const updateTime = () => {
       const now = new Date();
-      // Calculate Jakarta timezone time offset (UTC+7)
       const utc = now.getTime() + now.getTimezoneOffset() * 60000;
       const jktTime = new Date(utc + 3600000 * 7);
 
@@ -42,6 +30,21 @@ export default function ContactView() {
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  return <span>{localTime}</span>;
+}
+
+export default function ContactView() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  });
+
+  const [buttonText, setButtonText] = useState('Send_Message');
+  const [isSending, setIsSending] = useState(false);
+  const [formFeedback, setFormFeedback] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -209,7 +212,7 @@ export default function ContactView() {
                 LOCAL_TIME
               </span>
               <div className="font-mono text-xs text-white uppercase" id="clock">
-                {localTime}
+                <JakartaClock />
               </div>
             </div>
 

@@ -4,7 +4,87 @@
  */
 
 import React, { useState } from 'react';
-import { TabType } from '../types';
+import { TabType, AcademicTimelineItem } from '../types';
+
+const getBaseUrl = () => import.meta.env.BASE_URL || './';
+
+const CAPABILITIES = [
+  { name: 'BASH', value: 40 },
+  { name: 'PYTHON', value: 10 },
+  { name: 'LUA', value: 56 },
+  { name: 'LARAVEL/PHP', value: 56 },
+] as const;
+
+const TIMELINE: AcademicTimelineItem[] = [
+  {
+    year: '2024 — 2027',
+    institution: 'SMK Skill Village',
+    description: 'Advanced Software Engineering and System Administration.',
+    url: 'https://skillageislamic.sch.id/',
+  },
+  {
+    year: '2022 — 2024',
+    institution: 'SMPIT Daarul Ijabah',
+    description: 'Foundational technical studies and logic development.',
+  },
+  {
+    year: '2016 — 2021',
+    institution: 'MI Al-Husein',
+    description: 'Early education and introduction to computing.',
+    url: 'https://mis.alhusein.sch.id/',
+  },
+];
+
+const COLLABORATORS = [
+  { initials: 'AI', name: 'Claude AI', role: 'Development Assistant' },
+  { initials: 'AI', name: 'ChatGPT', role: 'Research & Analysis' },
+  { initials: 'CV', name: 'CV Framework', role: 'Code Review' },
+] as const;
+
+const CERTIFICATIONS = [
+  {
+    id: 'CERT_02',
+    type: 'WEBINAR_HOST',
+    title: 'Webinar Episode 2 - Skillage Academy',
+    img: `${getBaseUrl()}certificates/cert-webinar.png`,
+  },
+  {
+    id: 'CERT_03',
+    type: 'MS_WORD_COMP',
+    title: 'MS Word Operation - Skillage',
+    img: `${getBaseUrl()}certificates/cert-msword.jpg`,
+  },
+  {
+    id: 'CERT_04',
+    type: 'PROJA_DUTIF',
+    title: 'Proja Dutif - PT. Intitama',
+    img: `${getBaseUrl()}certificates/cert-projadutif-sesi-1.jpg`,
+  },
+  {
+    id: 'CERT_05',
+    type: 'WEB_BROWSER',
+    title: 'Web Browser Operation - Skillage',
+    img: `${getBaseUrl()}certificates/cert-browser.jpg`,
+  },
+  {
+    id: 'CERT_06',
+    type: 'WIN_BEGINNER',
+    title: 'Windows Beginner - Skillage',
+    img: `${getBaseUrl()}certificates/cert-skillage-window.jpg`,
+  },
+  {
+    id: 'CERT_07',
+    type: 'HABITUASI_F',
+    title: 'DUDI Habituasi (Front) - Skillage',
+    img: `${getBaseUrl()}certificates/cert-habituasi-front.png`,
+  },
+  {
+    id: 'CERT_08',
+    type: 'HABITUASI_B',
+    title: 'DUDI Habituasi (Back) - Skillage',
+    img: `${getBaseUrl()}certificates/cert-habituasi-back.png`,
+  },
+];
 
 interface AboutViewProps {
   onTabChange: (tab: TabType) => void;
@@ -13,84 +93,6 @@ interface AboutViewProps {
 export default function AboutView({ onTabChange }: AboutViewProps) {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const baseUrl = import.meta.env.BASE_URL || './';
-
-  const capabilities = [
-    { name: 'BASH', value: 40 },
-    { name: 'PYTHON', value: 10 },
-    { name: 'LUA', value: 56 },
-    { name: 'LARAVEL/PHP', value: 56 },
-  ];
-
-  const timeline = [
-    {
-      year: '2024 — 2027',
-      institution: 'SMK Skill Village',
-      description: 'Advanced Software Engineering and System Administration.',
-      url: 'https://skillageislamic.sch.id/',
-    },
-    {
-      year: '2022 — 2024',
-      institution: 'SMPIT Daarul Ijabah',
-      description: 'Foundational technical studies and logic development.',
-    },
-    {
-      year: '2016 — 2021',
-      institution: 'MI Al-Husein',
-      description: 'Early education and introduction to computing.',
-      url: 'https://mis.alhusein.sch.id/',
-    },
-  ];
-
-  const collaborators = [
-    { initials: 'AI', name: 'Claude AI', role: 'Development Assistant' },
-    { initials: 'AI', name: 'ChatGPT', role: 'Research & Analysis' },
-    { initials: 'CV', name: 'CV Framework', role: 'Code Review' },
-  ];
-
-  const certifications = [
-    {
-      id: 'CERT_02',
-      type: 'WEBINAR_HOST',
-      title: 'Webinar Episode 2 - Skillage Academy',
-      img: `${baseUrl}certificates/cert-webinar.png`,
-    },
-    {
-      id: 'CERT_03',
-      type: 'MS_WORD_COMP',
-      title: 'MS Word Operation - Skillage',
-      img: `${baseUrl}certificates/cert-msword.jpg`,
-    },
-    {
-      id: 'CERT_04',
-      type: 'PROJA_DUTIF',
-      title: 'Proja Dutif - PT. Intitama',
-      img: `${baseUrl}certificates/cert-projadutif-sesi-1.jpg`,
-    },
-    {
-      id: 'CERT_05',
-      type: 'WEB_BROWSER',
-      title: 'Web Browser Operation - Skillage',
-      img: `${baseUrl}certificates/cert-browser.jpg`,
-    },
-    {
-      id: 'CERT_06',
-      type: 'WIN_BEGINNER',
-      title: 'Windows Beginner - Skillage',
-      img: `${baseUrl}certificates/cert-skillage-window.jpg`,
-    },
-    {
-      id: 'CERT_07',
-      type: 'HABITUASI_F',
-      title: 'DUDI Habituasi (Front) - Skillage',
-      img: `${baseUrl}certificates/cert-habituasi-front.png`,
-    },
-    {
-      id: 'CERT_08',
-      type: 'HABITUASI_B',
-      title: 'DUDI Habituasi (Back) - Skillage',
-      img: `${baseUrl}certificates/cert-habituasi-back.png`,
-    },
-  ];
 
   const handleDownloadCV = () => {
     // Elegant client feedback indicating download process initialized
@@ -182,7 +184,7 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
               01. Software Dev
             </span>
             <ul className="space-y-6">
-              {capabilities.map((tech) => (
+              {CAPABILITIES.map((tech) => (
                 <li key={tech.name} className="group cursor-default">
                   <div className="flex justify-between items-center mb-1.5 gap-2">
                     <span className="font-sans font-extrabold text-xs md:text-sm tracking-wide text-white group-hover:text-white transition-colors break-words">
@@ -274,9 +276,9 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
           <h2 className="font-sans text-md font-extrabold mb-6 border-b border-[#444748] pb-2 inline-block">
             ACADEMIC_PATH
           </h2>
-          <div className="relative pl-6 border-l border-[#444748] py-2">
-            {timeline.map((item, index) => (
-              <div key={index} className="relative mb-8 last:mb-2">
+          <div className="space-y-6 border-l border-[#444748] pl-6 ml-2 text-left">
+            {TIMELINE.map((item, idx) => (
+              <div key={idx} className="relative mb-8 last:mb-2">
                 {/* Node indicator */}
                 <div className="absolute w-2.5 h-2.5 bg-white -left-[31px] top-1.5 border border-[#12131a]" />
 
@@ -309,7 +311,7 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
             TECHNICAL_COLLABORATORS
           </h2>
           <div className="space-y-4">
-            {collaborators.map((user) => (
+            {COLLABORATORS.map((user) => (
               <div
                 key={user.name}
                 className="flex items-center justify-between p-4 border border-[#444748] hover:bg-[#1a1b22] transition-colors duration-0 group rounded-none"
@@ -344,7 +346,7 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {certifications.map((cert) => (
+          {CERTIFICATIONS.map((cert) => (
             <div
               key={cert.id}
               onClick={() => setLightboxImage(cert.img)}
@@ -355,6 +357,8 @@ export default function AboutView({ onTabChange }: AboutViewProps) {
                   alt={cert.title}
                   className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-300 object-top"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  decoding="async"
                   src={cert.img}
                 />
                 <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

@@ -43,6 +43,7 @@ export interface AcademicTimelineItem {
   institution: string;
   description: string;
   link?: string;
+  url?: string;
 }
 
 export interface TerminalLogLine {

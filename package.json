@@ -13,7 +13,7 @@
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
-    "prebuild": "node ./scripts/copy-favicons.js",
+    "prebuild": "node ./scripts/fetch-github.js && node ./scripts/copy-favicons.js",
     "fetch:github": "node ./scripts/fetch-github.js",
     "preview": "vite preview",
     "deploy": "npm run build && gh-pages -d dist",

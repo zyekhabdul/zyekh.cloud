@@ -13,6 +13,31 @@ import {
   GitHubRepository,
 } from '../services/github';
 
+// System scan and diagnostics output for terminal (module scope to prevent re-creation on render)
+const SYSTEM_SCAN = [
+  '$ ./security_audit.sh',
+  'Initializing system diagnostics...',
+  '[✓] Kernel: Linux 5.15.0-generic #1 SMP',
+  '[✓] Architecture: x86_64 | Uptime: 247d 14h 32m',
+  '[✓] Memory: 32GB | Available: 28.6GB (89%)',
+  '[✓] Core binaries verified',
+  '[✓] SSH configuration secure',
+  '[✓] Firewall rules active',
+  '[✓] Port 22/ssh - OpenSSH 8.2p1',
+  '[✓] Port 80/http - nginx 1.18.0',
+  '[✓] Port 443/https - active',
+  '[✓] No suspicious connections',
+  '[✓] DNS queries normal',
+  '[✓] Intrusion detection: CLEAN',
+] as const;
+
+const STARTUP_MSGS = [
+  'Initializing secure connection...',
+  'Loading cryptographic modules... [OK]',
+  'Authenticating credentials... [OK]',
+  'Ready for commands.',
+] as const;
+
 interface HomeViewProps {
   onTabChange: (tab: TabType) => void;
 }
@@ -31,55 +56,25 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
     return n > 1000 ? `${(n / 1000).toFixed(1)}k` : n;
   };
 
-  // System scan and diagnostics output for terminal
-  const systemScan = [
-    '$ ./security_audit.sh',
-    'Initializing system diagnostics...',
-    '[✓] Kernel: Linux 5.15.0-generic #1 SMP',
-    '[✓] Architecture: x86_64 | Uptime: 247d 14h 32m',
-    '[✓] Memory: 32GB | Available: 28.6GB (89%)',
-    '[✓] Core binaries verified',
-    '[✓] SSH configuration secure',
-    '[✓] Firewall rules active',
-    '[✓] Port 22/ssh - OpenSSH 8.2p1',
-    '[✓] Port 80/http - nginx 1.18.0',
-    '[✓] Port 443/https - active',
-    '[✓] No suspicious connections',
-    '[✓] DNS queries normal',
-    '[✓] Intrusion detection: CLEAN',
-  ];
-
-  const startupMsgs = [
-    'Initializing secure connection...',
-    'Loading cryptographic modules... [OK]',
-    'Authenticating credentials... [OK]',
-    'Ready for commands.',
-  ];
-
-  // NOTE: auto-scroll intentionally disabled to avoid forcing viewport jump on reload.
-  // If needed, re-enable only when user is at the bottom using a scroll handler.
-
   useEffect(() => {
     let index = 0;
     let startupIndex = 0;
-    let pushScanInterval: any = null;
-    let pushStartupInterval: any = null;
+    let pushScanInterval: ReturnType<typeof setInterval> | null = null;
+    let pushStartupInterval: ReturnType<typeof setInterval> | null = null;
 
-    // Increase timing between lines to 500ms (user requested 0.5s)
     pushScanInterval = setInterval(() => {
-      if (index < systemScan.length) {
-        const currentLine = systemScan[index];
+      if (index < SYSTEM_SCAN.length) {
+        const currentLine = SYSTEM_SCAN[index];
         setLogLines((prev) => [...prev, currentLine]);
         index++;
       } else {
-        clearInterval(pushScanInterval);
-        // start pushing startup messages after scan completes
+        if (pushScanInterval) clearInterval(pushScanInterval);
         pushStartupInterval = setInterval(() => {
-          if (startupIndex < startupMsgs.length) {
-            setLogLines((prev) => [...prev, startupMsgs[startupIndex]]);
+          if (startupIndex < STARTUP_MSGS.length) {
+            setLogLines((prev) => [...prev, STARTUP_MSGS[startupIndex]]);
             startupIndex++;
           } else {
-            clearInterval(pushStartupInterval);
+            if (pushStartupInterval) clearInterval(pushStartupInterval);
           }
         }, 500);
       }
@@ -91,41 +86,33 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
     };
   }, []);
 
+  // Batched GitHub stats & repositories fetching
   useEffect(() => {
-    const loadGitHubStats = async () => {
+    const loadAllGitHubData = async () => {
       setIsLoadingGitHub(true);
-      try {
-        const stats = await fetchGitHubStats();
-        setGitHubStats(stats);
-      } catch (error) {
-        console.error('Failed to load GitHub stats:', error);
-      } finally {
-        setIsLoadingGitHub(false);
-      }
-    };
-
-    loadGitHubStats();
-    // Refresh every 5 minutes
-    const interval = setInterval(loadGitHubStats, 5 * 60 * 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const loadRepositories = async () => {
       setIsLoadingRepos(true);
       try {
-        const repos = await fetchRepositories();
-        setRepositories(repos);
+        const [statsResult, reposResult] = await Promise.allSettled([
+          fetchGitHubStats(),
+          fetchRepositories(),
+        ]);
+
+        if (statsResult.status === 'fulfilled') {
+          setGitHubStats(statsResult.value);
+        }
+        if (reposResult.status === 'fulfilled') {
+          setRepositories(reposResult.value);
+        }
       } catch (error) {
-        console.error('Failed to load repositories:', error);
+        console.error('Failed to load GitHub data:', error);
       } finally {
+        setIsLoadingGitHub(false);
         setIsLoadingRepos(false);
       }
     };
 
-    loadRepositories();
-    // Refresh every 5 minutes
-    const interval = setInterval(loadRepositories, 5 * 60 * 1000);
+    loadAllGitHubData();
+    const interval = setInterval(loadAllGitHubData, 5 * 60 * 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -280,20 +267,20 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* TOTAL_STARS Card (replaces previous UPTIME) */}
+          {/* TOTAL_COMMITS Card */}
           <div className="system-card border border-[#444748] bg-[#12131a] p-6 flex flex-col gap-2 cursor-default select-none transition-all duration-200">
             <div className="text-[#c4c7c8] font-sans font-semibold text-xs uppercase tracking-wider">
-              [TOTAL_STARS]
+              [TOTAL_COMMITS]
             </div>
             <div className="font-sans text-3xl font-black text-white">
               {isLoadingGitHub ? (
                 <span className="inline-block animate-pulse">●●●</span>
               ) : (
-                formatCount(gitHubStats?.totalStars)
+                formatCount(gitHubStats?.totalCommits ?? 755)
               )}
             </div>
             <div className="font-mono text-xs text-[#c4c7c8] border-t border-[#444748] pt-2 mt-auto">
-              Total GitHub Stars
+              Total Git Contributions
             </div>
           </div>
 
@@ -306,32 +293,32 @@ export default function HomeView({ onTabChange }: HomeViewProps) {
               {isLoadingGitHub ? (
                 <span className="inline-block animate-pulse">●●●</span>
               ) : (
-                gitHubStats?.repoCount || 12
+                gitHubStats?.repoCount ?? 11
               )}
             </div>
             <div className="font-mono text-xs text-[#c4c7c8] border-t border-[#444748] pt-2 mt-auto">
-              Active Projects
+              Active Public Projects
             </div>
           </div>
 
-          {/* REPO_HEALTH Card */}
+          {/* TOTAL_STARS Card */}
           <div className="system-card border border-[#444748] bg-[#12131a] p-6 flex flex-col gap-2 cursor-default select-none transition-all duration-200">
             <div className="text-[#c4c7c8] font-sans font-semibold text-xs uppercase tracking-wider">
-              [REPO_HEALTH]
+              [TOTAL_STARS]
             </div>
             <div className="font-sans text-3xl font-black text-white">
               {isLoadingGitHub ? (
                 <span className="inline-block animate-pulse">●●●</span>
               ) : (
-                `${gitHubStats?.repoHealth || 72}%`
+                formatCount(gitHubStats?.totalStars ?? 0)
               )}
             </div>
             <div className="font-mono text-xs text-[#c4c7c8] border-t border-[#444748] pt-2 mt-auto">
-              Repository Quality
+              Total GitHub Stars
             </div>
           </div>
 
-          {/* SECURITY_FOCUS Card (Green Theme) */}
+          {/* SECURITY_FOCUS Card */}
           <div className="system-card system-card-security border border-[#444748] bg-[#12131a] p-6 flex flex-col gap-2 cursor-default select-none transition-all duration-200">
             <div className="text-[#c4c7c8] font-sans font-semibold text-xs uppercase tracking-wider">
               [SECURITY_FOCUS]

@@ -6,13 +6,13 @@
 import React from 'react';
 import { TabType } from '../types';
 
+const STACK_MANIFEST = ['PYTHON', 'LARAVEL', 'DOCKER', 'MYSQL', 'BASH', 'LUA', 'LINUX', 'GITHUB'] as const;
+
 interface ServicesViewProps {
   onTabChange: (tab: TabType) => void;
 }
 
 export default function ServicesView({ onTabChange }: ServicesViewProps) {
-  const stackManifest = ['PYTHON', 'LARAVEL', 'DOCKER', 'MYSQL', 'BASH', 'LUA', 'LINUX', 'GITHUB'];
-
   return (
     <div className="flex flex-col gap-12 font-mono max-w-[1280px] mx-auto px-4 md:px-6 py-8 animate-fade-in text-[#e3e1ec]">
       {/* Hero Section */}
@@ -245,7 +245,7 @@ export default function ServicesView({ onTabChange }: ServicesViewProps) {
             </p>
           </div>
           <div className="w-full md:w-2/3 grid grid-cols-2 sm:grid-cols-4 gap-3 select-none">
-            {stackManifest.map((tool) => (
+            {STACK_MANIFEST.map((tool) => (
               <div
                 key={tool}
                 className="border border-[#444748] p-4 flex flex-col items-center justify-center grayscale opacity-60 hover:opacity-100 transition-all cursor-default rounded-none bg-[#0a0b0e]"
