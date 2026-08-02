@@ -20,7 +20,7 @@ export default function Footer({ onTabChange }: FooterProps) {
         <div className="flex gap-6 md:gap-8 justify-center items-center">
           <a
             className="font-mono text-xs text-[#c4c7c8] transition-all hover:text-white underline"
-            href="https://github.com/yakunzizhex"
+            href="https://github.com/zyekhabdul"
             rel="noopener noreferrer"
             target="_blank"
           >

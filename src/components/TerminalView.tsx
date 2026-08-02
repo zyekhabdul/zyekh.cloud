@@ -203,19 +203,19 @@ export default function TerminalView() {
         enqueueLines([
           { text: '=== LOCAL REPOSITORY ARCHIVE ===', type: 'success' },
           {
-            text: '1. Laravel_12_Microservices [PUBLIC] — Stars: 1.2k | PHP, Redis, Docker',
+            text: '1. Laravel_12_Microservices [PUBLIC] | PHP, Redis, Docker',
             type: 'output',
           },
-          { text: '   -> https://github.com/yakunzizhex', type: 'success' },
+          { text: '   -> https://github.com/zyekhabdul/laravel-12-microservices', type: 'success' },
           {
-            text: '2. Kernel_Level_Research [RESTRICTED] — Stars: [CLASSIFIED] | C, Assembly, Bash',
-            type: 'error',
+            text: '2. Volatility3_eBPF_Detector [PUBLIC] | Python, Linux Forensics',
+            type: 'output',
           },
-          { text: '   -> https://github.com/yakunzizhex', type: 'success' },
-          { text: '3. Remote Agent Research [PUBLIC] | JS, Remote_Agent', type: 'output' },
-          { text: '   -> https://github.com/yakunzizhex', type: 'success' },
+          { text: '   -> https://github.com/zyekhabdul/vol3-ebpf-detector', type: 'success' },
+          { text: '3. Remote Agent Orchestration [PUBLIC] | TypeScript, Node.js', type: 'output' },
+          { text: '   -> https://github.com/zyekhabdul/remote-agent-orchestration', type: 'success' },
           { text: '4. OS Debloat & Modding Scripts [PUBLIC] | Bash, PowerShell', type: 'output' },
-          { text: '   -> https://github.com/yakunzizhex', type: 'success' },
+          { text: '   -> https://github.com/zyekhabdul/os-debloat-scripts', type: 'success' },
         ]);
         break;
 
