@@ -11,16 +11,16 @@ interface NavbarProps {
   onTabChange: (tab: TabType) => void;
 }
 
+const NAV_ITEMS: { label: string; value: TabType }[] = [
+  { label: 'Home', value: 'home' },
+  { label: 'About', value: 'about' },
+  { label: 'Services', value: 'services' },
+  { label: 'Archive', value: 'archive' },
+  { label: 'Contact', value: 'contact' },
+];
+
 export default function Navbar({ currentTab, onTabChange }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const navItems: { label: string; value: TabType }[] = [
-    { label: 'Home', value: 'home' },
-    { label: 'About', value: 'about' },
-    { label: 'Services', value: 'services' },
-    { label: 'Archive', value: 'archive' },
-    { label: 'Contact', value: 'contact' },
-  ];
 
   return (
     <header className="w-full top-0 sticky bg-[#12131a] border-b border-[#444748] z-50 font-mono">
@@ -37,7 +37,7 @@ export default function Navbar({ currentTab, onTabChange }: NavbarProps) {
 
         <div className="flex items-center gap-8 z-50">
           <nav className="hidden md:flex items-center gap-6" id="desktop-nav">
-            {navItems.map((item) => {
+            {NAV_ITEMS.map((item) => {
               const isActive = currentTab === item.value;
               return (
                 <button
@@ -78,7 +78,7 @@ export default function Navbar({ currentTab, onTabChange }: NavbarProps) {
         {/* Mobile menu block */}
         {mobileMenuOpen && (
           <nav className="absolute top-16 left-0 w-full bg-[#12131a] border-b border-[#444748] flex flex-col items-center gap-6 p-6 md:hidden z-40">
-            {navItems.map((item) => {
+            {NAV_ITEMS.map((item) => {
               const isActive = currentTab === item.value;
               return (
                 <button

@@ -108,7 +108,8 @@ export default function TerminalView() {
     // When processing/scanning finishes, ensure the input regains focus
     if (!isProcessing && !isScanning) {
       // Focus after a tick so the input is present in the DOM
-      setTimeout(() => inputRef.current?.focus(), 0);
+      const timer = setTimeout(() => inputRef.current?.focus(), 0);
+      return () => clearTimeout(timer);
     }
   }, [isProcessing, isScanning]);
 
