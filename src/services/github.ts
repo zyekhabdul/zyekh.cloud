@@ -283,8 +283,8 @@ export async function fetchRepositories(): Promise<GitHubRepository[]> {
     const fallbackRepos: GitHubRepository[] = [
       {
         id: 1,
-        name: 'porto-sec-studio',
-        url: `https://github.com/${GITHUB_USER}/porto-sec-studio`,
+        name: 'zyekh.cloud',
+        url: `https://github.com/${GITHUB_USER}/zyekh.cloud`,
         description: 'Terminal-themed personal portfolio | React + Vite + TypeScript',
         stars: 0,
         forks: 0,

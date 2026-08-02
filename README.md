@@ -1,8 +1,8 @@
-# 🎨 ZYEKH ABDUL — Terminal & Security Portfolio (`zyekh_abdul-porto`)
+# 🎨 ZYEKH ABDUL — Terminal & Security Portfolio (`zyekh.cloud`)
 
 <p align="center">
-  <a href="https://github.com/zyekhabdul/zyekh_abdul-porto/actions/workflows/ci.yml">
-    <img src="https://github.com/zyekhabdul/zyekh_abdul-porto/actions/workflows/ci.yml/badge.svg" alt="CI Build Status">
+  <a href="https://github.com/zyekhabdul/zyekh.cloud/actions/workflows/ci.yml">
+    <img src="https://github.com/zyekhabdul/zyekh.cloud/actions/workflows/ci.yml/badge.svg" alt="CI Build Status">
   </a>
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
@@ -55,8 +55,8 @@ graph TD
 
 ```bash
 # Clone repository
-git clone https://github.com/zyekhabdul/zyekh_abdul-porto.git
-cd zyekh_abdul-porto
+git clone https://github.com/zyekhabdul/zyekh.cloud.git
+cd zyekh.cloud
 
 # Install dependencies
 npm install
