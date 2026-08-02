@@ -44,9 +44,47 @@ const PRELOAD_VIEW = (tab: TabType) => {
 
 export default function Navbar({ currentTab, onTabChange }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [bannerDismissed, setBannerDismissed] = useState(() => {
+    try {
+      return sessionStorage.getItem('domain_banner_dismissed') === 'true';
+    } catch (_) {
+      return false;
+    }
+  });
+
+  const handleDismissBanner = () => {
+    setBannerDismissed(true);
+    try {
+      sessionStorage.setItem('domain_banner_dismissed', 'true');
+    } catch (_) {}
+  };
 
   return (
     <header className="w-full top-0 sticky bg-[#12131a] border-b border-[#444748] z-50 font-mono">
+      {!bannerDismissed && (
+        <div className="w-full bg-[#0d0e15] border-b border-[#444748] py-2 px-4 font-mono text-xs text-[#c4c7c8] flex items-center justify-between gap-4 select-none">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-[#fbbf24] font-semibold">[DOMAIN_UPDATE]:</span>
+            <span>Official primary hub has migrated to</span>
+            <a
+              href="https://zyekh.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white font-bold underline hover:text-[#fbbf24] transition-colors inline-flex items-center gap-1"
+            >
+              zyekh.com ↗
+            </a>
+          </div>
+          <button
+            onClick={handleDismissBanner}
+            className="text-[#c4c7c8] hover:text-white transition-colors cursor-pointer px-1 text-sm leading-none"
+            aria-label="Dismiss domain notification banner"
+            title="Dismiss notice"
+          >
+            ✕
+          </button>
+        </div>
+      )}
       <div className="flex justify-between items-center h-16 px-4 md:px-6 max-w-[1280px] mx-auto relative z-50 bg-[#12131a]">
         <button
           onClick={() => {
